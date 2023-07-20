@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bh18riawk5l1h"]
+
+[ext_resource type="PackedScene" uid="uid://blrow0klriehp" path="res://scenes/baseobject.tscn" id="1_lgfro"]
+[ext_resource type="Texture2D" uid="uid://b4sfo3p75pw7w" path="res://assets/textures/objects/teddy.png" id="2_efksd"]
+
+[node name="Teddy" instance=ExtResource("1_lgfro")]
+
+[node name="TextInteractArea" parent="." index="0"]
+textlist = Array[String](["It's a cute plush!", "You wonder why it's in colour but the rest of the room isn't", "This teddy clearly isn't from around here, but they're cute regardless."])
+
+[node name="Sprite2D" parent="." index="1"]
+position = Vector2(0, -4)
+texture = ExtResource("2_efksd")

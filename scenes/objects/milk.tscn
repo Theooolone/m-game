@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://cb0xfwchtqn25"]
+
+[ext_resource type="PackedScene" uid="uid://blrow0klriehp" path="res://scenes/baseobject.tscn" id="1_yllru"]
+[ext_resource type="Texture2D" uid="uid://d2eede44hifg3" path="res://assets/textures/objects/milk.png" id="2_rsdix"]
+
+[node name="Milk" instance=ExtResource("1_yllru")]
+
+[node name="TextInteractArea" parent="." index="0"]
+textlist = Array[String](["Milk.", "You're quite fond of milk.", "...", "It's out of date, probably because you kept it in a bucket on the floor instead of in the fridge", "Nevermind. It went out of date 6 years ago...
+No fridge would have saved that", "Seems like you finally figured out why it smells so bad in here!"])
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_rsdix")

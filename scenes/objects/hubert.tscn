@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://1aym6npw6xb2"]
+
+[ext_resource type="PackedScene" uid="uid://blrow0klriehp" path="res://scenes/baseobject.tscn" id="1_agioa"]
+[ext_resource type="Texture2D" uid="uid://k2eocvy6b05o" path="res://assets/textures/objects/hubert.png" id="2_j52gc"]
+[ext_resource type="AudioStream" uid="uid://bw4qcfxm715xr" path="res://assets/sounds/rubber_chicken.wav" id="3_01evg"]
+
+[node name="Hubert" instance=ExtResource("1_agioa")]
+
+[node name="TextInteractArea" parent="." index="0" node_paths=PackedStringArray("interation_sound")]
+alert_type = 0
+textlist = Array[String](["OH MY GOD ITS HUBERT"])
+interation_sound = NodePath("../sfx")
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_j52gc")
+
+[node name="sfx" type="AudioStreamPlayer" parent="." index="3"]
+stream = ExtResource("3_01evg")
+volume_db = -24.0

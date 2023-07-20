@@ -1,0 +1,22 @@
+[gd_resource type="AudioStreamRandomizer" load_steps=6 format=3 uid="uid://bb7gvyy553bdd"]
+
+[ext_resource type="AudioStream" uid="uid://cf1hoskht1ocr" path="res://assets/sounds/step1.wav" id="1_ro5w2"]
+[ext_resource type="AudioStream" uid="uid://cyl4e7nycuplv" path="res://assets/sounds/step2.wav" id="2_0s753"]
+[ext_resource type="AudioStream" uid="uid://t6v05xmh5l5i" path="res://assets/sounds/step3.wav" id="3_so88h"]
+[ext_resource type="AudioStream" uid="uid://chmadt834w4p7" path="res://assets/sounds/step4.wav" id="4_6ivb1"]
+[ext_resource type="AudioStream" uid="uid://cnmtpkcsodb03" path="res://assets/sounds/step5.wav" id="5_vd20x"]
+
+[resource]
+streams_count = 5
+random_pitch = 1.2
+random_volume_offset_db = 3.68
+stream_0/stream = ExtResource("1_ro5w2")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("2_0s753")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("3_so88h")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("4_6ivb1")
+stream_3/weight = 1.0
+stream_4/stream = ExtResource("5_vd20x")
+stream_4/weight = 1.0
