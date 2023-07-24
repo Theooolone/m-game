@@ -211,7 +211,7 @@ textlist = Array[String](["Congrats", "You found the hidden text!", "fhgujyfdbng
 position = Vector2(-198, 472)
 
 [node name="TextInteractArea" parent="Room/Object" index="0"]
-textlist = Array[String](["This is what the default object looks like", "Idk why i spent so long on this texture"])
+textlist = Array[String](["This is what the default object looks like", "Idk why i spent so long on this texture", "This third dialog text was added becuase I just noticed it shows a calender of how many commits you make on your github profile and now I feel competitive", "Need to beat my record of like 2 or something"])
 
 [node name="TextInteractArea" parent="Room" instance=ExtResource("8_k0uxq")]
 position = Vector2(-206, 368)
