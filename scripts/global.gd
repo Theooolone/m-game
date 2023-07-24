@@ -1,6 +1,8 @@
 extends Node
 
 signal textlist
+signal id_interaction
+
 
 signal textbox_show
 signal textbox_hide

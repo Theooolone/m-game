@@ -14,6 +14,8 @@ enum alert {
 
 @export var interation_sound: AudioStreamPlayer = null
 
+@export var id = 0
+
 var exclamation_alert_tex = preload("res://assets/textures/alerts/exclamation_mark.png")
 var question_alert_tex = preload("res://assets/textures/alerts/question_mark.png")
 
@@ -23,11 +25,12 @@ signal send_text_list(list: Array[String])
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	if inrange and Input.is_action_just_pressed("interact") and !Events.textbox_visible and !Events.textbox_on_cooldown:
+	if inrange and Input.is_action_just_pressed("interact") and !Global.textbox_visible and !Global.textbox_on_cooldown:
+		Global.id_interaction.emit(id)
 		if interation_sound:
 			interation_sound.play()
 		for text in textlist:
-			Events.textlist.emit(text)
+			Global.textlist.emit(text)
 
 
 

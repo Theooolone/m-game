@@ -3,7 +3,7 @@
 
 extends CanvasLayer
 
-@export var textspeed = 20
+@export var textspeed = 20.0
 
 enum State {
 	READY,
@@ -16,16 +16,14 @@ enum State {
 @onready var label = $TextboxContainer/MarginContainer/HBoxContainer/Label
 @onready var cooldown = $Cooldown
 
-@onready var texttween = get_tree().create_tween()
-
-
+@onready var readtext_node = $readtext
 
 var current_state = State.READY
 var text_queue = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	Events.textlist.connect(_on_text_interact_area_interaction)
+	Global.textlist.connect(_on_text_interact_area_interaction)
 	hide_textbox()
 
 
@@ -36,7 +34,7 @@ func _process(_delta):
 				display_text()
 		State.READING:
 			if Input.is_action_just_pressed("interact"):
-				texttween.stop()
+				readtext_node.stop()
 				end_symbol.show()
 				label.visible_ratio = 1
 				change_state(State.FINISHED)
@@ -46,11 +44,13 @@ func _process(_delta):
 				if text_queue.is_empty():
 					hide_textbox()
 					cooldown.start()
-					Events.textbox_on_cooldown = true
+					Global.textbox_on_cooldown = true
+
 
 func _on_text_interact_area_interaction(text: String):
 	if cooldown.time_left == 0:
 		queue_text(text)
+
 
 func queue_text(next_text):
 	text_queue.push_back(next_text)
@@ -58,14 +58,14 @@ func queue_text(next_text):
 
 func hide_textbox():
 	hide()
-	Events.textbox_hide.emit()
-	Events.textbox_visible = false
+	Global.textbox_hide.emit()
+	Global.textbox_visible = false
 
 
 func show_textbox():
 	show()
-	Events.textbox_show.emit()
-	Events.textbox_visible = true
+	Global.textbox_show.emit()
+	Global.textbox_visible = true
 
 
 func clear_textbox():
@@ -80,16 +80,11 @@ func display_text():
 	clear_textbox()
 	show_textbox()
 	label.text = next_text
-	
-	# Idk how to make the tween change speed for every text, so im just replacing the tween every time
-	texttween = get_tree().create_tween()
-	texttween.tween_property(label, "visible_ratio", 1, label.get_total_character_count()/textspeed)
-	texttween.finished.connect(_on_tween_complete)
+	readtext_node.play("readtext",-1, textspeed/label.get_total_character_count())
 
 
-func _on_tween_complete():
+func _on_readtext_animation_finished(_anim_name):
 	change_state(State.FINISHED)
-	texttween.kill()
 	end_symbol.show()
 
 
@@ -98,4 +93,4 @@ func change_state(next_state):
 
 
 func _on_cooldown_timeout():
-	Events.textbox_on_cooldown = false
+	Global.textbox_on_cooldown = false

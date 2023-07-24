@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/M.gd" id="1_3jcsr"]
 [ext_resource type="Texture2D" uid="uid://dy6h6kb44e2dk" path="res://assets/textures/m.png" id="2_nso3w"]
-[ext_resource type="AudioStream" uid="uid://bb7gvyy553bdd" path="res://scenes/step.tres" id="3_ewlq1"]
+[ext_resource type="AudioStream" uid="uid://bb7gvyy553bdd" path="res://resources/step.tres" id="3_hmjyt"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_slv6g"]
 atlas = ExtResource("2_nso3w")
@@ -157,7 +157,7 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_smsep")
 
 [node name="StepAudio" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("3_ewlq1")
+stream = ExtResource("3_hmjyt")
 max_distance = 128.0
 attenuation = 0.5
 panning_strength = 1.5

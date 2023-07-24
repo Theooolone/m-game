@@ -1,0 +1,115 @@
+[gd_scene load_steps=10 format=3 uid="uid://ds2er2baig65x"]
+
+[ext_resource type="Texture2D" uid="uid://cdnuxrekwti14" path="res://assets/textures/objects/hubertgray.png" id="1_f0v6y"]
+[ext_resource type="Script" path="res://scripts/FunnyHubert.gd" id="2_tnf02"]
+[ext_resource type="AudioStream" uid="uid://ba1o0rra8cwfw" path="res://assets/sounds/ominous.wav" id="3_yi0nc"]
+
+[sub_resource type="Gradient" id="Gradient_sj3nl"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.456376, 0.677852, 0.865772, 1)
+colors = PackedColorArray(1, 1, 0, 0, 0.756863, 0.360784, 0.870588, 1, 0, 0.517647, 1, 0.745098, 0, 0, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_dd0mh"]
+gradient = SubResource("Gradient_sj3nl")
+
+[sub_resource type="Curve" id="Curve_61ag8"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.265517, 0.147368), 1.87854, 1.87854, 0, 0, Vector2(0.706897, 0.621053), -2.09869, -2.09869, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_kdxej"]
+curve = SubResource("Curve_61ag8")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_5hbi3"]
+lifetime_randomness = 0.24
+emission_shape = 1
+emission_sphere_radius = 11.7
+particle_flag_disable_z = true
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 8.0
+initial_velocity_max = 15.0
+orbit_velocity_min = 0.05
+orbit_velocity_max = 0.2
+linear_accel_min = 80.0
+linear_accel_max = 100.0
+radial_accel_min = 30.0
+radial_accel_max = 100.0
+angle_min = -180.0
+angle_max = 180.0
+scale_min = 0.2
+scale_max = 0.5
+scale_curve = SubResource("CurveTexture_kdxej")
+color = Color(1, 1, 1, 0.152941)
+color_ramp = SubResource("GradientTexture1D_dd0mh")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_681fq"]
+lifetime_randomness = 0.24
+emission_shape = 1
+emission_sphere_radius = 11.7
+particle_flag_disable_z = true
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 8.0
+initial_velocity_max = 15.0
+orbit_velocity_min = -0.05
+orbit_velocity_max = 0.05
+linear_accel_min = -30.0
+linear_accel_max = -20.0
+radial_accel_min = 30.0
+radial_accel_max = 100.0
+angle_min = -180.0
+angle_max = 180.0
+scale_min = 0.3
+scale_max = 0.7
+scale_curve = SubResource("CurveTexture_kdxej")
+color_ramp = SubResource("GradientTexture1D_dd0mh")
+
+[node name="FunnyHubert" type="Sprite2D"]
+scale = Vector2(3, 3)
+texture = ExtResource("1_f0v6y")
+script = ExtResource("2_tnf02")
+
+[node name="Pulse" type="Sprite2D" parent="."]
+modulate = Color(100, 100, 100, 1)
+show_behind_parent = true
+texture = ExtResource("1_f0v6y")
+
+[node name="TrailParticles" type="GPUParticles2D" parent="."]
+z_index = -1
+position = Vector2(2, 4)
+amount = 5000
+process_material = SubResource("ParticleProcessMaterial_5hbi3")
+texture = ExtResource("1_f0v6y")
+lifetime = 2.0
+fixed_fps = 60
+interpolate = false
+fract_delta = false
+trail_enabled = true
+trail_lifetime = 0.2
+
+[node name="Particles" type="GPUParticles2D" parent="."]
+z_index = -1
+position = Vector2(2, 4)
+amount = 2000
+process_material = SubResource("ParticleProcessMaterial_681fq")
+texture = ExtResource("1_f0v6y")
+lifetime = 2.0
+fixed_fps = 60
+interpolate = false
+fract_delta = false
+visibility_rect = Rect2(-75, -75, 150, 150)
+
+[node name="Ominous" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_yi0nc")
+volume_db = 12.0
+autoplay = true
+max_distance = 300.0
+attenuation = 2.0
+panning_strength = 1.4
+bus = &"Ambient"
+
+[node name="PulseTimer" type="Timer" parent="."]
+wait_time = 1.25
+autostart = true
+
+[connection signal="timeout" from="PulseTimer" to="." method="_on_pulse_timer_timeout"]

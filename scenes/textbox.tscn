@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://bq7gse2bd8uxc"]
+[gd_scene load_steps=6 format=3 uid="uid://bq7gse2bd8uxc"]
 
 [ext_resource type="Script" path="res://scripts/textbox.gd" id="1_jxq2s"]
 [ext_resource type="FontFile" uid="uid://dlgmhijh1yaqn" path="res://assets/fonts/ChiKareGo2.ttf" id="1_u4ytd"]
@@ -10,6 +10,26 @@ border_width_top = 10
 border_width_right = 10
 border_width_bottom = 10
 border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Animation" id="Animation_sjhfs"]
+resource_name = "readtext"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextboxContainer/MarginContainer/HBoxContainer/Label:visible_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mcosd"]
+_data = {
+"readtext": SubResource("Animation_sjhfs")
+}
 
 [node name="Textbox" type="CanvasLayer"]
 script = ExtResource("1_jxq2s")
@@ -68,4 +88,10 @@ text = "↵"
 wait_time = 0.2
 one_shot = true
 
+[node name="readtext" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_mcosd")
+}
+
 [connection signal="timeout" from="Cooldown" to="." method="_on_cooldown_timeout"]
+[connection signal="animation_finished" from="readtext" to="." method="_on_readtext_animation_finished"]

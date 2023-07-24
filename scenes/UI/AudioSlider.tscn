@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://pc434amk7nwh"]
+
+[ext_resource type="Script" path="res://scripts/AudioSlider.gd" id="1_c2poq"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_qcuto"]
+font_size = 24
+
+[node name="AudioSlider" type="VBoxContainer"]
+offset_right = 81.0
+offset_bottom = 420.0
+size_flags_horizontal = 3
+script = ExtResource("1_c2poq")
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 2
+text = "Error"
+label_settings = SubResource("LabelSettings_qcuto")
+horizontal_alignment = 1
+
+[node name="VSlider" type="VSlider" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+value = 100.0
+tick_count = 11
+ticks_on_borders = true
+
+[node name="Value" type="Label" parent="."]
+layout_mode = 2
+text = "100%"
+label_settings = SubResource("LabelSettings_qcuto")
+horizontal_alignment = 1
+
+[connection signal="drag_ended" from="VSlider" to="." method="_on_v_slider_drag_ended"]
+[connection signal="value_changed" from="VSlider" to="." method="_on_v_slider_value_changed"]

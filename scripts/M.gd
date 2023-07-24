@@ -9,6 +9,7 @@ var movevector = Vector2.ZERO
 
 var ominous = false
 
+
 func vector_to_4way_direction(vector: Vector2) -> Vector2:
 	if vector == Vector2.ZERO:
 		return Vector2.ZERO
@@ -26,7 +27,7 @@ func vector_to_4way_direction(vector: Vector2) -> Vector2:
 	return Vector2.ZERO
 
 func _physics_process(_delta):
-	if Events.textbox_visible:
+	if Global.textbox_visible:
 		return
 	movevector = Input.get_vector("left", "right", "up", "down")
 	if ominous:
@@ -67,9 +68,9 @@ func _on_animated_sprite_2d_frame_changed():
 func _on_spoopy_area_body_entered(body):
 	if body != self: return
 	ominous = true
-	#Events.music.stop()
+	#Global.music.stop()
 
 func _on_spoopy_area_body_exited(body):
 	if body != self: return
 	ominous = false
-	#Events.music.play()
+	#Global.music.play()

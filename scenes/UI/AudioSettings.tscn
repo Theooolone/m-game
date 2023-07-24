@@ -1,0 +1,80 @@
+[gd_scene load_steps=4 format=3 uid="uid://c5dsh6ix1rffr"]
+
+[ext_resource type="Script" path="res://scripts/AudioSettings.gd" id="1_hwfb2"]
+[ext_resource type="PackedScene" uid="uid://pc434amk7nwh" path="res://scenes/UI/AudioSlider.tscn" id="2_rlafp"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_oep8k"]
+font_size = 32
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Audiosettings" type="CanvasLayer"]
+script = ExtResource("1_hwfb2")
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -256.0
+offset_top = -384.0
+offset_right = 256.0
+offset_bottom = 384.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -256.0
+offset_top = -384.0
+offset_right = 256.0
+offset_bottom = 384.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Master" parent="Panel/MarginContainer/HBoxContainer" instance=ExtResource("2_rlafp")]
+layout_mode = 2
+title = "Master"
+
+[node name="Music" parent="Panel/MarginContainer/HBoxContainer" instance=ExtResource("2_rlafp")]
+layout_mode = 2
+title = "Music"
+audio_bus_name = "Music"
+
+[node name="Ambient" parent="Panel/MarginContainer/HBoxContainer" instance=ExtResource("2_rlafp")]
+layout_mode = 2
+title = "Ambient"
+audio_bus_name = "Ambient"
+
+[node name="Walking" parent="Panel/MarginContainer/HBoxContainer" instance=ExtResource("2_rlafp")]
+layout_mode = 2
+title = "Walking"
+audio_bus_name = "Walking"
+default_value = 50
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Audio Settings"
+label_settings = SubResource("LabelSettings_oep8k")
+horizontal_alignment = 1
+vertical_alignment = 2
