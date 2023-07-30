@@ -241,8 +241,8 @@ text = ":D"
 [node name="TextInteractArea2" parent="Room" instance=ExtResource("8_k0uxq")]
 position = Vector2(168, 20)
 alert_type = 2
-textlist = Array[String](["v1.0.1
-Audio Settings Added"])
+textlist = Array[String](["v1.1.0 Dev Build
+(TODO: Change this text on release)"])
 
 [node name="Border" type="StaticBody2D" parent="Room"]
 position = Vector2(12, 144)
