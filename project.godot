@@ -13,7 +13,7 @@ config_version=5
 config/name="M Game"
 run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.1", "Mobile")
-config/icon="res://assets/textures/objects/teddy.png"
+config/icon="res://assets/textures/objects/hubert.png"
 
 [audio]
 
