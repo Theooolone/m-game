@@ -1,0 +1,9 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://dguaiif1dpkwk"]
+
+[ext_resource type="FontFile" uid="uid://d0bw2pjoup6pc" path="res://assets/fonts/5px.ttf" id="1_3oat5"]
+
+[resource]
+line_spacing = -1.0
+font = ExtResource("1_3oat5")
+font_size = 5
+shadow_color = Color(0, 0, 0, 0.498039)
