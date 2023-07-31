@@ -2,28 +2,56 @@ extends Node2D
 
 @onready var labelnode = $CanvasLayer/Label
 
+enum StatType {
+	HUNGER,
+	THIRST,
+	FUN,
+	HUMAN_TOLERANCE,
+	AWAKENESS,
+	CLEANLINESS
+}
+
 # lower is worse
-@export_range(0,100) var hunger = 100
-@export_range(0,100) var thirst = 100
-@export_range(0,100) var fun = 100
-@export_range(0,100) var human_tolerance = 100
-@export_range(0,100) var awakeness = 100
-@export_range(0,100) var cleanliness = 100
+@export_group("Stats")
+@export var stats = {
+	StatType.HUNGER: 100,
+	StatType.THIRST: 100,
+	#StatType.FUN: 100,
+	#StatType.HUMAN_TOLERANCE: 100,
+	#StatType.AWAKENESS: 100,
+	#StatType.CLEANLINESS: 100,
+}
 
 var labeltext = "Hunger: %s\nThirst: %s\nFun: %s\nHuman Tolerance: %s\nAwakeness: %s\nCleanliness: %s"
 
 func _ready():
-	randomize() # set random initial seed for random functions
+	# set random initial seed for random functions
+	randomize()
+	$StatTick.wait_time = 1.0/stats.size()
+	
+	$Food/Button.button_down.connect(food)
+	$Water/Button.button_down.connect(water)
 
-func _process(delta):
-	labelnode.text =  labeltext % [hunger,thirst,fun,human_tolerance,awakeness,cleanliness]
+
+func _process(_delta):
+	labelnode.text =  labeltext % [
+		stats[StatType.HUNGER],
+		stats[StatType.THIRST],
+		"NaN", "NaN", "NaN", "NaN"
+		#stats[StatType.FUN],
+		#stats[StatType.HUMAN_TOLERANCE],
+		#stats[StatType.AWAKENESS],
+		#stats[StatType.CLEANLINESS]
+	]
 
 
-func _on_timer_timeout():
-	match randi() % 6:
-		0:  if hunger > 0: hunger -= 1
-		1: if thirst > 0: thirst -= 1
-		2: if fun > 0: fun -= 1
-		3: if human_tolerance > 0: human_tolerance -= 1
-		4: if awakeness > 0: awakeness -= 1
-		5: if cleanliness > 0: cleanliness -= 1
+func _on_stat_tick_timeout():
+	var stat_changed = stats.keys()[randi() % 2] # StatType.size()]
+	if stats[stat_changed] > 0:
+		stats[stat_changed] -= 1
+
+func food():
+	stats[StatType.HUNGER] += 10
+
+func water():
+	stats[StatType.THIRST] += 10

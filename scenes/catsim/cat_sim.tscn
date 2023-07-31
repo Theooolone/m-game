@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://coy8ycn8wwfvl"]
+[gd_scene load_steps=8 format=3 uid="uid://coy8ycn8wwfvl"]
 
 [ext_resource type="Texture2D" uid="uid://dr327yyh30yl7" path="res://assets/textures/missing.png" id="1_akv5q"]
 [ext_resource type="Script" path="res://scripts/Cat.gd" id="1_jus8a"]
 [ext_resource type="Texture2D" uid="uid://djdyxn44vgp3j" path="res://assets/textures/room.png" id="2_7kab5"]
+[ext_resource type="PackedScene" uid="uid://bbu3xsdp51vud" path="res://scenes/catsim/catobject.tscn" id="4_t11mk"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6jf0q"]
 texture = ExtResource("2_7kab5")
@@ -118,6 +119,7 @@ layer_0/name = "Background"
 layer_0/tile_data = PackedInt32Array(-196615, 65536, 2, -131079, 65536, 2, -65543, 65536, 2, -7, 65536, 2, 65529, 65536, 2, 131065, 65536, 2, 196601, 65536, 2, 262137, 65536, 2, -196614, 65536, 2, -131078, 65536, 2, -65542, 65536, 2, -6, 65536, 2, 65530, 65536, 2, 131066, 65536, 2, 196602, 65536, 2, 262138, 65536, 2, -196613, 65536, 2, -131077, 65536, 2, -65541, 65536, 2, -5, 65536, 2, 65531, 65536, 2, 131067, 65536, 2, 196603, 65536, 2, 262139, 65536, 2, -196612, 65536, 2, -131076, 65536, 2, -65540, 65536, 2, -4, 65536, 2, 65532, 65536, 2, 131068, 65536, 2, 196604, 65536, 2, 262140, 65536, 2, -196611, 65536, 2, -131075, 65536, 2, -65539, 65536, 2, -3, 65536, 2, 65533, 65536, 2, 131069, 65536, 2, 196605, 65536, 2, 262141, 65536, 2, -196610, 65536, 2, -131074, 65536, 2, -65538, 65536, 2, -2, 65536, 2, 65534, 65536, 2, 131070, 65536, 2, 196606, 65536, 2, 262142, 65536, 2, -262151, 65536, 1, -262150, 65536, 1, -262149, 196608, 1, -262148, 65536, 1, -262147, 65536, 1, -262146, 65536, 1, -262152, 0, 1, -196616, 0, 2, -131080, 0, 2, -65544, 0, 2, -8, 0, 2, 65528, 0, 2, 131064, 0, 2, 196600, 0, 2, 262136, 0, 2, 327672, 0, 3, 327673, 65536, 3, 327674, 65536, 3, 327675, 65536, 3, 327676, 65536, 3, 327677, 65536, 3, 327678, 65536, 3, -327679, 65536, 1, -262143, 65536, 2, -196607, 65536, 2, -131071, 65536, 2, -65535, 65536, 2, 1, 65536, 2, 65537, 65536, 2, 131073, 65536, 2, 196609, 65536, 2, 262145, 65536, 3, -327678, 65536, 1, -262142, 65536, 2, -196606, 65536, 2, -131070, 65536, 2, -65534, 65536, 2, 2, 65536, 2, 65538, 65536, 2, 131074, 65536, 2, 196610, 65536, 2, 262146, 65536, 3, -327677, 131072, 1, -262141, 131072, 2, -196605, 131072, 2, -131069, 131072, 2, -65533, 131072, 2, 3, 131072, 2, 65539, 131072, 2, 131075, 131072, 2, 196611, 131072, 2, 262147, 131072, 3, -262145, 65536, 1, -196609, 65536, 2, -131073, 65536, 2, -65537, 65536, 2, -1, 65536, 2, 65535, 65536, 2, 131071, 65536, 2, 196607, 65536, 2, 262143, 65536, 2, 327679, 65536, 3, -327680, 65536, 1, -262144, 65536, 2, -196608, 65536, 2, -131072, 65536, 2, -65536, 65536, 2, 0, 65536, 2, 65536, 65536, 2, 131072, 65536, 2, 196608, 65536, 2, 262144, 65536, 3)
 
 [node name="Cat" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 0.505882, 1)
 texture = ExtResource("1_akv5q")
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -138,20 +140,13 @@ Awakeness
 Cleanliness"
 label_settings = SubResource("LabelSettings_y1wrj")
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 0.1
+[node name="Food" parent="." instance=ExtResource("4_t11mk")]
+position = Vector2(-100, 51)
+
+[node name="Water" parent="." instance=ExtResource("4_t11mk")]
+position = Vector2(-79, 51)
+
+[node name="StatTick" type="Timer" parent="."]
 autostart = true
 
-[node name="Bed" type="Sprite2D" parent="."]
-position = Vector2(-98, -53)
-texture = ExtResource("1_akv5q")
-
-[node name="Food" type="Sprite2D" parent="."]
-position = Vector2(-102, 54)
-texture = ExtResource("1_akv5q")
-
-[node name="Water" type="Sprite2D" parent="."]
-position = Vector2(-83, 53)
-texture = ExtResource("1_akv5q")
-
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="StatTick" to="." method="_on_stat_tick_timeout"]
