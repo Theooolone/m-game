@@ -207,7 +207,7 @@ collision_mask = 3
 shape = SubResource("SegmentShape2D_676lo")
 
 [node name="Door" parent="." instance=ExtResource("8_qnajo")]
-position = Vector2(184, 424)
+position = Vector2(184, 428)
 textlist = Array[String](["There's a door here?", "Why did you need to go the long way when you could have gone though this convenient door?", "You fool"])
 
 [node name="HiddenDialog" parent="." instance=ExtResource("8_qnajo")]
