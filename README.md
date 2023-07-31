@@ -11,7 +11,9 @@ Character and setting created by M.
 
 Art and music created by me.
 
-Font: [ChiKareGo2 by Giles Booth](https://www.pentacom.jp/pentacom/bitfontmaker2/gallery/?id=3780)
+Fonts:
+- [ChiKareGo2 by Giles Booth](https://www.pentacom.jp/pentacom/bitfontmaker2/gallery/?id=3780)
+- [Quinque Five by GGBotNet](https://www.fontspace.com/quinque-five-font-f65138)
 
 Sound effects created by users on freesound.org. click on the individual links for more details: 
 - [Walk](https://freesound.org/s/393737/)
