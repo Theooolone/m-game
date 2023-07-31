@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://dlgmhijh1yaqn"
-path="res://.godot/imported/ChiKareGo2.ttf-7780719c4f9e2eefc61fee001851df4a.fontdata"
+path="res://.godot/imported/16px.ttf-0f98f0e10447f1beb63b55e8f859f7be.fontdata"
 
 [deps]
 
-source_file="res://assets/fonts/ChiKareGo2.ttf"
-dest_files=["res://.godot/imported/ChiKareGo2.ttf-7780719c4f9e2eefc61fee001851df4a.fontdata"]
+source_file="res://assets/fonts/16px.ttf"
+dest_files=["res://.godot/imported/16px.ttf-0f98f0e10447f1beb63b55e8f859f7be.fontdata"]
 
 [params]
 
