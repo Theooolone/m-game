@@ -149,7 +149,7 @@ horizontal_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
-text = "Esc"
+text = "-"
 label_settings = SubResource("LabelSettings_ofyy1")
 horizontal_alignment = 1
 
@@ -158,6 +158,37 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "Home/Start"
+label_settings = SubResource("LabelSettings_ofyy1")
+horizontal_alignment = 1
+
+[node name="Label24" type="Label" parent="Panel/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Toggle Fullscreen"
+horizontal_alignment = 1
+
+[node name="Label25" type="Label" parent="Panel/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "F11"
+label_settings = SubResource("LabelSettings_ofyy1")
+horizontal_alignment = 1
+
+[node name="Label26" type="Label" parent="Panel/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "-"
+label_settings = SubResource("LabelSettings_ofyy1")
+horizontal_alignment = 1
+
+[node name="Label27" type="Label" parent="Panel/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "-"
 label_settings = SubResource("LabelSettings_ofyy1")
 horizontal_alignment = 1
 
