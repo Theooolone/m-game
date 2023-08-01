@@ -22,7 +22,7 @@ func _process(delta):
 	skew = sin(2*time)
 	scale.x = 3+sin(time*2.6546)
 	scale.y = 3+cos(time*1.6546)
-	position.x = startcoords.x+24*sin(time*0.9543)
+	position.x = startcoords.x+12*sin(time*0.9543)
 	position.y = startcoords.y+24*sin(time*0.6538)
 
 

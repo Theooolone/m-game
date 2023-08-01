@@ -143,7 +143,7 @@ b = Vector2(40, 0)
 y_sort_enabled = true
 
 [node name="FunnyHubert" parent="." instance=ExtResource("2_nj3n7")]
-position = Vector2(-323, 359)
+position = Vector2(-305, 359)
 
 [node name="SpoopyArea" type="Area2D" parent="."]
 position = Vector2(-154, 368)
