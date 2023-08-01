@@ -28,7 +28,7 @@ Global="*res://scripts/global.gd"
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
-window/size/mode=2
+window/size/mode=3
 window/size/initial_position_type=3
 window/energy_saving/keep_screen_on=false
 window/stretch/mode="viewport"
@@ -114,3 +114,4 @@ toggle_fullscreen={
 
 textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="mobile"
+environment/defaults/default_clear_color=Color(0.188235, 0.188235, 0.203922, 1)
