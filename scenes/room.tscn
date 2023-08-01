@@ -1,6 +1,5 @@
-[gd_scene load_steps=19 format=3 uid="uid://bomyo23b5yead"]
+[gd_scene load_steps=18 format=3 uid="uid://bomyo23b5yead"]
 
-[ext_resource type="Script" path="res://scripts/main.gd" id="1_ufitj"]
 [ext_resource type="PackedScene" uid="uid://ds2er2baig65x" path="res://scenes/funny_hubert.tscn" id="2_nj3n7"]
 [ext_resource type="Texture2D" uid="uid://djdyxn44vgp3j" path="res://assets/textures/room.png" id="3_nggxw"]
 [ext_resource type="PackedScene" uid="uid://dyjsiqk42bq5w" path="res://scenes/m.tscn" id="4_s1qrg"]
@@ -142,7 +141,6 @@ b = Vector2(40, 0)
 
 [node name="Room" type="Node2D"]
 y_sort_enabled = true
-script = ExtResource("1_ufitj")
 
 [node name="FunnyHubert" parent="." instance=ExtResource("2_nj3n7")]
 position = Vector2(-323, 359)
