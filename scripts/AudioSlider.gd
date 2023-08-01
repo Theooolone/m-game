@@ -10,8 +10,9 @@ extends VBoxContainer
 
 var bus_id
 
+signal drag_ended
+
 func _ready():
-	
 	bus_id = AudioServer.get_bus_index(audio_bus_name)
 	if bus_id == -1:
 		push_error("Invalid Bus name!")
@@ -31,5 +32,9 @@ func _on_v_slider_value_changed(value):
 	AudioServer.set_bus_volume_db(bus_id, new_db)
 	value_node.text = str(value) + "%"
 
-func _on_v_slider_drag_ended(_value_changed):
-	if slider_node.value == 69:value_node.text += " :)"
+func _on_v_slider_drag_ended(value_changed):
+	if slider_node.value == 69:
+		value_node.text += " :)" # hehe
+	if value_changed:
+		drag_ended.emit(audio_bus_name, slider_node.value, default_value)
+

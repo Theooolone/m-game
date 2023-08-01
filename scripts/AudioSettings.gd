@@ -1,14 +1,26 @@
 extends CanvasLayer
 
-# Called when the node enters the scene tree for the first time.
+var config = ConfigFile.new()
+
 func _ready():
-	pass # Replace with function body.
+	var err = config.load("user://usersettings.cfg")
+	
+	if err != OK: return
+	
+	for key in config.get_section_keys("audio"):
+		var value = config.get_value("audio", key)
+		$Panel/MarginContainer/HBoxContainer.get_node(key).get_node("VSlider").value = value
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	if Input.is_action_just_pressed("audio_settings"):
 		if not visible:
 			show()
 		else:
 			hide()
+
+func _on_drag_ended(slider, value, default):
+	if value == default:
+		config.erase_section_key("audio", slider)
+	else:
+		config.set_value("audio", slider, value)
+	config.save("user://usersettings.cfg")

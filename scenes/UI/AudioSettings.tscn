@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://c5dsh6ix1rffr"]
 
 [ext_resource type="Script" path="res://scripts/AudioSettings.gd" id="1_hwfb2"]
-[ext_resource type="PackedScene" uid="uid://pc434amk7nwh" path="res://scenes/UI/AudioSlider.tscn" id="2_rlafp"]
+[ext_resource type="PackedScene" uid="uid://pc434amk7nwh" path="res://scenes/ui/AudioSlider.tscn" id="2_rlafp"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_oep8k"]
 font_size = 32
@@ -78,3 +78,8 @@ text = "Audio Settings"
 label_settings = SubResource("LabelSettings_oep8k")
 horizontal_alignment = 1
 vertical_alignment = 2
+
+[connection signal="drag_ended" from="Panel/MarginContainer/HBoxContainer/Master" to="." method="_on_drag_ended"]
+[connection signal="drag_ended" from="Panel/MarginContainer/HBoxContainer/Music" to="." method="_on_drag_ended"]
+[connection signal="drag_ended" from="Panel/MarginContainer/HBoxContainer/Ambient" to="." method="_on_drag_ended"]
+[connection signal="drag_ended" from="Panel/MarginContainer/HBoxContainer/Walking" to="." method="_on_drag_ended"]
