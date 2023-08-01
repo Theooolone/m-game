@@ -1,10 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://coy8ycn8wwfvl"]
+[gd_scene load_steps=13 format=3 uid="uid://coy8ycn8wwfvl"]
 
 [ext_resource type="Script" path="res://scripts/Cat.gd" id="1_jus8a"]
 [ext_resource type="TileSet" uid="uid://jidy50o2532o" path="res://resources/room.tres" id="2_yp0iu"]
 [ext_resource type="PackedScene" uid="uid://cndlh00l1npxt" path="res://scenes/catsim/statbar.tscn" id="4_kofum"]
 [ext_resource type="PackedScene" uid="uid://bbu3xsdp51vud" path="res://scenes/catsim/catobject.tscn" id="4_t11mk"]
+[ext_resource type="Texture2D" uid="uid://b6whkt023c6jq" path="res://assets/textures/catsim/food_bowl.png" id="4_t35jr"]
 [ext_resource type="Shader" path="res://resources/hue.gdshader" id="5_8pllu"]
+[ext_resource type="Texture2D" uid="uid://pwvsa7d527sd" path="res://assets/textures/catsim/water_bowl.png" id="5_tvfgl"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_y1wrj"]
 font_size = 32
@@ -57,10 +59,12 @@ Cleanliness"
 label_settings = SubResource("LabelSettings_y1wrj")
 
 [node name="Food" parent="." instance=ExtResource("4_t11mk")]
-position = Vector2(-100, 51)
+position = Vector2(-100, 56)
+texture = ExtResource("4_t35jr")
 
 [node name="Water" parent="." instance=ExtResource("4_t11mk")]
-position = Vector2(-79, 51)
+position = Vector2(-80, 56)
+texture = ExtResource("5_tvfgl")
 
 [node name="StatTick" type="Timer" parent="."]
 autostart = true

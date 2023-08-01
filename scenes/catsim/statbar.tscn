@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://cndlh00l1npxt"]
 
 [ext_resource type="Shader" path="res://resources/hue.gdshader" id="1_xwf8c"]
-[ext_resource type="Texture2D" uid="uid://8mkukxqcg0xx" path="res://assets/textures/catbar_under.png" id="2_gshqp"]
+[ext_resource type="Texture2D" uid="uid://8mkukxqcg0xx" path="res://assets/textures/catsim/catbar_under.png" id="2_gshqp"]
 [ext_resource type="LabelSettings" uid="uid://dguaiif1dpkwk" path="res://resources/5px.tres" id="3_26uqe"]
-[ext_resource type="Texture2D" uid="uid://dfhygow8cwq85" path="res://assets/textures/catbar_progress.png" id="3_wjh6o"]
+[ext_resource type="Texture2D" uid="uid://dfhygow8cwq85" path="res://assets/textures/catsim/catbar_progress.png" id="3_wjh6o"]
 [ext_resource type="Script" path="res://scripts/statbar.gd" id="4_j75ob"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8k14e"]

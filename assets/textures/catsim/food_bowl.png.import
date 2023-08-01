@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dfhygow8cwq85"
-path="res://.godot/imported/catbar_progress.png-c9f3521a76fdea99fbafe3a1724424c9.ctex"
+uid="uid://b6whkt023c6jq"
+path="res://.godot/imported/food_bowl.png-f164ac1bfab4c63c258f332baa891762.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/catbar_progress.png"
-dest_files=["res://.godot/imported/catbar_progress.png-c9f3521a76fdea99fbafe3a1724424c9.ctex"]
+source_file="res://assets/textures/catsim/food_bowl.png"
+dest_files=["res://.godot/imported/food_bowl.png-f164ac1bfab4c63c258f332baa891762.ctex"]
 
 [params]
 

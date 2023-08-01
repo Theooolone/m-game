@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://8mkukxqcg0xx"
-path="res://.godot/imported/catbar_under.png-b35799bf28c9468e5fe6070499dc2174.ctex"
+path="res://.godot/imported/catbar_under.png-3c29e92bfeb20716f3caac339940efec.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/catbar_under.png"
-dest_files=["res://.godot/imported/catbar_under.png-b35799bf28c9468e5fe6070499dc2174.ctex"]
+source_file="res://assets/textures/catsim/catbar_under.png"
+dest_files=["res://.godot/imported/catbar_under.png-3c29e92bfeb20716f3caac339940efec.ctex"]
 
 [params]
 

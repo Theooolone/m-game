@@ -11,8 +11,6 @@ var textbox_visible = false
 
 var textbox_on_cooldown = false
 
-#@onready var music: AudioStreamPlayer = get_tree().root.Music
-
 func _process(_delta):
 	if Input.is_action_just_pressed("exit"):
 		get_tree().quit()
