@@ -11,6 +11,18 @@ var textbox_visible = false
 
 var textbox_on_cooldown = false
 
+var configpath = "user://usersettings.cfg"
+
+var config = ConfigFile.new()
+var configerr = config.load(configpath)
+
+var times_opened = config.get_value("misc","times_opened",0)+1
+
+func _ready():
+	config.set_value("misc", "times_opened", times_opened)
+	config.save(configpath)
+
+
 func _process(_delta):
 	if Input.is_action_just_pressed("exit"):
 		get_tree().quit()

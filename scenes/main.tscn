@@ -13,7 +13,6 @@
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("13_e1xm7")
 volume_db = -18.0
-autoplay = true
 bus = &"Music"
 
 [node name="Textbox" parent="." instance=ExtResource("14_ri8sk")]
@@ -23,3 +22,4 @@ visible = false
 visible = false
 
 [node name="Controls" parent="." instance=ExtResource("16_qgkb2")]
+visible = false
