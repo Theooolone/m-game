@@ -8,6 +8,8 @@ extends Node2D
 @onready var fun_bar_node = $Fun
 @onready var human_tolerance_bar_node = $"Human Tolerance"
 
+@onready var cat_node = $Cat
+
 signal cat_obliteration # emmited when game lost
 
 enum StatType {
@@ -29,6 +31,16 @@ var stats = {
 	StatType.CLEANLINESS: 64,
 }
 
+enum State {
+	IDLE, # Cat will stay still
+	IDLE_MOVE, # Cat is moving to a random position
+	WALKING, # Cat will move towards object
+	USING, # Cat will be at object
+}
+
+var target = null # used for State.WALKING and State.USING
+var current_state = State.IDLE
+
 const labeltext = "Hunger: %s\nThirst: %s\nFun: %s\nHuman Tolerance: %s\nAwakeness: %s\nCleanliness: %s"
 
 func _ready():
@@ -41,6 +53,20 @@ func _ready():
 	$Cat/Button.button_down.connect(pet)
 	
 	update_ui()
+
+var idle_goal = Vector2.ZERO
+var speed = 1.5 # Pixels
+
+func _process(delta):
+	match current_state:
+		State.WALKING:
+			if target:
+				catnode.position = catnode.position.move_toward(target.position, speed*16*delta)
+		State.IDLE_MOVE:
+			catnode.position = catnode.position.move_toward(idle_goal, speed*16*delta)
+			if catnode.position == idle_goal:
+				change_state(State.IDLE)
+				cat_idle_walk_node.start(randf_range(0.5, 4))
 
 
 func update_ui():
@@ -62,7 +88,7 @@ func update_ui():
 func capadd(stat, add): stats[stat] = max(min(stats[stat]+add, 64),0)
 
 func _on_stat_tick_timeout():
-	var stat_changed = stats.keys()[randi() % 6] # StatType.size()]
+	var stat_changed = stats.keys()[randi_range(0, StatType.size()-1) % 6]
 	if stat_changed == StatType.HUMAN_TOLERANCE:
 		capadd(stat_changed, 1)
 	else:
@@ -70,7 +96,6 @@ func _on_stat_tick_timeout():
 		
 	for i in stats.keys():
 		if stats[i] <= 0:
-			print(i)
 			emit_signal("cat_obliteration",i)
 	update_ui()
 
@@ -78,7 +103,7 @@ func _on_stat_tick_timeout():
 
 
 
-# WHAT HAPPENS WHEN OBJECT USED
+# WHAT HAPPENS WHEN OBJECT CLICKED
 
 func food():
 	capadd(StatType.HUNGER, 8)
@@ -101,3 +126,16 @@ func pet():
 	if rand >= 7: rand *= 3 
 	capadd(StatType.HUMAN_TOLERANCE, -rand)
 	update_ui()
+
+@onready var min_idle_range = $MinIdleRange.position
+@onready var max_idle_range = $MaxIdleRange.position
+@onready var cat_idle_walk_node = $CatIdleWalk
+
+func _on_cat_idle_walk_timeout():
+	idle_goal.x = randi_range(min_idle_range.x, max_idle_range.x)
+	idle_goal.y = randi_range(min_idle_range.y, max_idle_range.y)
+	change_state(State.IDLE_MOVE)
+
+func change_state(state):
+	current_state = state
+	print("STATE CHANGED TO:" + str(state))
