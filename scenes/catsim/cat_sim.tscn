@@ -1,15 +1,15 @@
-[gd_scene load_steps=13 format=3 uid="uid://coy8ycn8wwfvl"]
+[gd_scene load_steps=16 format=3 uid="uid://coy8ycn8wwfvl"]
 
 [ext_resource type="Script" path="res://scripts/Cat.gd" id="1_jus8a"]
 [ext_resource type="TileSet" uid="uid://jidy50o2532o" path="res://resources/room.tres" id="2_yp0iu"]
+[ext_resource type="Texture2D" uid="uid://vc5s7247a5rc" path="res://assets/textures/catsim/empty_bowl.png" id="4_718wf"]
 [ext_resource type="PackedScene" uid="uid://cndlh00l1npxt" path="res://scenes/catsim/statbar.tscn" id="4_kofum"]
 [ext_resource type="PackedScene" uid="uid://bbu3xsdp51vud" path="res://scenes/catsim/catobject.tscn" id="4_t11mk"]
-[ext_resource type="Texture2D" uid="uid://b6whkt023c6jq" path="res://assets/textures/catsim/food_bowl.png" id="4_t35jr"]
 [ext_resource type="Shader" path="res://resources/hue.gdshader" id="5_8pllu"]
-[ext_resource type="Texture2D" uid="uid://pwvsa7d527sd" path="res://assets/textures/catsim/water_bowl.png" id="5_tvfgl"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_y1wrj"]
-font_size = 32
+[ext_resource type="AudioStream" uid="uid://duiwnw1md8b2p" path="res://assets/sounds/meow1.wav" id="7_10b03"]
+[ext_resource type="AudioStream" uid="uid://bw25r5o33y8ol" path="res://assets/sounds/meow2.wav" id="8_0r8g4"]
+[ext_resource type="AudioStream" uid="uid://c5bmkp0gf01bh" path="res://assets/sounds/meow3.wav" id="9_yl3ha"]
+[ext_resource type="LabelSettings" uid="uid://dguaiif1dpkwk" path="res://resources/5px.tres" id="10_qs8rk"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8seon"]
 shader = ExtResource("5_8pllu")
@@ -29,6 +29,16 @@ font_size = 48
 shadow_color = Color(0, 0, 0, 0.498039)
 shadow_offset = Vector2(8, 8)
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_xqdvd"]
+streams_count = 3
+random_pitch = 1.2
+stream_0/stream = ExtResource("7_10b03")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("8_0r8g4")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("9_yl3ha")
+stream_2/weight = 1.0
+
 [node name="CatSim" type="Node2D"]
 script = ExtResource("1_jus8a")
 
@@ -44,28 +54,13 @@ modulate = Color(1, 1, 0.498039, 1)
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(8, 8)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="Label" type="Label" parent="CanvasLayer"]
-offset_left = 1434.0
-offset_top = 573.0
-offset_right = 1912.0
-offset_bottom = 1632.0
-text = "Hunger
-Thirst
-Fun
-Human Tolerance
-Awakeness
-Cleanliness"
-label_settings = SubResource("LabelSettings_y1wrj")
-
 [node name="Food" parent="." instance=ExtResource("4_t11mk")]
 position = Vector2(-100, 56)
-texture = ExtResource("4_t35jr")
+texture = ExtResource("4_718wf")
 
 [node name="Water" parent="." instance=ExtResource("4_t11mk")]
 position = Vector2(-80, 56)
-texture = ExtResource("5_tvfgl")
+texture = ExtResource("4_718wf")
 
 [node name="StatTick" type="Timer" parent="."]
 autostart = true
@@ -73,6 +68,13 @@ autostart = true
 [node name="CatIdleWalk" type="Timer" parent="."]
 one_shot = true
 autostart = true
+
+[node name="MeowTimer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[node name="ObjectUseTimer" type="Timer" parent="."]
+one_shot = true
 
 [node name="Hunger" parent="." instance=ExtResource("4_kofum")]
 material = SubResource("ShaderMaterial_8seon")
@@ -115,7 +117,23 @@ position = Vector2(-88, -32)
 [node name="MaxIdleRange" type="Marker2D" parent="."]
 position = Vector2(24, 24)
 
+[node name="Meow" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_xqdvd")
+max_distance = 1000.0
+max_polyphony = 2
+bus = &"Ambient"
+
+[node name="Label" type="Label" parent="."]
+offset_left = 56.0
+offset_top = 2.0
+offset_right = 110.0
+offset_bottom = 25.0
+text = "IDLE"
+label_settings = ExtResource("10_qs8rk")
+
 [connection signal="timeout" from="StatTick" to="." method="_on_stat_tick_timeout"]
 [connection signal="timeout" from="CatIdleWalk" to="." method="_on_cat_idle_walk_timeout"]
+[connection signal="timeout" from="MeowTimer" to="." method="_on_meow_timer_timeout"]
+[connection signal="timeout" from="ObjectUseTimer" to="." method="_on_object_use_timer_timeout"]
 
 [editable path="Human Tolerance"]
