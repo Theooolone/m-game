@@ -271,6 +271,7 @@ textlist = Array[String](["You don't recognise the individual in the photo", "So
 
 [node name="SceneChangeInteractArea" parent="." instance=ExtResource("12_vrsm6")]
 position = Vector2(120, 351)
+alert_type = 1
 scene_path = "res://scenes/catsim/cat_sim.tscn"
 
 [connection signal="body_entered" from="SpoopyArea" to="M" method="_on_spoopy_area_body_entered" flags=18]
