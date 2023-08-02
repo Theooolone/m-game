@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://d3ba2vx8uqe8c"]
+
+[ext_resource type="Script" path="res://scripts/change_scene.gd" id="1_hxjvu"]
+[ext_resource type="Texture2D" uid="uid://dgf38h33cdpxs" path="res://assets/textures/alerts/exclamation_mark.png" id="2_eamvv"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ve8uh"]
+radius = 16.0
+
+[node name="SceneChangeInteractArea" type="Area2D"]
+monitorable = false
+script = ExtResource("1_hxjvu")
+alert_type = 0
+scene_path = "res://scenes/funny_hubert.tscn"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ve8uh")
+
+[node name="Alert" type="Sprite2D" parent="."]
+z_index = 10
+position = Vector2(0, -41)
+texture = ExtResource("2_eamvv")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered" flags=18]
+[connection signal="body_exited" from="." to="." method="_on_body_exited" flags=18]

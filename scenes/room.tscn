@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bomyo23b5yead"]
+[gd_scene load_steps=19 format=3 uid="uid://bomyo23b5yead"]
 
 [ext_resource type="PackedScene" uid="uid://ds2er2baig65x" path="res://scenes/funny_hubert.tscn" id="2_nj3n7"]
 [ext_resource type="Texture2D" uid="uid://djdyxn44vgp3j" path="res://assets/textures/room.png" id="3_nggxw"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://blrow0klriehp" path="res://scenes/baseobject.tscn" id="10_kf21y"]
 [ext_resource type="Texture2D" uid="uid://k2eocvy6b05o" path="res://assets/textures/objects/hubert.png" id="11_8wv3o"]
 [ext_resource type="Script" path="res://scripts/Border.gd" id="12_rgis5"]
+[ext_resource type="PackedScene" uid="uid://d3ba2vx8uqe8c" path="res://scenes/scene_change_interact_area.tscn" id="12_vrsm6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m3x2g"]
 size = Vector2(108, 32)
@@ -247,8 +248,7 @@ text = ":D"
 [node name="TextInteractArea2" parent="." instance=ExtResource("8_qnajo")]
 position = Vector2(168, 20)
 alert_type = 2
-textlist = Array[String](["v1.1.0 Dev Build
-(TODO: Change this text on release)"])
+textlist = Array[String](["v1.1.0-alpha.1", "cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat ca"])
 
 [node name="Border" type="StaticBody2D" parent="."]
 position = Vector2(12, 144)
@@ -268,6 +268,10 @@ default_color = Color(0, 0, 0, 1)
 position = Vector2(-136, 430)
 alert_type = 0
 textlist = Array[String](["You don't recognise the individual in the photo", "So why do they look so familiar?"])
+
+[node name="SceneChangeInteractArea" parent="." instance=ExtResource("12_vrsm6")]
+position = Vector2(120, 351)
+scene_path = "res://scenes/catsim/cat_sim.tscn"
 
 [connection signal="body_entered" from="SpoopyArea" to="M" method="_on_spoopy_area_body_entered" flags=18]
 [connection signal="body_exited" from="SpoopyArea" to="M" method="_on_spoopy_area_body_exited" flags=18]
