@@ -1,3 +1,5 @@
+# TODO: refactor this mess
+
 extends Node2D
 
 @onready var catnode = $Cat
@@ -18,6 +20,10 @@ extends Node2D
 
 @onready var object_use_timer_node = $ObjectUseTimer
 
+var empty_bowl_tex = preload("res://assets/textures/catsim/empty_bowl.png")
+var food_bowl_tex = preload("res://assets/textures/catsim/food_bowl.png")
+var water_bowl_tex = preload("res://assets/textures/catsim/water_bowl.png")
+
 var target = null # used for State.WALKING and State.USING
 var current_state = State.IDLE
 
@@ -25,6 +31,8 @@ var idle_goal = Vector2.ZERO
 @export var speed = 1.5 # Pixels
 
 signal cat_obliteration # emmited when game lost
+
+# I could use a 
 
 enum StatType {
 	HUNGER,
@@ -54,6 +62,16 @@ var stats = {
 	StatType.CLEANLINESS: null,
 }
 
+# becomes false when food bowl is empty for example
+@onready var object_useable = {
+	StatType.HUNGER: true,
+	StatType.THIRST: true,
+	StatType.FUN: false,
+	StatType.HUMAN_TOLERANCE: false,
+	StatType.AWAKENESS: false,
+	StatType.CLEANLINESS: false,
+}
+
 var stat_use_times = {
 	StatType.HUNGER: 1.5,
 	StatType.THIRST: 1,
@@ -78,15 +96,14 @@ func _on_cat_idle_walk_timeout():
 
 func change_state(state):
 	current_state = state
-	$Label.text = State.keys()[state]
 
 func _ready():
 	# set random initial seed for random functions
 	randomize()
 	$StatTick.wait_time = 1.5/stats.size()
 	
-	$Food/Button.button_down.connect(food)
-	$Water/Button.button_down.connect(water)
+	$Food/Button.button_down.connect(fill_food_bowl)
+	$Water/Button.button_down.connect(fill_water_bowl)
 	$Cat/Button.button_down.connect(pet)
 	
 	update_ui()
@@ -101,6 +118,20 @@ func update_ui():
 var lowest_object_stat
 
 func _process(delta):
+	movement(delta)
+	force_goto_lowest_in_emergency()
+	debug()
+
+func force_goto_lowest_in_emergency():
+	if current_state != State.USING:
+		lowest_object_stat = get_lowest_useable_object_stat()
+		if not lowest_object_stat: return 
+		var urgent = stats[lowest_object_stat] <= 32
+		if urgent:
+			target = stat_nodes[lowest_object_stat]
+			change_state(State.WALKING)
+
+func movement(delta):
 	match current_state:
 		State.WALKING:
 			if target:
@@ -114,13 +145,16 @@ func _process(delta):
 			if catnode.position == idle_goal:
 				change_state(State.IDLE)
 				cat_idle_walk_node.start(randf_range(0.5, 4))
-	
-	if not State.USING:
-		lowest_object_stat = get_lowest_object_stat()
-		var urgent = stats[lowest_object_stat] <= 32
-		if urgent:
-			target = stat_nodes[lowest_object_stat]
-			change_state(State.WALKING)
+
+func debug():
+	update_ui()
+	var target_name
+	if target:
+		target_name = target.name
+	else:
+		target_name = "Null"
+	$Label.text = "State: " + State.keys()[current_state]\
+				+ "\nTarget: " + target_name
 
 func _on_object_use_timer_timeout():
 	_on_cat_idle_walk_timeout()
@@ -152,11 +186,21 @@ func get_lowest_object_stat():
 			lowest_stat_num = stats[stat]
 	return lowest_stat
 
+# returns the stat with the lowest number out of the stats that have an accompying object that is useable
+func get_lowest_useable_object_stat():
+	var lowest_stat
+	var lowest_stat_num = 65
+	for stat in stats.keys():
+		if stats[stat] < lowest_stat_num and stat_nodes[stat] and object_useable[stat]:
+			lowest_stat = stat
+			lowest_stat_num = stats[stat]
+	return lowest_stat
+
 # adds a number to the stat while still respecting the maximum and minimum values
 func capadd(stat, add): stats[stat] = max(min(stats[stat]+add, 64),0)
 
 func _on_stat_tick_timeout():
-	var stat_changed = stats.keys()[randi_range(0, StatType.size()-1) % 6]
+	var stat_changed = stats.keys()[randi_range(0, StatType.size()-1)]
 	if stat_changed == StatType.HUMAN_TOLERANCE:
 		capadd(stat_changed, 1)
 	else:
@@ -167,17 +211,15 @@ func _on_stat_tick_timeout():
 			emit_signal("cat_obliteration",i)
 	update_ui()
 
+# WHAT HAPPENS WHEN OBJECT CLICKED
 
-# WHAT HAPPENS WHEN OBJECT USED
+func fill_food_bowl():
+	stat_nodes[StatType.HUNGER].texture = food_bowl_tex
+	object_useable[StatType.HUNGER] = true
 
-func food():
-	capadd(StatType.HUNGER, 16)
-	capadd(StatType.THIRST, -8)
-	update_ui()
-
-func water():
-	capadd(StatType.THIRST, 16)
-	update_ui()
+func fill_water_bowl():
+	stat_nodes[StatType.THIRST].texture = water_bowl_tex
+	object_useable[StatType.THIRST] = true
 
 
 # As chaotic as possible while still being fair if you know what you're doing
@@ -188,7 +230,29 @@ func pet():
 	elif stats[StatType.HUMAN_TOLERANCE] < 48:
 		capadd(StatType.FUN, -8)
 	
-	var rand = 1 + randi() % 8
+	var rand = randi_range(1,8)
 	if rand >= 7: rand *= 3 
 	capadd(StatType.HUMAN_TOLERANCE, -rand)
 	update_ui()
+
+# WHAT HAPPENS WHEN OBJECT USED
+
+func food():
+	stat_nodes[StatType.HUNGER].texture = empty_bowl_tex
+	object_useable[StatType.HUNGER] = false
+	capadd(StatType.HUNGER, 16)
+	capadd(StatType.THIRST, -8)
+	update_ui()
+
+func water():
+	stat_nodes[StatType.THIRST].texture = empty_bowl_tex
+	object_useable[StatType.THIRST] = false
+	capadd(StatType.THIRST, 16)
+	update_ui()
+
+
+
+func _on_leave_button_pressed():
+		get_node("/root").add_child(load("res://scenes/room.tscn").instantiate())
+		get_node("/root/Room/M").position = Vector2(120, 356)
+		queue_free()

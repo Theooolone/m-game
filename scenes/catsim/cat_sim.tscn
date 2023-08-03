@@ -1,11 +1,12 @@
-[gd_scene load_steps=16 format=3 uid="uid://coy8ycn8wwfvl"]
+[gd_scene load_steps=17 format=3 uid="uid://coy8ycn8wwfvl"]
 
 [ext_resource type="Script" path="res://scripts/Cat.gd" id="1_jus8a"]
 [ext_resource type="TileSet" uid="uid://jidy50o2532o" path="res://resources/room.tres" id="2_yp0iu"]
-[ext_resource type="Texture2D" uid="uid://vc5s7247a5rc" path="res://assets/textures/catsim/empty_bowl.png" id="4_718wf"]
 [ext_resource type="PackedScene" uid="uid://cndlh00l1npxt" path="res://scenes/catsim/statbar.tscn" id="4_kofum"]
+[ext_resource type="Texture2D" uid="uid://b6whkt023c6jq" path="res://assets/textures/catsim/food_bowl.png" id="4_ksyhg"]
 [ext_resource type="PackedScene" uid="uid://bbu3xsdp51vud" path="res://scenes/catsim/catobject.tscn" id="4_t11mk"]
 [ext_resource type="Shader" path="res://resources/hue.gdshader" id="5_8pllu"]
+[ext_resource type="Texture2D" uid="uid://pwvsa7d527sd" path="res://assets/textures/catsim/water_bowl.png" id="5_l5bcd"]
 [ext_resource type="AudioStream" uid="uid://duiwnw1md8b2p" path="res://assets/sounds/meow1.wav" id="7_10b03"]
 [ext_resource type="AudioStream" uid="uid://bw25r5o33y8ol" path="res://assets/sounds/meow2.wav" id="8_0r8g4"]
 [ext_resource type="AudioStream" uid="uid://c5bmkp0gf01bh" path="res://assets/sounds/meow3.wav" id="9_yl3ha"]
@@ -56,11 +57,11 @@ zoom = Vector2(8, 8)
 
 [node name="Food" parent="." instance=ExtResource("4_t11mk")]
 position = Vector2(-100, 56)
-texture = ExtResource("4_718wf")
+texture = ExtResource("4_ksyhg")
 
 [node name="Water" parent="." instance=ExtResource("4_t11mk")]
 position = Vector2(-80, 56)
-texture = ExtResource("4_718wf")
+texture = ExtResource("5_l5bcd")
 
 [node name="StatTick" type="Timer" parent="."]
 autostart = true
@@ -124,16 +125,36 @@ max_polyphony = 2
 bus = &"Ambient"
 
 [node name="Label" type="Label" parent="."]
-offset_left = 56.0
-offset_top = 2.0
-offset_right = 110.0
-offset_bottom = 25.0
-text = "IDLE"
+offset_left = -110.0
+offset_top = -63.0
+offset_right = -56.0
+offset_bottom = -40.0
+text = "Debug"
 label_settings = ExtResource("10_qs8rk")
+
+[node name="LeaveButton" type="Button" parent="."]
+offset_left = 56.0
+offset_top = 43.0
+offset_right = 117.0
+offset_bottom = 63.0
+
+[node name="Label" type="Label" parent="LeaveButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Leave"
+label_settings = ExtResource("10_qs8rk")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true
 
 [connection signal="timeout" from="StatTick" to="." method="_on_stat_tick_timeout"]
 [connection signal="timeout" from="CatIdleWalk" to="." method="_on_cat_idle_walk_timeout"]
 [connection signal="timeout" from="MeowTimer" to="." method="_on_meow_timer_timeout"]
 [connection signal="timeout" from="ObjectUseTimer" to="." method="_on_object_use_timer_timeout"]
+[connection signal="pressed" from="LeaveButton" to="." method="_on_leave_button_pressed"]
 
 [editable path="Human Tolerance"]
