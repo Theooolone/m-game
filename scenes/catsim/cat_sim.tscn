@@ -61,10 +61,10 @@ texture = ExtResource("4_ksyhg")
 position = Vector2(-80, 56)
 texture = ExtResource("5_l5bcd")
 
-[node name="StatTick" type="Timer" parent="."]
+[node name="StatTickTimer" type="Timer" parent="."]
 autostart = true
 
-[node name="CatIdleWalk" type="Timer" parent="."]
+[node name="CatIdleWalkTimer" type="Timer" parent="."]
 one_shot = true
 autostart = true
 
@@ -72,8 +72,13 @@ autostart = true
 one_shot = true
 autostart = true
 
-[node name="ObjectUseTimer" type="Timer" parent="."]
+[node name="UseDurationTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="RandomRefillTimer" type="Timer" parent="."]
+wait_time = 8.0
+one_shot = true
+autostart = true
 
 [node name="Cat" parent="." instance=ExtResource("4_t11mk")]
 texture = ExtResource("12_bfw1o")
@@ -128,8 +133,8 @@ bus = &"Ambient"
 [node name="Label" type="Label" parent="."]
 offset_left = -110.0
 offset_top = -63.0
-offset_right = -56.0
-offset_bottom = -40.0
+offset_right = -80.0
+offset_bottom = 21.0
 text = "Debug"
 label_settings = ExtResource("10_qs8rk")
 
@@ -152,10 +157,10 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_lock_ = true
 
-[connection signal="timeout" from="StatTick" to="." method="_on_stat_tick_timeout"]
-[connection signal="timeout" from="CatIdleWalk" to="." method="_on_cat_idle_walk_timeout"]
+[connection signal="timeout" from="StatTickTimer" to="." method="_on_stat_tick_timer_timeout"]
+[connection signal="timeout" from="CatIdleWalkTimer" to="." method="_on_cat_idle_walk_timeout"]
 [connection signal="timeout" from="MeowTimer" to="." method="_on_meow_timer_timeout"]
-[connection signal="timeout" from="ObjectUseTimer" to="." method="_on_object_use_timer_timeout"]
+[connection signal="timeout" from="UseDurationTimer" to="." method="_on_use_duration_timer_timeout"]
 [connection signal="pressed" from="LeaveButton" to="." method="_on_leave_button_pressed"]
 
 [editable path="Human Tolerance"]

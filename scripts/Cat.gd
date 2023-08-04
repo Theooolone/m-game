@@ -1,20 +1,5 @@
 extends Node2D
 
-var empty_bowl_tex = preload("res://assets/textures/catsim/empty_bowl.png")
-var food_bowl_tex = preload("res://assets/textures/catsim/food_bowl.png")
-var water_bowl_tex = preload("res://assets/textures/catsim/water_bowl.png")
-
-@onready var cat_node = $Cat
-
-@onready var min_idle_range = $MinIdleRange.position
-@onready var max_idle_range = $MaxIdleRange.position
-@onready var cat_idle_walk_node = $CatIdleWalk
-
-@onready var object_use_timer_node = $ObjectUseTimer
-
-@onready var meow_node = $Meow
-@onready var meow_timer_node = $MeowTimer
-
 
 # Stat related functions
 
@@ -32,7 +17,7 @@ func new_stat(
 		end_use_func = do_nothing, # When cat stops using object
 		click_func = do_nothing, # When object clicked
 		start_value: int = 64,
-		use_time: float = 1.0, # Time it takes for cat to use object
+		use_time: float = 1.5, # Time it takes for cat to use object
 		useable: bool = true, # If cat can use object
 ):
 	stats[statname] = {}
@@ -50,6 +35,9 @@ func new_stat(
 
 # Three functions for reading and writing a stat's value
 
+func set_useable(stat, value: bool) -> void:
+	stats[stat]["useable"] = value
+
 func get_value(stat) -> int:
 	return stats[stat]["value"]
 
@@ -66,9 +54,16 @@ func change_value(stat, value) -> void:
 func update_bar(stat):
 	stats[stat]["bar"].value = get_value(stat)
 
+func nodeof(stat) -> Node:
+	return stats[stat]["object_node"]
+
 
 func filter_useable_stats():
-	pass
+	var filtered_stats = stats.duplicate()
+	for stat in stats.keys():
+		if not (stats[stat]["object_node"] and stats[stat]["useable"]):
+			filtered_stats.erase(stat)
+	return filtered_stats
 
 
 func get_lowest_valued_stat(filtered_stats = stats):
@@ -82,7 +77,13 @@ func get_lowest_valued_stat(filtered_stats = stats):
 	return smallest_stat
 
 
+func get_lowest_valued_useable_stat():
+	return get_lowest_valued_stat(filter_useable_stats())
+
+
 # Cat AI
+
+@onready var cat_node = $Cat
 
 enum State {
 	IDLE, ## Will walk around doing nothing
@@ -96,14 +97,140 @@ func change_state(new_state: State):
 	current_state = new_state
 
 
+var stat_goal
+
+@export var cat_speed = 1.5
+
+func refill_stat(stat):
+	if not (stats[stat]["object_node"] and stats[stat]["useable"]):
+		return
+	stat_goal = stat
+	change_state(State.WALKING)
+
+
+func debug(lowest_useable_stat):
+	var stat_goal_text = stat_goal if stat_goal else "Null"
+	var lowest_useable_stat_text = str(0.1875*get_value(lowest_useable_stat)-4) if lowest_useable_stat else "Null"
+	
+	$Label.text = State.keys()[current_state] \
+		+ "\n" + stat_goal_text \
+		+ "\n" + str(round(10*(8-random_refill_timer_node.time_left))/10) \
+		+ "\n" + lowest_useable_stat_text
+
+@onready var min_idle_range = $MinIdleRange.position
+@onready var max_idle_range = $MaxIdleRange.position
+@onready var cat_idle_walk_timer = $CatIdleWalkTimer
+
+var idle_goal = Vector2.ZERO
+
+func idle_process(delta):
+	cat_node.position = cat_node.position.move_toward(idle_goal, cat_speed*16*delta)
+
+
+func _on_cat_idle_walk_timeout():
+	idle_goal.x = randi_range(min_idle_range.x, max_idle_range.x)
+	idle_goal.y = randi_range(min_idle_range.y, max_idle_range.y)
+	cat_idle_walk_timer.start(randf_range(4,8))
+
+
+@onready var use_duration_timer_node = $UseDurationTimer
+
+func walking_process(delta):
+	var newpos = stats[stat_goal]["object_node"].position
+	cat_node.position = cat_node.position.move_toward(newpos, cat_speed*16*delta)
+	if cat_node.position == newpos:
+		use_duration_timer_node.start(stats[stat_goal]["use_time"])
+		if stats[stat_goal]["start_use_func"]:
+			stats[stat_goal]["start_use_func"].call()
+		change_state(State.USING)
+
+
+func _on_use_duration_timer_timeout():
+	if stats[stat_goal]["end_use_func"]:
+		stats[stat_goal]["end_use_func"].call()
+		stat_goal = null
+	random_refill_timer_node.start()
+	change_state(State.IDLE)
+
+
+@onready var random_refill_timer_node = $RandomRefillTimer
+
+func _process(delta):
+	match current_state:
+		State.IDLE:
+			idle_process(delta)
+		State.WALKING:
+			walking_process(delta)
+	#	State.USING:
+	#		using_process(delta)
+	
+	if current_state == State.IDLE:
+		# Cat will look for valid objects to use more often the lower the lowest stat is
+		# https://www.desmos.com/calculator/ksgmxn8uwa
+		var lowest_useable_stat = get_lowest_valued_useable_stat()
+		if (
+				lowest_useable_stat
+				and get_value(lowest_useable_stat) > 32
+				and 8-random_refill_timer_node.time_left >= 0.1875*get_value(lowest_useable_stat)-4
+				
+			):
+			random_refill_timer_node.stop()
+			refill_stat(lowest_useable_stat)
+	
+	debug(get_lowest_valued_useable_stat())
+
+
 # Misc
 
+func _ready():
+	new_stat("hunger", $Hunger, $Food, null, eat, fill_food_bowl)
+	new_stat("thirst", $Thirst, $Water, null, drink, fill_water_bowl)
+	new_stat("fun", $Fun)
+	new_stat("human_tolerance", $"Human Tolerance")
+	
+	$StatTickTimer.wait_time = 3/stats.size()
+	
+	$Cat/Button.button_down.connect(pet)
+
+
+var empty_bowl_tex = preload("res://assets/textures/catsim/empty_bowl.png")
+var food_bowl_tex = preload("res://assets/textures/catsim/food_bowl.png")
+var water_bowl_tex = preload("res://assets/textures/catsim/water_bowl.png")
+
+func eat():
+	nodeof("hunger").texture = empty_bowl_tex
+	change_value("hunger", 12)
+	change_value("thirst", -4)
+	set_useable("hunger", false)
+
+
+func drink():
+	nodeof("thirst").texture = empty_bowl_tex
+	change_value("thirst", 8)
+	set_useable("thirst", false)
+
+
+func fill_food_bowl():
+	nodeof("hunger").texture = food_bowl_tex
+	set_useable("hunger", true)
+
+
+func fill_water_bowl():
+	nodeof("thirst").texture = water_bowl_tex
+	set_useable("thirst", true)
+
+
+@onready var meow_node = $Meow
+@onready var meow_timer_node = $MeowTimer
+
+
+# When cat clicked
 # As chaotic as possible while still being fair if you know what you're doing
 func pet():
 	meow_node.play()
-	if get_value("human_tolerance") >= 32:
+	if get_value("human_tolerance") >= 48:
 		change_value("fun", 8)
-	elif get_value("human_tolerance") < 48:
+	elif get_value("human_tolerance") < 32:
 		change_value("fun", -8)
 	
 	var rand = randi_range(1,8)
@@ -111,19 +238,7 @@ func pet():
 	change_value("human_tolerance", -rand)
 
 
-func _ready():
-	new_stat("hunger", $Hunger, $Food)
-	new_stat("thirst", $Thirst, $Water)
-	new_stat("fun", $Fun)
-	new_stat("human_tolerance", $"Human Tolerance")
-	
-	$StatTick.wait_time = 1.5/stats.size()
-	
-	change_value("thirst", -8)
-	print(get_lowest_valued_stat())
-	$Cat/Button.button_down.connect(pet)
-
-
+# Random meowing
 func _on_meow_timer_timeout():
 	meow_node.play()
 	meow_timer_node.start(randf_range(3,9))
@@ -135,7 +250,7 @@ func _on_leave_button_pressed():
 		queue_free()
 
 
-func _on_stat_tick_timeout():
+func _on_stat_tick_timer_timeout():
 	var stat_changed = stats.keys().pick_random()
 	if stat_changed == "human_tolerance":
 		change_value(stat_changed, 1)
@@ -146,7 +261,11 @@ func _on_stat_tick_timeout():
 		if get_value(stat) <= 0:
 			# Fail, with stat being the specific stat that caused the loss.
 			pass
-
-
-func _on_cat_idle_walk_timeout():
-	pass
+	
+	var lowest_useable_stat = get_lowest_valued_useable_stat()
+	if (
+			current_state == State.IDLE
+			and lowest_useable_stat
+			and get_value(lowest_useable_stat) <= 32
+	):
+		refill_stat(lowest_useable_stat)
