@@ -21,9 +21,10 @@ var inrange = false
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	if inrange and Input.is_action_just_pressed("interact"):
-		var scene_instance = load(scene_path).instantiate()
-		get_node("/root").add_child(scene_instance)
-		get_parent().queue_free()
+		Global.change_scene(scene_path)
+		#var scene_instance = load(scene_path).instantiate()
+		#get_node("/root").add_child(scene_instance)
+		#get_parent().queue_free()
 
 
 
