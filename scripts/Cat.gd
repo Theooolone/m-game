@@ -112,7 +112,14 @@ func debug(lowest_useable_stat):
 	$Label.text = State.keys()[current_state] \
 		+ "\n" + stat_goal_text \
 		+ "\n" + str(round(10*(8-random_refill_timer_node.time_left))/10) \
-		+ "\n" + lowest_useable_stat_text
+		+ "\n" + lowest_useable_stat_text \
+		+ "\n" + str(seconds_elapsed)
+	
+	if Input.is_action_just_pressed("debug_menu"):
+		if not $Label.visible:
+			$Label.show()
+		else:
+			$Label.hide()
 
 @onready var min_idle_range = $MinIdleRange.position
 @onready var max_idle_range = $MaxIdleRange.position
@@ -152,7 +159,14 @@ func _on_use_duration_timer_timeout():
 
 @onready var random_refill_timer_node = $RandomRefillTimer
 
+var msec_start
+var msec_elapsed
+var seconds_elapsed
+
 func _process(delta):
+	msec_elapsed = (Time.get_ticks_msec()-msec_start)*Engine.time_scale
+	seconds_elapsed = msec_elapsed/1000.0
+	
 	match current_state:
 		State.IDLE:
 			idle_process(delta)
@@ -160,6 +174,8 @@ func _process(delta):
 			walking_process(delta)
 	#	State.USING:
 	#		using_process(delta)
+	
+	$StatTickTimer.wait_time = 160/(seconds_elapsed+70) * 1/stats.size()
 	
 	if current_state == State.IDLE:
 		# Cat will look for valid objects to use more often the lower the lowest stat is
@@ -180,14 +196,17 @@ func _process(delta):
 # Misc
 
 func _ready():
+	
+	msec_start = Time.get_ticks_msec()
+	
 	new_stat("hunger", $Hunger, $Food, null, eat, fill_food_bowl)
 	new_stat("thirst", $Thirst, $Water, null, drink, fill_water_bowl)
 	new_stat("fun", $Fun)
 	new_stat("human_tolerance", $"Human Tolerance")
-	new_stat("awakeness", $Awakeness, $Bed, null, null, null, 64, 10)
+	new_stat("awakeness", $Awakeness, $Bed, null, sleep, null, 64, 10)
 	new_stat("cleanliness", $Cleanliness)
 	
-	$StatTickTimer.wait_time = 3/stats.size()
+	
 	
 	$Cat/Button.button_down.connect(pet)
 

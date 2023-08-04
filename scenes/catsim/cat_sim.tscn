@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://coy8ycn8wwfvl"]
+[gd_scene load_steps=21 format=3 uid="uid://coy8ycn8wwfvl"]
 
 [ext_resource type="Script" path="res://scripts/Cat.gd" id="1_jus8a"]
 [ext_resource type="TileSet" uid="uid://jidy50o2532o" path="res://resources/room.tres" id="2_yp0iu"]
@@ -12,6 +12,7 @@
 [ext_resource type="AudioStream" uid="uid://c5bmkp0gf01bh" path="res://assets/sounds/meow3.wav" id="9_yl3ha"]
 [ext_resource type="LabelSettings" uid="uid://dguaiif1dpkwk" path="res://resources/5px.tres" id="10_qs8rk"]
 [ext_resource type="Texture2D" uid="uid://427jkl1tb851" path="res://assets/textures/alerts/question_mark.png" id="12_bfw1o"]
+[ext_resource type="FontFile" uid="uid://d0bw2pjoup6pc" path="res://assets/fonts/5px.ttf" id="13_breyg"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8seon"]
 shader = ExtResource("5_8pllu")
@@ -42,6 +43,10 @@ stream_1/stream = ExtResource("8_0r8g4")
 stream_1/weight = 1.0
 stream_2/stream = ExtResource("9_yl3ha")
 stream_2/weight = 1.0
+
+[sub_resource type="Theme" id="Theme_35v54"]
+LineEdit/font_sizes/font_size = 5
+LineEdit/fonts/font = ExtResource("13_breyg")
 
 [node name="CatSim" type="Node2D"]
 script = ExtResource("1_jus8a")
@@ -149,6 +154,7 @@ max_polyphony = 2
 bus = &"Ambient"
 
 [node name="Label" type="Label" parent="."]
+visible = false
 offset_left = -102.0
 offset_top = -63.0
 offset_right = -72.0
@@ -174,6 +180,16 @@ label_settings = ExtResource("10_qs8rk")
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_lock_ = true
+
+[node name="LineEdit" type="LineEdit" parent="."]
+offset_left = -39.0
+offset_top = 40.0
+offset_right = 65.0
+offset_bottom = 60.0
+theme = SubResource("Theme_35v54")
+placeholder_text = "Cat Name"
+alignment = 1
+max_length = 16
 
 [connection signal="timeout" from="StatTickTimer" to="." method="_on_stat_tick_timer_timeout"]
 [connection signal="timeout" from="CatIdleWalkTimer" to="." method="_on_cat_idle_walk_timeout"]
