@@ -6,16 +6,13 @@ extends Node2D
 var stats = {}
 
 
-func do_nothing(): pass
-
-
 func new_stat(
 		statname: String, # Identification
 		bar: TextureProgressBar = null, # UI Bar
 		object_node = null, # Object cat goes to (if applicable)
-		start_use_func = do_nothing, # When cat starts using object
-		end_use_func = do_nothing, # When cat stops using object
-		click_func = do_nothing, # When object clicked
+		start_use_func = null, # When cat starts using object
+		end_use_func = null, # When cat stops using object
+		click_func = null, # When object clicked
 		start_value: int = 64,
 		use_time: float = 1.5, # Time it takes for cat to use object
 		useable: bool = true, # If cat can use object
@@ -28,7 +25,7 @@ func new_stat(
 	stats[statname]["useable"] = useable
 	stats[statname]["start_use_func"] = start_use_func
 	stats[statname]["end_use_func"] = end_use_func
-	if object_node:
+	if object_node and click_func:
 		object_node.get_node("Button").button_down.connect(click_func)
 	update_bar(statname)
 
@@ -121,7 +118,7 @@ func debug(lowest_useable_stat):
 @onready var max_idle_range = $MaxIdleRange.position
 @onready var cat_idle_walk_timer = $CatIdleWalkTimer
 
-var idle_goal = Vector2.ZERO
+@onready var idle_goal = cat_node.position
 
 func idle_process(delta):
 	cat_node.position = cat_node.position.move_toward(idle_goal, cat_speed*16*delta)
@@ -187,6 +184,8 @@ func _ready():
 	new_stat("thirst", $Thirst, $Water, null, drink, fill_water_bowl)
 	new_stat("fun", $Fun)
 	new_stat("human_tolerance", $"Human Tolerance")
+	new_stat("awakeness", $Awakeness, $Bed, null, null, null, 64, 10)
+	new_stat("cleanliness", $Cleanliness)
 	
 	$StatTickTimer.wait_time = 3/stats.size()
 	
@@ -208,6 +207,10 @@ func drink():
 	nodeof("thirst").texture = empty_bowl_tex
 	change_value("thirst", 8)
 	set_useable("thirst", false)
+
+
+func sleep():
+	set_value("awakeness", 64)
 
 
 func fill_food_bowl():
@@ -241,9 +244,7 @@ func pet():
 # Random meowing
 func _on_meow_timer_timeout():
 	meow_node.play()
-	meow_timer_node.start(randf_range(3,9))
-
-
+	meow_timer_node.start(randf_range(10,25))
 func _on_leave_button_pressed():
 		get_node("/root").add_child(load("res://scenes/room.tscn").instantiate())
 		get_node("/root/Room/M").position = Vector2(120, 356)
