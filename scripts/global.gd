@@ -29,6 +29,8 @@ func _ready():
 	
 	config.set_value("misc", "times_opened", times_opened)
 	config.save(configpath)
+	
+	if OS.is_debug_build(): DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 
 
 func _process(_delta):
