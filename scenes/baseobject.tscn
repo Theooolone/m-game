@@ -4,8 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://d3r4gwc2jvqfr" path="res://scenes/text_interact_area.tscn" id="3_wxir7"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i65uw"]
-radius = 6.0
-height = 16.0
+radius = 2.0
+height = 10.0
 
 [node name="Object" type="StaticBody2D"]
 
