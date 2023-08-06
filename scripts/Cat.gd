@@ -107,13 +107,16 @@ func refill_stat(stat):
 
 func debug(lowest_useable_stat):
 	var stat_goal_text = stat_goal if stat_goal else "Null"
-	var lowest_useable_stat_text = str(0.1875*get_value(lowest_useable_stat)-4) if lowest_useable_stat else "Null"
+	var lowest_useable_stat_text = str(0.1875*get_value(lowest_useable_stat)-4) \
+		if lowest_useable_stat else "Null"
 	
 	$Label.text = State.keys()[current_state] \
 		+ "\n" + stat_goal_text \
-		+ "\n" + str(round(10*(8-random_refill_timer_node.time_left))/10) \
+		+ "\n" + str(0.1*round(10*(8-random_refill_timer_node.time_left))) \
 		+ "\n" + lowest_useable_stat_text \
-		+ "\n" + str(seconds_elapsed)
+		+ "\n" + str(seconds_elapsed) \
+		+ "\n" + str(0.001*round(1000*(160/(seconds_elapsed+70))))
+		
 	
 	if Input.is_action_just_pressed("debug_menu"):
 		if not $Label.visible:
@@ -289,3 +292,13 @@ func _on_stat_tick_timer_timeout():
 			and get_value(lowest_useable_stat) <= 32
 	):
 		refill_stat(lowest_useable_stat)
+
+@onready var camera_move_anim = $CameraMove
+
+func _on_other_menu_button_pressed():
+	camera_move_anim.play("CameraMoveAnim")
+
+
+func _on_back_button_pressed():
+	camera_move_anim.play("CameraMoveBack")
+	

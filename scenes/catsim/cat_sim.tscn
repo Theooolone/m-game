@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://coy8ycn8wwfvl"]
+[gd_scene load_steps=25 format=3 uid="uid://coy8ycn8wwfvl"]
 
 [ext_resource type="Script" path="res://scripts/Cat.gd" id="1_jus8a"]
 [ext_resource type="TileSet" uid="uid://jidy50o2532o" path="res://resources/room.tres" id="2_yp0iu"]
@@ -48,6 +48,106 @@ stream_2/weight = 1.0
 LineEdit/font_sizes/font_size = 5
 LineEdit/fonts/font = ExtResource("13_breyg")
 
+[sub_resource type="Animation" id="Animation_vhnkx"]
+resource_name = "CameraMoveAnim"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-32, -136)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [0.0, -0.139626]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Camera2D:zoom")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(8, 8), Vector2(6, 6)]
+}
+
+[sub_resource type="Animation" id="Animation_r7vsj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_dh3ey"]
+resource_name = "CameraMoveBack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(-32, -136), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [-0.139626, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Camera2D:zoom")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(6, 6), Vector2(8, 8)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ks0lk"]
+_data = {
+"CameraMoveAnim": SubResource("Animation_vhnkx"),
+"CameraMoveBack": SubResource("Animation_dh3ey"),
+"RESET": SubResource("Animation_r7vsj")
+}
+
 [node name="CatSim" type="Node2D"]
 script = ExtResource("1_jus8a")
 
@@ -59,6 +159,7 @@ layer_0/name = "Background"
 layer_0/tile_data = PackedInt32Array(-196615, 65536, 2, -131079, 65536, 2, -65543, 65536, 2, -7, 65536, 2, 65529, 65536, 2, 131065, 65536, 2, -196614, 65536, 2, -131078, 65536, 2, -65542, 65536, 2, -6, 65536, 2, 65530, 65536, 2, 131066, 65536, 2, -196613, 65536, 2, -131077, 65536, 2, -65541, 65536, 2, -5, 65536, 2, 65531, 65536, 2, 131067, 65536, 2, -196612, 65536, 2, -131076, 65536, 2, -65540, 65536, 2, -4, 65536, 2, 65532, 65536, 2, 131068, 65536, 2, -196611, 65536, 2, -131075, 65536, 2, -65539, 65536, 2, -3, 65536, 2, 65533, 65536, 2, 131069, 65536, 2, -196610, 65536, 2, -131074, 65536, 2, -65538, 65536, 2, -2, 65536, 2, 65534, 65536, 2, 131070, 65536, 2, -262151, 65536, 1, -262150, 262144, 3, -262149, 262144, 1, -262148, 65536, 1, -262147, 196608, 3, -262146, 65536, 1, -262152, 0, 1, -196616, 0, 2, -131080, 0, 2, -65544, 0, 2, -8, 0, 2, 65528, 0, 2, 131064, 0, 2, -262145, 262144, 3, -196609, 65536, 2, -131073, 65536, 2, -65537, 65536, 2, -1, 65536, 2, 65535, 65536, 2, 131071, 65536, 2, -327687, 65536, 0, -327686, 262144, 2, -327684, 65536, 0, -327683, 196608, 2, -327682, 65536, 0, -327681, 262144, 2, -327688, 0, 0, -327685, 262144, 0, -393216, 458752, 0, -327680, 458752, 1, -262144, 65536, 2, -196608, 65536, 2, -131072, 65536, 2, -65536, 65536, 2, 0, 65536, 2, 65536, 65536, 2, -393215, 65536, 0, -327679, 65536, 1, -262143, 65536, 2, -196607, 65536, 2, -131071, 65536, 2, -65535, 65536, 2, 1, 65536, 2, 65537, 65536, 2, -393214, 131072, 0, -327678, 131072, 1, -262142, 131072, 2, -196606, 131072, 2, -131070, 131072, 2, -65534, 131072, 2, 2, 131072, 2, 65538, 131072, 2, 196600, 0, 3, 196601, 65536, 3, 196602, 65536, 3, 196603, 65536, 3, 196604, 65536, 3, 196605, 65536, 3, 196606, 65536, 3, 196607, 65536, 3, 131072, 65536, 3, 131073, 65536, 3, 131074, 131072, 3)
 
 [node name="Camera2D" type="Camera2D" parent="."]
+ignore_rotation = false
 zoom = Vector2(8, 8)
 
 [node name="Food" parent="." instance=ExtResource("4_t11mk")]
@@ -181,20 +282,76 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_lock_ = true
 
-[node name="LineEdit" type="LineEdit" parent="."]
-offset_left = -39.0
+[node name="OtherMenuButton" type="Button" parent="."]
+offset_left = -36.0
 offset_top = 40.0
-offset_right = 65.0
+offset_right = 108.0
 offset_bottom = 60.0
+
+[node name="Label" type="Label" parent="OtherMenuButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Unnamed Important Menu"
+label_settings = ExtResource("10_qs8rk")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="ExtraMenus" type="Node2D" parent="."]
+position = Vector2(-32, -136)
+rotation = -0.139626
+
+[node name="CameraGuide" type="Camera2D" parent="ExtraMenus"]
+ignore_rotation = false
+enabled = false
+zoom = Vector2(6, 6)
+metadata/_edit_lock_ = true
+
+[node name="LineEdit" type="LineEdit" parent="ExtraMenus"]
+offset_left = -155.0
+offset_top = -85.0
+offset_right = -51.0
+offset_bottom = -65.0
 theme = SubResource("Theme_35v54")
 placeholder_text = "Cat Name"
 alignment = 1
 max_length = 16
+
+[node name="BackButton" type="Button" parent="ExtraMenus"]
+offset_left = 93.0
+offset_top = -87.0
+offset_right = 157.0
+offset_bottom = -67.0
+
+[node name="Label" type="Label" parent="ExtraMenus/BackButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Back
+"
+label_settings = ExtResource("10_qs8rk")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="CameraMove" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ks0lk")
+}
 
 [connection signal="timeout" from="StatTickTimer" to="." method="_on_stat_tick_timer_timeout"]
 [connection signal="timeout" from="CatIdleWalkTimer" to="." method="_on_cat_idle_walk_timeout"]
 [connection signal="timeout" from="MeowTimer" to="." method="_on_meow_timer_timeout"]
 [connection signal="timeout" from="UseDurationTimer" to="." method="_on_use_duration_timer_timeout"]
 [connection signal="pressed" from="LeaveButton" to="." method="_on_leave_button_pressed"]
+[connection signal="pressed" from="OtherMenuButton" to="." method="_on_other_menu_button_pressed"]
+[connection signal="pressed" from="ExtraMenus/BackButton" to="." method="_on_back_button_pressed"]
 
 [editable path="Human Tolerance"]
