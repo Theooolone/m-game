@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://coy8ycn8wwfvl"]
+[gd_scene load_steps=26 format=3 uid="uid://coy8ycn8wwfvl"]
 
 [ext_resource type="Script" path="res://scripts/Cat.gd" id="1_jus8a"]
 [ext_resource type="TileSet" uid="uid://jidy50o2532o" path="res://resources/room.tres" id="2_yp0iu"]
@@ -13,6 +13,7 @@
 [ext_resource type="LabelSettings" uid="uid://dguaiif1dpkwk" path="res://resources/5px.tres" id="10_qs8rk"]
 [ext_resource type="FontFile" uid="uid://d0bw2pjoup6pc" path="res://assets/fonts/5px.ttf" id="13_breyg"]
 [ext_resource type="PackedScene" uid="uid://bkriai8twr63d" path="res://scenes/catsim/cat.tscn" id="13_yrtix"]
+[ext_resource type="Texture2D" uid="uid://dr327yyh30yl7" path="res://assets/textures/missing.png" id="14_of604"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8seon"]
 shader = ExtResource("5_8pllu")
@@ -198,29 +199,29 @@ autostart = true
 [node name="Hunger" parent="." instance=ExtResource("4_kofum")]
 material = SubResource("ShaderMaterial_8seon")
 offset_left = 50.0
-offset_top = -59.0
+offset_top = -60.0
 offset_right = 114.0
-offset_bottom = -51.0
+offset_bottom = -52.0
 
 [node name="Thirst" parent="." instance=ExtResource("4_kofum")]
 material = SubResource("ShaderMaterial_k78kn")
 offset_left = 50.0
-offset_top = -43.0
+offset_top = -44.0
 offset_right = 114.0
-offset_bottom = -35.0
+offset_bottom = -36.0
 
 [node name="Fun" parent="." instance=ExtResource("4_kofum")]
 material = SubResource("ShaderMaterial_i57ft")
 offset_left = 50.0
-offset_top = -27.0
+offset_top = -28.0
 offset_right = 114.0
-offset_bottom = -19.0
+offset_bottom = -20.0
 
 [node name="Human Tolerance" parent="." instance=ExtResource("4_kofum")]
 offset_left = 50.0
-offset_top = -11.0
+offset_top = -12.0
 offset_right = 114.0
-offset_bottom = -3.0
+offset_bottom = -4.0
 
 [node name="Label" parent="Human Tolerance" index="0"]
 offset_left = -8.0
@@ -230,16 +231,16 @@ scale = Vector2(0.64, 1)
 [node name="Awakeness" parent="." instance=ExtResource("4_kofum")]
 material = SubResource("ShaderMaterial_3ssys")
 offset_left = 50.0
-offset_top = 5.0
+offset_top = 4.0
 offset_right = 114.0
-offset_bottom = 13.0
+offset_bottom = 12.0
 
 [node name="Cleanliness" parent="." instance=ExtResource("4_kofum")]
 material = SubResource("ShaderMaterial_cedye")
 offset_left = 50.0
-offset_top = 21.0
+offset_top = 20.0
 offset_right = 114.0
-offset_bottom = 29.0
+offset_bottom = 28.0
 
 [node name="MinIdleRange" type="Marker2D" parent="."]
 position = Vector2(-86, -39)
@@ -263,9 +264,9 @@ text = "Debug"
 label_settings = ExtResource("10_qs8rk")
 
 [node name="LeaveButton" type="Button" parent="."]
-offset_left = -108.0
+offset_left = -112.0
 offset_top = 40.0
-offset_right = -47.0
+offset_right = -51.0
 offset_bottom = 60.0
 
 [node name="Label" type="Label" parent="LeaveButton"]
@@ -282,9 +283,9 @@ vertical_alignment = 1
 metadata/_edit_lock_ = true
 
 [node name="OtherMenuButton" type="Button" parent="."]
-offset_left = -36.0
+offset_left = 16.0
 offset_top = 40.0
-offset_right = 108.0
+offset_right = 112.0
 offset_bottom = 60.0
 
 [node name="Label" type="Label" parent="OtherMenuButton"]
@@ -294,7 +295,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Unnamed Important Menu"
+text = "Other Menu"
 label_settings = ExtResource("10_qs8rk")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -344,6 +345,10 @@ metadata/_edit_lock_ = true
 libraries = {
 "": SubResource("AnimationLibrary_ks0lk")
 }
+
+[node name="ShowerHead" type="Sprite2D" parent="."]
+position = Vector2(0, 50)
+texture = ExtResource("14_of604")
 
 [connection signal="timeout" from="StatTickTimer" to="." method="_on_stat_tick_timer_timeout"]
 [connection signal="timeout" from="CatIdleWalkTimer" to="." method="_on_cat_idle_walk_timeout"]
