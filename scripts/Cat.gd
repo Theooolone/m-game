@@ -110,19 +110,18 @@ func debug(lowest_useable_stat):
 	var lowest_useable_stat_text = str(0.1875*get_value(lowest_useable_stat)-4) \
 		if lowest_useable_stat else "Null"
 	
-	$Label.text = State.keys()[current_state] \
+	$Debug.text = State.keys()[current_state] \
 		+ "\n" + stat_goal_text \
 		+ "\n" + str(0.1*round(10*(8-random_refill_timer_node.time_left))) \
 		+ "\n" + lowest_useable_stat_text \
 		+ "\n" + str(seconds_elapsed) \
 		+ "\n" + str(0.001*round(1000*(160/(seconds_elapsed+70))))
-		
 	
 	if Input.is_action_just_pressed("debug_menu"):
-		if not $Label.visible:
-			$Label.show()
+		if not $Debug.visible:
+			$Debug.show()
 		else:
-			$Label.hide()
+			$Debug.hide()
 
 @onready var min_idle_range = $MinIdleRange.position
 @onready var max_idle_range = $MaxIdleRange.position
@@ -130,8 +129,17 @@ func debug(lowest_useable_stat):
 
 @onready var idle_goal = cat_node.position
 
+func move_towards(pos, delta):
+	if cat_node.position != pos:
+		if (pos - cat_node.position).x > 0:
+			cat_node.scale = Vector2(-1,1)
+		else:
+			cat_node.scale = Vector2(1,1)
+	cat_node.position = cat_node.position.move_toward(pos, cat_speed*16*delta)
+	return cat_node.position == pos
+
 func idle_process(delta):
-	cat_node.position = cat_node.position.move_toward(idle_goal, cat_speed*16*delta)
+	move_towards(idle_goal, delta)
 
 
 func _on_cat_idle_walk_timeout():
@@ -143,9 +151,8 @@ func _on_cat_idle_walk_timeout():
 @onready var use_duration_timer_node = $UseDurationTimer
 
 func walking_process(delta):
-	var newpos = stats[stat_goal]["object_node"].position
-	cat_node.position = cat_node.position.move_toward(newpos, cat_speed*16*delta)
-	if cat_node.position == newpos:
+	# Returns true when at destination
+	if move_towards(stats[stat_goal]["object_node"].position, delta):
 		use_duration_timer_node.start(stats[stat_goal]["use_time"])
 		if stats[stat_goal]["start_use_func"]:
 			stats[stat_goal]["start_use_func"].call()
@@ -193,6 +200,7 @@ func _process(delta):
 			random_refill_timer_node.stop()
 			refill_stat(lowest_useable_stat)
 	
+	
 	debug(get_lowest_valued_useable_stat())
 
 
@@ -209,7 +217,8 @@ func _ready():
 	new_stat("awakeness", $Awakeness, $Bed, null, sleep, null, 64, 10)
 	new_stat("cleanliness", $Cleanliness)
 	
-	
+	if OS.is_debug_build():
+		$Debug.show()
 	
 	$Cat/Button.button_down.connect(pet)
 
@@ -301,4 +310,3 @@ func _on_other_menu_button_pressed():
 
 func _on_back_button_pressed():
 	camera_move_anim.play("CameraMoveBack")
-	

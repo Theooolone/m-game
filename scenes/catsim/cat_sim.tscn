@@ -11,8 +11,8 @@
 [ext_resource type="AudioStream" uid="uid://bw25r5o33y8ol" path="res://assets/sounds/meow2.wav" id="8_0r8g4"]
 [ext_resource type="AudioStream" uid="uid://c5bmkp0gf01bh" path="res://assets/sounds/meow3.wav" id="9_yl3ha"]
 [ext_resource type="LabelSettings" uid="uid://dguaiif1dpkwk" path="res://resources/5px.tres" id="10_qs8rk"]
-[ext_resource type="Texture2D" uid="uid://427jkl1tb851" path="res://assets/textures/alerts/question_mark.png" id="12_bfw1o"]
 [ext_resource type="FontFile" uid="uid://d0bw2pjoup6pc" path="res://assets/fonts/5px.ttf" id="13_breyg"]
+[ext_resource type="PackedScene" uid="uid://bkriai8twr63d" path="res://scenes/catsim/cat.tscn" id="13_yrtix"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8seon"]
 shader = ExtResource("5_8pllu")
@@ -58,7 +58,7 @@ tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(0.5, 1),
+"transitions": PackedFloat32Array(0.25, 1),
 "update": 0,
 "values": [Vector2(0, 0), Vector2(-32, -136)]
 }
@@ -70,7 +70,7 @@ tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(0.5, 1),
+"transitions": PackedFloat32Array(0.25, 1),
 "update": 0,
 "values": [0.0, -0.139626]
 }
@@ -82,9 +82,48 @@ tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(0.5, 1),
+"transitions": PackedFloat32Array(0.25, 1),
 "update": 0,
 "values": [Vector2(8, 8), Vector2(6, 6)]
+}
+
+[sub_resource type="Animation" id="Animation_dh3ey"]
+resource_name = "CameraMoveBack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.25, 1),
+"update": 0,
+"values": [Vector2(-32, -136), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.25, 1),
+"update": 0,
+"values": [-0.139626, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Camera2D:zoom")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.25, 1),
+"update": 0,
+"values": [Vector2(6, 6), Vector2(8, 8)]
 }
 
 [sub_resource type="Animation" id="Animation_r7vsj"]
@@ -100,45 +139,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_dh3ey"]
-resource_name = "CameraMoveBack"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Camera2D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(0.5, 1),
-"update": 0,
-"values": [Vector2(-32, -136), Vector2(0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Camera2D:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(0.5, 1),
-"update": 0,
-"values": [-0.139626, 0.0]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Camera2D:zoom")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(0.5, 1),
-"update": 0,
-"values": [Vector2(6, 6), Vector2(8, 8)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ks0lk"]
@@ -173,6 +173,9 @@ texture = ExtResource("5_l5bcd")
 [node name="Bed" parent="." instance=ExtResource("4_t11mk")]
 position = Vector2(28, 23)
 
+[node name="Cat" parent="." instance=ExtResource("13_yrtix")]
+position = Vector2(-25, -19)
+
 [node name="StatTickTimer" type="Timer" parent="."]
 autostart = true
 
@@ -191,10 +194,6 @@ one_shot = true
 wait_time = 8.0
 one_shot = true
 autostart = true
-
-[node name="Cat" parent="." instance=ExtResource("4_t11mk")]
-position = Vector2(-32, -16)
-texture = ExtResource("12_bfw1o")
 
 [node name="Hunger" parent="." instance=ExtResource("4_kofum")]
 material = SubResource("ShaderMaterial_8seon")
@@ -254,7 +253,7 @@ max_distance = 1000.0
 max_polyphony = 2
 bus = &"Ambient"
 
-[node name="Label" type="Label" parent="."]
+[node name="Debug" type="Label" parent="."]
 visible = false
 offset_left = -102.0
 offset_top = -63.0
