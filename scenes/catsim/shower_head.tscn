@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://3dihg5lpayrh"]
+
+[ext_resource type="Texture2D" uid="uid://dr327yyh30yl7" path="res://assets/textures/missing.png" id="1_q1oto"]
+[ext_resource type="Script" path="res://scripts/shower_head.gd" id="2_2j7ly"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jfaw8"]
+size = Vector2(16, 16)
+
+[node name="ShowerHead" type="Sprite2D"]
+texture = ExtResource("1_q1oto")
+script = ExtResource("2_2j7ly")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_jfaw8")
+
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

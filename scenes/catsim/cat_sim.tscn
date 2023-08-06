@@ -13,7 +13,7 @@
 [ext_resource type="LabelSettings" uid="uid://dguaiif1dpkwk" path="res://resources/5px.tres" id="10_qs8rk"]
 [ext_resource type="FontFile" uid="uid://d0bw2pjoup6pc" path="res://assets/fonts/5px.ttf" id="13_breyg"]
 [ext_resource type="PackedScene" uid="uid://bkriai8twr63d" path="res://scenes/catsim/cat.tscn" id="13_yrtix"]
-[ext_resource type="Texture2D" uid="uid://dr327yyh30yl7" path="res://assets/textures/missing.png" id="14_of604"]
+[ext_resource type="PackedScene" uid="uid://3dihg5lpayrh" path="res://scenes/catsim/shower_head.tscn" id="14_4kprh"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8seon"]
 shader = ExtResource("5_8pllu")
@@ -346,9 +346,8 @@ libraries = {
 "": SubResource("AnimationLibrary_ks0lk")
 }
 
-[node name="ShowerHead" type="Sprite2D" parent="."]
+[node name="ShowerHead" parent="." instance=ExtResource("14_4kprh")]
 position = Vector2(0, 50)
-texture = ExtResource("14_of604")
 
 [connection signal="timeout" from="StatTickTimer" to="." method="_on_stat_tick_timer_timeout"]
 [connection signal="timeout" from="CatIdleWalkTimer" to="." method="_on_cat_idle_walk_timeout"]
