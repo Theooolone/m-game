@@ -35,8 +35,13 @@ func new_stat(
 func set_useable(stat, value: bool) -> void:
 	stats[stat]["useable"] = value
 
+
 func get_value(stat) -> int:
 	return stats[stat]["value"]
+
+
+func get_obj_node(stat) -> Node2D:
+	return stats[stat]["object_node"]
 
 
 func set_value(stat, value) -> void:
@@ -80,6 +85,8 @@ func get_lowest_valued_useable_stat():
 
 # Cat AI
 
+var sleeping = false
+
 @onready var cat_node = $Cat
 
 enum State {
@@ -96,7 +103,7 @@ func change_state(new_state: State):
 
 var stat_goal
 
-@export var cat_speed = 1.5
+var cat_speed = 2.25
 
 func refill_stat(stat):
 	if not (stats[stat]["object_node"] and stats[stat]["useable"]):
@@ -115,13 +122,14 @@ func debug(lowest_useable_stat):
 		+ "\n" + str(0.1*round(10*(8-random_refill_timer_node.time_left))) \
 		+ "\n" + lowest_useable_stat_text \
 		+ "\n" + str(seconds_elapsed) \
-		+ "\n" + str(0.001*round(1000*(160/(seconds_elapsed+70))))
+		+ "\n" + str(0.001*round(1000*($StatTickTimer.wait_time)))
 	
 	if Input.is_action_just_pressed("debug_menu"):
 		if not $Debug.visible:
 			$Debug.show()
 		else:
 			$Debug.hide()
+
 
 @onready var min_idle_range = $MinIdleRange.position
 @onready var max_idle_range = $MaxIdleRange.position
@@ -150,9 +158,10 @@ func _on_cat_idle_walk_timeout():
 
 @onready var use_duration_timer_node = $UseDurationTimer
 
+
 func walking_process(delta):
 	# Returns true when at destination
-	if move_towards(stats[stat_goal]["object_node"].position, delta):
+	if move_towards(get_obj_node(stat_goal).position, delta):
 		use_duration_timer_node.start(stats[stat_goal]["use_time"])
 		if stats[stat_goal]["start_use_func"]:
 			stats[stat_goal]["start_use_func"].call()
@@ -185,7 +194,9 @@ func _process(delta):
 	#	State.USING:
 	#		using_process(delta)
 	
-	$StatTickTimer.wait_time = 160/(seconds_elapsed+70) * 1/stats.size()
+	
+	var sleeping_multiplier = 2 if sleeping else 1
+	$StatTickTimer.wait_time = 320/(seconds_elapsed+70) * 1/stats.size() * sleeping_multiplier
 	
 	if current_state == State.IDLE:
 		# Cat will look for valid objects to use more often the lower the lowest stat is
@@ -214,7 +225,7 @@ func _ready():
 	new_stat("thirst", $Thirst, $Water, null, drink, fill_water_bowl)
 	new_stat("fun", $Fun)
 	new_stat("human_tolerance", $"Human Tolerance")
-	new_stat("awakeness", $Awakeness, $Bed, null, sleep, null, 64, 10)
+	new_stat("awakeness", $Awakeness, $Bed, sleep_start, sleep, null, 64, 10)
 	new_stat("cleanliness", $Cleanliness)
 	
 	if OS.is_debug_build():
@@ -239,9 +250,13 @@ func drink():
 	change_value("thirst", 8)
 	set_useable("thirst", false)
 
+func sleep_start():
+	sleeping = true
 
 func sleep():
 	set_value("awakeness", 64)
+	sleeping = false
+	change_value("human_tolerance", 12)
 
 
 func fill_food_bowl():
@@ -284,11 +299,16 @@ func _on_leave_button_pressed():
 
 func _on_stat_tick_timer_timeout():
 	var stat_changed = stats.keys().pick_random()
-	if stat_changed == "human_tolerance":
-		change_value(stat_changed, 1)
-	else:
-		change_value(stat_changed, -1)
-		
+	match stat_changed:
+		"human_tolerance":
+			change_value(stat_changed, 1)
+		"awakeness":
+			if not sleeping:
+				change_value(stat_changed, -1)
+		_:
+			change_value(stat_changed, -1)
+	
+	
 	for stat in stats.keys():
 		if get_value(stat) <= 0:
 			# Fail, with stat being the specific stat that caused the loss.
