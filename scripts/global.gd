@@ -24,6 +24,8 @@ var autosave_timer = Timer.new()
 var times_opened
 
 func _ready():
+	get_tree().set_auto_accept_quit(false)
+	
 	times_opened = change_config_value("misc", "times_opened", 1, 0, true)
 	
 	add_child(autosave_timer)
@@ -32,10 +34,9 @@ func _ready():
 	autosave_timer.wait_time = 5*60 # 5 Minutes
 	autosave_timer.start()
 	
-	if get_node("/root/Main"):
-		main_node = get_node("/root/Main")
-		if main_node.get_node("Room"):
-			scene_node = main_node.get_node("Room")
+	main_node = get_node_or_null("/root/Main")
+	if main_node:
+		scene_node = main_node.get_node_or_null("Room")
 	
 	if OS.is_debug_build(): DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 
@@ -66,17 +67,27 @@ func save_config():
 	config.save(configpath)
 	print("Config Saved...")
 
+
+func _notification(what):
+	if what == NOTIFICATION_WM_CLOSE_REQUEST:
+		quit()
+
+
+func quit():
+	save_config()
+	get_tree().quit()
+
+
 func _process(_delta):
-	
 	if Input.is_action_just_pressed("exit"):
-		save_config()
-		get_tree().quit()
+		quit()
 	
 	if Input.is_action_just_pressed("toggle_fullscreen"):
 		if get_window().mode == DisplayServer.WINDOW_MODE_FULLSCREEN:
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 		else:
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+
 
 func change_scene(scene_path, music_path = null):
 	if not main_node: return
