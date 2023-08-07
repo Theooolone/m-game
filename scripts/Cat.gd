@@ -5,6 +5,7 @@ extends Node2D
 
 var stats = {}
 
+var score = 0
 
 func new_stat(
 		statname: String, # Identification
@@ -43,14 +44,28 @@ func get_value(stat) -> int:
 func get_obj_node(stat) -> Node2D:
 	return stats[stat]["object_node"]
 
+@onready var score_text_node = $Score
+@onready var highscore_text_node = $Highscore
 
-func set_value(stat, value) -> void:
+func change_score(value):
+	var highscore = Global.get_config_value("cat_sim", "highscore", 0)
+	score += value
+	score_text_node.text = str(10*score)
+	if score > highscore:
+		Global.set_config_value("cat_sim", "highscore", score)
+		highscore_text_node.text = str(10*score)
+
+
+func set_value(stat, value, add_score = true) -> void:
+	if add_score:
+		change_score(max(0, clamp(value, 0, 64)-stats[stat]["value"]))
 	stats[stat]["value"] = clamp(value, 0, 64)
 	update_bar(stat)
 
 
-func change_value(stat, value) -> void:
-	set_value(stat, get_value(stat)+value)
+func change_value(stat, value, add_score = true) -> void:
+	set_value(stat, get_value(stat)+value, add_score)
+	
 
 
 func update_bar(stat):
@@ -136,6 +151,7 @@ func debug(lowest_useable_stat):
 		+ "\nElapsed Time: " + str(seconds_elapsed) \
 		+ "\nStat Tick Time: " + str(0.001*round(1000*($StatTickTimer.wait_time)))
 	
+	
 	if Input.is_action_just_pressed("debug_menu"):
 		if not $Debug.visible:
 			$Debug.show()
@@ -173,7 +189,6 @@ func _on_cat_idle_walk_timeout():
 
 
 @onready var shower_detection_node = $Cat/ShowerDetection
-@onready var cat_running_timer_node = $CatRunningTimer
 @onready var shower_cooldown_timer = $ShowerCooldownTimer
 @onready var shower_tick_timer = $ShowerTickTimer
 
@@ -287,6 +302,7 @@ func _ready():
 	new_stat("awakeness", $Awakeness, $Bed, sleep_start, sleep, null, 64, 10)
 	new_stat("cleanliness", $Cleanliness)
 	
+	highscore_text_node.text = str(10*Global.get_config_value("cat_sim", "highscore", 0))
 	
 	if OS.is_debug_build():
 		$Debug.show()
@@ -367,7 +383,7 @@ func _on_stat_tick_timer_timeout():
 	var stat_changed = stats.keys().pick_random()
 	match stat_changed:
 		"human_tolerance":
-			change_value(stat_changed, 1)
+			change_value(stat_changed, 1, false)
 		"awakeness":
 			if not sleeping:
 				change_value(stat_changed, -1)

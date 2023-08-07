@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://coy8ycn8wwfvl"]
+[gd_scene load_steps=29 format=3 uid="uid://coy8ycn8wwfvl"]
 
 [ext_resource type="Script" path="res://scripts/Cat.gd" id="1_jus8a"]
 [ext_resource type="TileSet" uid="uid://jidy50o2532o" path="res://resources/room.tres" id="2_yp0iu"]
@@ -14,6 +14,7 @@
 [ext_resource type="FontFile" uid="uid://d0bw2pjoup6pc" path="res://assets/fonts/5px.ttf" id="13_breyg"]
 [ext_resource type="PackedScene" uid="uid://bkriai8twr63d" path="res://scenes/catsim/cat.tscn" id="13_yrtix"]
 [ext_resource type="PackedScene" uid="uid://3dihg5lpayrh" path="res://scenes/catsim/shower_head.tscn" id="14_4kprh"]
+[ext_resource type="Texture2D" uid="uid://ecnm3gx6u58x" path="res://assets/textures/catsim/shower_head.png" id="14_fl870"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8seon"]
 shader = ExtResource("5_8pllu")
@@ -44,10 +45,6 @@ stream_1/stream = ExtResource("8_0r8g4")
 stream_1/weight = 1.0
 stream_2/stream = ExtResource("9_yl3ha")
 stream_2/weight = 1.0
-
-[sub_resource type="LabelSettings" id="LabelSettings_wcvt4"]
-outline_size = 8
-outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="Theme" id="Theme_35v54"]
 LineEdit/font_sizes/font_size = 5
@@ -152,6 +149,16 @@ _data = {
 "CameraMoveBack": SubResource("Animation_dh3ey"),
 "RESET": SubResource("Animation_r7vsj")
 }
+
+[sub_resource type="LabelSettings" id="LabelSettings_41ryy"]
+line_spacing = -1.0
+font = ExtResource("13_breyg")
+font_size = 5
+font_color = Color(0, 0, 0, 0.376471)
+
+[sub_resource type="LabelSettings" id="LabelSettings_wcvt4"]
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
 
 [node name="CatSim" type="Node2D"]
 script = ExtResource("1_jus8a")
@@ -265,16 +272,6 @@ max_distance = 1000.0
 max_polyphony = 2
 bus = &"Ambient"
 
-[node name="Debug" type="Label" parent="."]
-visible = false
-offset_left = -102.0
-offset_top = -63.0
-offset_right = -72.0
-offset_bottom = 21.0
-scale = Vector2(0.25, 0.25)
-text = "Debug"
-label_settings = SubResource("LabelSettings_wcvt4")
-
 [node name="LeaveButton" type="Button" parent="."]
 offset_left = -112.0
 offset_top = 40.0
@@ -358,8 +355,40 @@ libraries = {
 "": SubResource("AnimationLibrary_ks0lk")
 }
 
+[node name="ShowerHeadShadow" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 0.25098)
+position = Vector2(-4, 49)
+texture = ExtResource("14_fl870")
+
 [node name="ShowerHead" parent="." instance=ExtResource("14_4kprh")]
-position = Vector2(0, 50)
+position = Vector2(0, 52)
+
+[node name="Score" type="Label" parent="."]
+offset_left = -102.0
+offset_top = -63.0
+offset_right = -56.0
+offset_bottom = -56.0
+text = "0"
+label_settings = ExtResource("10_qs8rk")
+
+[node name="Highscore" type="Label" parent="."]
+offset_left = -7.0
+offset_top = -63.0
+offset_right = 39.0
+offset_bottom = -56.0
+text = "0"
+label_settings = SubResource("LabelSettings_41ryy")
+horizontal_alignment = 2
+
+[node name="Debug" type="Label" parent="."]
+visible = false
+offset_left = -102.0
+offset_top = -49.0
+offset_right = -52.0
+offset_bottom = 35.0
+scale = Vector2(0.25, 0.25)
+text = "Debug"
+label_settings = SubResource("LabelSettings_wcvt4")
 
 [connection signal="timeout" from="StatTickTimer" to="." method="_on_stat_tick_timer_timeout"]
 [connection signal="timeout" from="ShowerTickTimer" to="." method="_on_shower_tick_timeout"]
