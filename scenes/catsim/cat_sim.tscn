@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://coy8ycn8wwfvl"]
+[gd_scene load_steps=27 format=3 uid="uid://coy8ycn8wwfvl"]
 
 [ext_resource type="Script" path="res://scripts/Cat.gd" id="1_jus8a"]
 [ext_resource type="TileSet" uid="uid://jidy50o2532o" path="res://resources/room.tres" id="2_yp0iu"]
@@ -44,6 +44,10 @@ stream_1/stream = ExtResource("8_0r8g4")
 stream_1/weight = 1.0
 stream_2/stream = ExtResource("9_yl3ha")
 stream_2/weight = 1.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_wcvt4"]
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="Theme" id="Theme_35v54"]
 LineEdit/font_sizes/font_size = 5
@@ -180,6 +184,9 @@ position = Vector2(-25, -19)
 [node name="StatTickTimer" type="Timer" parent="."]
 autostart = true
 
+[node name="ShowerTickTimer" type="Timer" parent="."]
+wait_time = 0.1
+
 [node name="CatIdleWalkTimer" type="Timer" parent="."]
 one_shot = true
 autostart = true
@@ -195,6 +202,10 @@ one_shot = true
 wait_time = 8.0
 one_shot = true
 autostart = true
+
+[node name="ShowerCooldownTimer" type="Timer" parent="."]
+wait_time = 3.5
+one_shot = true
 
 [node name="Hunger" parent="." instance=ExtResource("4_kofum")]
 material = SubResource("ShaderMaterial_8seon")
@@ -260,8 +271,9 @@ offset_left = -102.0
 offset_top = -63.0
 offset_right = -72.0
 offset_bottom = 21.0
+scale = Vector2(0.25, 0.25)
 text = "Debug"
-label_settings = ExtResource("10_qs8rk")
+label_settings = SubResource("LabelSettings_wcvt4")
 
 [node name="LeaveButton" type="Button" parent="."]
 offset_left = -112.0
@@ -350,9 +362,11 @@ libraries = {
 position = Vector2(0, 50)
 
 [connection signal="timeout" from="StatTickTimer" to="." method="_on_stat_tick_timer_timeout"]
+[connection signal="timeout" from="ShowerTickTimer" to="." method="_on_shower_tick_timeout"]
 [connection signal="timeout" from="CatIdleWalkTimer" to="." method="_on_cat_idle_walk_timeout"]
 [connection signal="timeout" from="MeowTimer" to="." method="_on_meow_timer_timeout"]
 [connection signal="timeout" from="UseDurationTimer" to="." method="_on_use_duration_timer_timeout"]
+[connection signal="timeout" from="ShowerCooldownTimer" to="." method="_on_shower_cooldown_timeout"]
 [connection signal="pressed" from="LeaveButton" to="." method="_on_leave_button_pressed"]
 [connection signal="pressed" from="OtherMenuButton" to="." method="_on_other_menu_button_pressed"]
 [connection signal="pressed" from="ExtraMenus/BackButton" to="." method="_on_back_button_pressed"]

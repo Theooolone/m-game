@@ -56,6 +56,7 @@ func change_value(stat, value) -> void:
 func update_bar(stat):
 	stats[stat]["bar"].value = get_value(stat)
 
+
 func nodeof(stat) -> Node:
 	return stats[stat]["object_node"]
 
@@ -85,25 +86,34 @@ func get_lowest_valued_useable_stat():
 
 # Cat AI
 
-var sleeping = false
-
 @onready var cat_node = $Cat
 
 enum State {
 	IDLE, ## Will walk around doing nothing
+	RUNNING, ## Running away from shower head
 	WALKING, ## Walking to an object
 	USING, ## Using an object
 }
 
 var current_state: State = State.IDLE
 
-func change_state(new_state: State):
+func change_state(new_state: State, force = false):
+	# Only change state if cat isn't running or force is true
+	if not (current_state != State.RUNNING or force):
+		return
+	
 	current_state = new_state
+	if new_state == State.RUNNING:
+		cat_speed = 2.5*cat_speed_base
+	else:
+		cat_speed = cat_speed_base
 
+var sleeping = false
 
 var stat_goal
 
-var cat_speed = 2.25
+var cat_speed_base = 2.25
+@onready var cat_speed = cat_speed_base
 
 func refill_stat(stat):
 	if not (stats[stat]["object_node"] and stats[stat]["useable"]):
@@ -116,13 +126,15 @@ func debug(lowest_useable_stat):
 	var stat_goal_text = stat_goal if stat_goal else "Null"
 	var lowest_useable_stat_text = str(0.1875*get_value(lowest_useable_stat)-4) \
 		if lowest_useable_stat else "Null"
+	var random_refill_text = str(0.1*round(10*(8-random_refill_timer_node.time_left))) \
+		if current_state == State.IDLE else "Null"
 	
-	$Debug.text = State.keys()[current_state] \
-		+ "\n" + stat_goal_text \
-		+ "\n" + str(0.1*round(10*(8-random_refill_timer_node.time_left))) \
-		+ "\n" + lowest_useable_stat_text \
-		+ "\n" + str(seconds_elapsed) \
-		+ "\n" + str(0.001*round(1000*($StatTickTimer.wait_time)))
+	$Debug.text = "State: " + State.keys()[current_state] \
+		+ "\nUsing: " + stat_goal_text \
+		+ "\nRandom Refill: " + random_refill_text \
+		+ "\nRandom Refill Max: " + lowest_useable_stat_text \
+		+ "\nElapsed Time: " + str(seconds_elapsed) \
+		+ "\nStat Tick Time: " + str(0.001*round(1000*($StatTickTimer.wait_time)))
 	
 	if Input.is_action_just_pressed("debug_menu"):
 		if not $Debug.visible:
@@ -135,7 +147,7 @@ func debug(lowest_useable_stat):
 @onready var max_idle_range = $MaxIdleRange.position
 @onready var cat_idle_walk_timer = $CatIdleWalkTimer
 
-@onready var idle_goal = cat_node.position
+@onready var random_goal = cat_node.position
 
 func move_towards(pos, delta):
 	if cat_node.position != pos:
@@ -147,17 +159,57 @@ func move_towards(pos, delta):
 	return cat_node.position == pos
 
 func idle_process(delta):
-	move_towards(idle_goal, delta)
+	move_towards(random_goal, delta)
 
+func move_random_goal():
+	random_goal.x = randi_range(min_idle_range.x, max_idle_range.x)
+	random_goal.y = randi_range(min_idle_range.y, max_idle_range.y)
+	cat_idle_walk_timer.start(randf_range(4,8))
 
 func _on_cat_idle_walk_timeout():
-	idle_goal.x = randi_range(min_idle_range.x, max_idle_range.x)
-	idle_goal.y = randi_range(min_idle_range.y, max_idle_range.y)
+	if current_state == State.RUNNING: return
+	move_random_goal()
 	cat_idle_walk_timer.start(randf_range(4,8))
 
 
-@onready var use_duration_timer_node = $UseDurationTimer
+@onready var shower_detection_node = $Cat/ShowerDetection
+@onready var cat_running_timer_node = $CatRunningTimer
+@onready var shower_cooldown_timer = $ShowerCooldownTimer
+@onready var shower_tick_timer = $ShowerTickTimer
 
+func running_process(delta):
+	if move_towards(random_goal, delta):
+		move_random_goal()
+
+var getting_showered = false
+
+func _on_shower_detection_area_entered(area2D):
+	if area2D.name == "ShowerHeadHitbox":
+		shower_tick_timer.start()
+		getting_showered = true
+		change_state(State.RUNNING)
+		shower_cooldown_timer.stop()
+		use_duration_timer_node.stop()
+		stat_goal = null
+
+func _on_shower_detection_area_exited(area2D):
+	if area2D.name == "ShowerHeadHitbox":
+		getting_showered = false
+		shower_cooldown_timer.start()
+		shower_tick_timer.stop()
+
+
+func _on_shower_cooldown_timeout():
+	random_refill_timer_node.start()
+	change_state(State.IDLE, true)
+
+
+func _on_shower_tick_timeout():
+	change_value("cleanliness", 1)
+	change_value("human_tolerance", -1)
+
+
+@onready var use_duration_timer_node = $UseDurationTimer
 
 func walking_process(delta):
 	# Returns true when at destination
@@ -189,11 +241,15 @@ func _process(delta):
 	match current_state:
 		State.IDLE:
 			idle_process(delta)
+		State.RUNNING:
+			running_process(delta)
 		State.WALKING:
 			walking_process(delta)
 	#	State.USING:
 	#		using_process(delta)
 	
+	if get_value(get_lowest_valued_stat()) == 0:
+		_on_leave_button_pressed()
 	
 	var sleeping_multiplier = 2 if sleeping else 1
 	$StatTickTimer.wait_time = 320/(seconds_elapsed+70) * 1/stats.size() * sleeping_multiplier
@@ -219,19 +275,29 @@ func _process(delta):
 
 func _ready():
 	
+	shower_detection_node.area_entered.connect(_on_shower_detection_area_entered)
+	shower_detection_node.area_exited.connect(_on_shower_detection_area_exited)
+	
 	msec_start = Time.get_ticks_msec()
 	
-	new_stat("hunger", $Hunger, $Food, null, eat, fill_food_bowl)
+	new_stat("hunger", $Hunger, $Food, start_eat, eat, fill_food_bowl, 64, 3)
 	new_stat("thirst", $Thirst, $Water, null, drink, fill_water_bowl)
 	new_stat("fun", $Fun)
 	new_stat("human_tolerance", $"Human Tolerance")
 	new_stat("awakeness", $Awakeness, $Bed, sleep_start, sleep, null, 64, 10)
 	new_stat("cleanliness", $Cleanliness)
 	
+	# Debug
+	refill_stat("hunger")
+	
 	if OS.is_debug_build():
 		$Debug.show()
 	
 	$Cat/Button.button_down.connect(pet)
+
+
+func start_eat():
+	change_value("human_tolerance", 20)
 
 
 var empty_bowl_tex = preload("res://assets/textures/catsim/empty_bowl.png")
@@ -291,6 +357,8 @@ func pet():
 func _on_meow_timer_timeout():
 	meow_node.play()
 	meow_timer_node.start(randf_range(10,25))
+
+
 func _on_leave_button_pressed():
 		get_node("/root").add_child(load("res://scenes/room.tscn").instantiate())
 		get_node("/root/Room/M").position = Vector2(120, 356)
@@ -304,6 +372,9 @@ func _on_stat_tick_timer_timeout():
 			change_value(stat_changed, 1)
 		"awakeness":
 			if not sleeping:
+				change_value(stat_changed, -1)
+		"cleanliness":
+			if not getting_showered:
 				change_value(stat_changed, -1)
 		_:
 			change_value(stat_changed, -1)
@@ -321,6 +392,7 @@ func _on_stat_tick_timer_timeout():
 			and get_value(lowest_useable_stat) <= 32
 	):
 		refill_stat(lowest_useable_stat)
+
 
 @onready var camera_move_anim = $CameraMove
 

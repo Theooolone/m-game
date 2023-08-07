@@ -1,12 +1,15 @@
-extends Sprite2D
-# https://youtu.be/iSpWZzL2i1o
+extends Node2D
+
+@onready var particles = $GPUParticles2D
 
 @onready var start_pos = global_position
 var selected = false
 
-func _on_area_2d_input_event(viewport, event, shape_idx):
+
+func _on_grab_hitbox_input_event(_viewport, _event, _shape_idx):
 	if Input.is_action_just_pressed("click"):
 		selected = true
+		particles.emitting = true
 
 
 func _process(delta):
@@ -16,6 +19,4 @@ func _process(delta):
 		global_position = lerp(global_position, start_pos, 8*delta)
 	if Input.is_action_just_released("click"):
 		selected = false
-
-
-
+		particles.emitting = false
