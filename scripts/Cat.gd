@@ -287,8 +287,6 @@ func _ready():
 	new_stat("awakeness", $Awakeness, $Bed, sleep_start, sleep, null, 64, 10)
 	new_stat("cleanliness", $Cleanliness)
 	
-	# Debug
-	refill_stat("hunger")
 	
 	if OS.is_debug_build():
 		$Debug.show()
