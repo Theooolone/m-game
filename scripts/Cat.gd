@@ -50,11 +50,11 @@ func get_obj_node(stat) -> Node2D:
 @onready var highscore_text_node = $Highscore
 
 func change_score(value):
-	var highscore = Global.get_config_value("cat_sim", "highscore", 0)
+	var highscore = Global.get_config_value("cat_sim_highscores", "difficulty_"+str(difficulty), 0)
 	score += value
 	score_text_node.text = str(10*score)
 	if score > highscore:
-		Global.set_config_value("cat_sim", "highscore", score)
+		Global.set_config_value("cat_sim_highscores", "difficulty_"+str(difficulty), score)
 		highscore_text_node.text = str(10*score)
 
 
@@ -271,6 +271,8 @@ var msec_start
 var msec_elapsed
 var seconds_elapsed
 
+@export var difficulty: float = 1
+
 func _process(delta):
 	msec_elapsed = (Time.get_ticks_msec()-msec_start)*Engine.time_scale
 	seconds_elapsed = msec_elapsed/1000.0
@@ -289,7 +291,12 @@ func _process(delta):
 		_on_leave_button_pressed()
 	
 	var sleeping_multiplier = 2 if sleeping else 1
-	$StatTickTimer.wait_time = 320/(seconds_elapsed+70) * 1/stats.size() * sleeping_multiplier
+	
+	# Magic formula
+	$StatTickTimer.wait_time = 1500/(seconds_elapsed+300) * sleeping_multiplier
+	$StatTickTimer.wait_time /= stats.size()
+	
+	$StatTickTimer.wait_time /= difficulty
 	
 	if current_state == State.IDLE:
 		# Cat will look for valid objects to use more often the lower the lowest stat is
@@ -326,7 +333,7 @@ func _ready():
 	new_stat("awakeness", $Awakeness, bed_node, sleep_start, sleep_end, sleep_abort, on_bed_clicked, 64, 10)
 	new_stat("cleanliness", $Cleanliness)
 	
-	highscore_text_node.text = str(10*Global.get_config_value("cat_sim", "highscore", 0))
+	highscore_text_node.text = str(10*Global.get_config_value("cat_sim_highscores", "difficulty_"+str(difficulty), 0))
 	
 	if OS.is_debug_build():
 		$Debug.show()
