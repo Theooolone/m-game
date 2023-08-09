@@ -426,9 +426,7 @@ func _on_meow_timer_timeout():
 
 
 func _on_leave_button_pressed():
-		get_node("/root").add_child(load("res://scenes/room.tscn").instantiate())
-		get_node("/root/Room/M").position = Vector2(120, 356)
-		queue_free()
+	Global.return_to_room()
 
 
 func _on_stat_tick_timer_timeout():

@@ -89,12 +89,27 @@ func _process(_delta):
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 
 
+var m_position = Vector2.ZERO
+
+func return_to_room():
+	change_scene("res://scenes/room.tscn", "res://assets/music/void_resonance.wav")
+
+
 func change_scene(scene_path, music_path = null):
+	if scene_node.name == "Room":
+		m_position = scene_node.get_node("M").position
+	
 	if not main_node: return
 	if scene_node:
 		scene_node.queue_free()
 	var scene_instance = load(scene_path).instantiate()
 	main_node.add_child(scene_instance)
+	scene_node = scene_instance
+	
+	if scene_node.name == "Room":
+		scene_node.get_node("M").position = m_position
+	
 	if music_path:
 		var music_asset = load(music_path)
-		main_node.get_node("Music").stream = music_asset
+		if music_asset != main_node.get_node("Music").stream:
+			main_node.get_node("Music").stream = music_asset
