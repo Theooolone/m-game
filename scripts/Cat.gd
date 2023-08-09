@@ -13,6 +13,7 @@ func new_stat(
 		object_node = null, # Object cat goes to (if applicable)
 		start_use_func = null, # When cat starts using object
 		end_use_func = null, # When cat stops using object
+		abort_func = null, # When cat prematurely kicked out of using object
 		click_func = null, # When object clicked
 		start_value: int = 64,
 		use_time: float = 1.5, # Time it takes for cat to use object
@@ -26,6 +27,7 @@ func new_stat(
 	stats[statname]["useable"] = useable
 	stats[statname]["start_use_func"] = start_use_func
 	stats[statname]["end_use_func"] = end_use_func
+	stats[statname]["abort_func"] = abort_func
 	if object_node and click_func:
 		object_node.get_node("Button").button_down.connect(click_func)
 	update_bar(statname)
@@ -123,6 +125,17 @@ func change_state(new_state: State, force = false):
 	else:
 		cat_speed = cat_speed_base
 
+func abort_object(reset_random_refill: bool = true):
+	if not stat_goal:
+		return
+	if stats[stat_goal]["abort_func"]:
+		stats[stat_goal]["abort_func"].call()
+	change_state(State.IDLE)
+	use_duration_timer_node.stop()
+	stat_goal = null
+	if reset_random_refill:
+		random_refill_timer_node.start()
+
 var sleeping = false
 
 var stat_goal
@@ -202,10 +215,9 @@ func _on_shower_detection_area_entered(area2D):
 	if area2D.name == "ShowerHeadHitbox":
 		shower_tick_timer.start()
 		getting_showered = true
-		change_state(State.RUNNING)
 		shower_cooldown_timer.stop()
-		use_duration_timer_node.stop()
-		stat_goal = null
+		abort_object(false)
+		change_state(State.RUNNING)
 
 func _on_shower_detection_area_exited(area2D):
 	if area2D.name == "ShowerHeadHitbox":
@@ -227,8 +239,18 @@ func _on_shower_tick_timeout():
 @onready var use_duration_timer_node = $UseDurationTimer
 
 func walking_process(delta):
+	
+	var object_node: Node2D  = get_obj_node(stat_goal)
+	var target_node: Node2D = object_node.get_node_or_null("Target")
+	var goal_position: Vector2
+	
+	if target_node:
+		goal_position = target_node.global_position
+	else:
+		goal_position = object_node.global_position
+	
 	# Returns true when at destination
-	if move_towards(get_obj_node(stat_goal).position, delta):
+	if move_towards(goal_position, delta):
 		use_duration_timer_node.start(stats[stat_goal]["use_time"])
 		if stats[stat_goal]["start_use_func"]:
 			stats[stat_goal]["start_use_func"].call()
@@ -297,11 +319,11 @@ func _ready():
 	
 	msec_start = Time.get_ticks_msec()
 	
-	new_stat("hunger", $Hunger, $Food, start_eat, eat, fill_food_bowl, 64, 3)
-	new_stat("thirst", $Thirst, $Water, null, drink, fill_water_bowl)
+	new_stat("hunger", $Hunger, $Food, start_eat, eat, null, fill_food_bowl, 64, 3)
+	new_stat("thirst", $Thirst, $Water, null, drink, null, fill_water_bowl)
 	new_stat("fun", $Fun)
 	new_stat("human_tolerance", $"Human Tolerance")
-	new_stat("awakeness", $Awakeness, bed_node, sleep_start, sleep, null, 64, 10)
+	new_stat("awakeness", $Awakeness, bed_node, sleep_start, sleep_end, sleep_abort, on_bed_clicked, 64, 10)
 	new_stat("cleanliness", $Cleanliness)
 	
 	highscore_text_node.text = str(10*Global.get_config_value("cat_sim", "highscore", 0))
@@ -332,17 +354,32 @@ func drink():
 	change_value("thirst", 8)
 	set_useable("thirst", false)
 
+
 func sleep_start():
 	sleeping = true
 	cat_node.hide()
 	bed_node.play("sleeping")
 
-func sleep():
+
+func sleep_end():
 	set_value("awakeness", 64)
+	sleep_abort()
+
+
+func sleep_abort():
+	meow_node.play()
 	sleeping = false
-	change_value("human_tolerance", 12)
+	change_value("human_tolerance", -12)
 	cat_node.show()
 	bed_node.play("empty")
+
+
+func on_bed_clicked():
+	if sleeping:
+		meow_node.play()
+		change_value("human_tolerance", -12)
+		abort_object()
+		return
 
 
 func fill_food_bowl():
@@ -363,6 +400,7 @@ func fill_water_bowl():
 # As chaotic as possible while still being fair if you know what you're doing
 func pet():
 	meow_node.play()
+	
 	if get_value("human_tolerance") >= 48:
 		change_value("fun", 8)
 	elif get_value("human_tolerance") < 32:
@@ -375,7 +413,8 @@ func pet():
 
 # Random meowing
 func _on_meow_timer_timeout():
-	meow_node.play()
+	if not sleeping:
+		meow_node.play()
 	meow_timer_node.start(randf_range(10,25))
 
 

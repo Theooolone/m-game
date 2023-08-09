@@ -18,6 +18,7 @@ radius = 7.0
 
 [node name="Cat" type="AnimatedSprite2D"]
 sprite_frames = SubResource("SpriteFrames_506l2")
+offset = Vector2(0, -6)
 
 [node name="Button" type="Button" parent="."]
 modulate = Color(1, 1, 1, 0)
@@ -25,13 +26,14 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -7.0
-offset_top = -5.0
+offset_top = -9.0
 offset_right = -18.0
-offset_bottom = -19.0
+offset_bottom = -23.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="ShowerDetection" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ShowerDetection"]
+position = Vector2(0, -4)
 shape = SubResource("CircleShape2D_nim6d")
