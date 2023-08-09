@@ -277,6 +277,14 @@ func _process(delta):
 	msec_elapsed = (Time.get_ticks_msec()-msec_start)*Engine.time_scale
 	seconds_elapsed = msec_elapsed/1000.0
 	
+	var sleeping_multiplier = 2 if sleeping else 1
+	
+	# Magic formula
+	$StatTickTimer.wait_time = 600/(seconds_elapsed+150) * sleeping_multiplier
+	$StatTickTimer.wait_time /= stats.size()
+	
+	$StatTickTimer.wait_time /= difficulty
+	
 	match current_state:
 		State.IDLE:
 			idle_process(delta)
@@ -289,14 +297,6 @@ func _process(delta):
 	
 	if get_value(get_lowest_valued_stat()) == 0:
 		_on_leave_button_pressed()
-	
-	var sleeping_multiplier = 2 if sleeping else 1
-	
-	# Magic formula
-	$StatTickTimer.wait_time = 1500/(seconds_elapsed+300) * sleeping_multiplier
-	$StatTickTimer.wait_time /= stats.size()
-	
-	$StatTickTimer.wait_time /= difficulty
 	
 	if current_state == State.IDLE:
 		# Cat will look for valid objects to use more often the lower the lowest stat is
