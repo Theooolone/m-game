@@ -151,6 +151,9 @@ func refill_stat(stat):
 
 
 func debug(lowest_useable_stat):
+	if not $Debug.visible:
+		return
+	
 	var stat_goal_text = stat_goal if stat_goal else "Null"
 	var lowest_useable_stat_text = str(0.1875*get_value(lowest_useable_stat)-4) \
 		if lowest_useable_stat else "Null"
