@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://coy8ycn8wwfvl"]
+[gd_scene load_steps=40 format=3 uid="uid://coy8ycn8wwfvl"]
 
 [ext_resource type="Script" path="res://scripts/Cat.gd" id="1_jus8a"]
 [ext_resource type="TileSet" uid="uid://jidy50o2532o" path="res://resources/room.tres" id="2_yp0iu"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://bpc2becmdwkh0" path="res://assets/textures/catsim/catbed_sleeping.png" id="7_2etbn"]
 [ext_resource type="AudioStream" uid="uid://duiwnw1md8b2p" path="res://assets/sounds/meow1.wav" id="7_10b03"]
 [ext_resource type="AudioStream" uid="uid://bw25r5o33y8ol" path="res://assets/sounds/meow2.wav" id="8_0r8g4"]
+[ext_resource type="Texture2D" uid="uid://bq860rahhq1pc" path="res://assets/textures/catsim/cat.png" id="9_gq5tj"]
 [ext_resource type="AudioStream" uid="uid://c5bmkp0gf01bh" path="res://assets/sounds/meow3.wav" id="9_yl3ha"]
 [ext_resource type="LabelSettings" uid="uid://dguaiif1dpkwk" path="res://resources/5px.tres" id="10_qs8rk"]
 [ext_resource type="FontFile" uid="uid://d0bw2pjoup6pc" path="res://assets/fonts/5px.ttf" id="13_breyg"]
@@ -46,6 +47,42 @@ animations = [{
 "loop": true,
 "name": &"sleeping",
 "speed": 0.75
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_igbm0"]
+atlas = ExtResource("9_gq5tj")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s1ubk"]
+atlas = ExtResource("9_gq5tj")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8th28"]
+atlas = ExtResource("9_gq5tj")
+region = Rect2(48, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fnt0g"]
+atlas = ExtResource("9_gq5tj")
+region = Rect2(72, 0, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1yrom"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_igbm0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s1ubk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8th28")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fnt0g")
+}],
+"loop": true,
+"name": &"default",
+"speed": 7.0
 }]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8seon"]
@@ -243,6 +280,8 @@ position = Vector2(0, -5)
 
 [node name="Cat" parent="." instance=ExtResource("13_yrtix")]
 position = Vector2(-24, -16)
+sprite_frames = SubResource("SpriteFrames_1yrom")
+frame_progress = 0.93669
 
 [node name="StatTickTimer" type="Timer" parent="."]
 autostart = true

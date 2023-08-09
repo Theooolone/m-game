@@ -121,9 +121,14 @@ func change_state(new_state: State, force = false):
 	
 	current_state = new_state
 	if new_state == State.RUNNING:
+		cat_node.speed_scale = 2.5
 		cat_speed = 2.5*cat_speed_base
 	else:
+		cat_node.speed_scale = 1
 		cat_speed = cat_speed_base
+		
+	if new_state == State.WALKING:
+		cat_node.play("default")
 
 func abort_object(reset_random_refill: bool = true):
 	if not stat_goal:
@@ -190,13 +195,18 @@ func move_towards(pos, delta):
 	cat_node.position = cat_node.position.move_toward(pos, cat_speed*16*delta)
 	return cat_node.position == pos
 
+
 func idle_process(delta):
-	move_towards(random_goal, delta)
+	if move_towards(random_goal, delta):
+		cat_node.stop()
+
 
 func move_random_goal():
 	random_goal.x = randi_range(min_idle_range.x, max_idle_range.x)
 	random_goal.y = randi_range(min_idle_range.y, max_idle_range.y)
 	cat_idle_walk_timer.start(randf_range(4,8))
+	cat_node.play("default")
+
 
 func _on_cat_idle_walk_timeout():
 	if current_state == State.RUNNING: return
@@ -257,6 +267,7 @@ func walking_process(delta):
 		use_duration_timer_node.start(stats[stat_goal]["use_time"])
 		if stats[stat_goal]["start_use_func"]:
 			stats[stat_goal]["start_use_func"].call()
+		cat_node.stop()
 		change_state(State.USING)
 
 
@@ -266,6 +277,7 @@ func _on_use_duration_timer_timeout():
 		stat_goal = null
 	random_refill_timer_node.start()
 	change_state(State.IDLE)
+	cat_node.play("default")
 
 
 @onready var random_refill_timer_node = $RandomRefillTimer
