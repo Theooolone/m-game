@@ -14,6 +14,8 @@ config/name="M Game"
 run/main_scene="res://scenes/main.tscn"
 config/use_custom_user_dir=true
 config/features=PackedStringArray("4.1", "Mobile")
+boot_splash/bg_color=Color(0.0941176, 0.105882, 0.141176, 1)
+boot_splash/show_image=false
 config/icon="res://assets/textures/objects/hubert.png"
 
 [audio]
@@ -123,4 +125,4 @@ click={
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
-environment/defaults/default_clear_color=Color(0.188235, 0.188235, 0.203922, 1)
+environment/defaults/default_clear_color=Color(0.180392, 0.180392, 0.2, 1)
