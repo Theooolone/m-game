@@ -288,6 +288,8 @@ func _process(delta):
 
 # Misc
 
+@onready var bed_node = $Bed
+
 func _ready():
 	
 	shower_detection_node.area_entered.connect(_on_shower_detection_area_entered)
@@ -299,7 +301,7 @@ func _ready():
 	new_stat("thirst", $Thirst, $Water, null, drink, fill_water_bowl)
 	new_stat("fun", $Fun)
 	new_stat("human_tolerance", $"Human Tolerance")
-	new_stat("awakeness", $Awakeness, $Bed, sleep_start, sleep, null, 64, 10)
+	new_stat("awakeness", $Awakeness, bed_node, sleep_start, sleep, null, 64, 10)
 	new_stat("cleanliness", $Cleanliness)
 	
 	highscore_text_node.text = str(10*Global.get_config_value("cat_sim", "highscore", 0))
@@ -332,11 +334,15 @@ func drink():
 
 func sleep_start():
 	sleeping = true
+	cat_node.hide()
+	bed_node.play("sleeping")
 
 func sleep():
 	set_value("awakeness", 64)
 	sleeping = false
 	change_value("human_tolerance", 12)
+	cat_node.show()
+	bed_node.play("empty")
 
 
 func fill_food_bowl():

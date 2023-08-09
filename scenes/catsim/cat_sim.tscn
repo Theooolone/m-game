@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://coy8ycn8wwfvl"]
+[gd_scene load_steps=34 format=3 uid="uid://coy8ycn8wwfvl"]
 
 [ext_resource type="Script" path="res://scripts/Cat.gd" id="1_jus8a"]
 [ext_resource type="TileSet" uid="uid://jidy50o2532o" path="res://resources/room.tres" id="2_yp0iu"]
@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://bbu3xsdp51vud" path="res://scenes/catsim/catobject.tscn" id="4_t11mk"]
 [ext_resource type="Shader" path="res://resources/hue.gdshader" id="5_8pllu"]
 [ext_resource type="Texture2D" uid="uid://pwvsa7d527sd" path="res://assets/textures/catsim/water_bowl.png" id="5_l5bcd"]
+[ext_resource type="Texture2D" uid="uid://bx8dn1ne7f4ya" path="res://assets/textures/catsim/catbed_empty.png" id="6_47keu"]
+[ext_resource type="Texture2D" uid="uid://bpc2becmdwkh0" path="res://assets/textures/catsim/catbed_sleeping.png" id="7_2etbn"]
 [ext_resource type="AudioStream" uid="uid://duiwnw1md8b2p" path="res://assets/sounds/meow1.wav" id="7_10b03"]
 [ext_resource type="AudioStream" uid="uid://bw25r5o33y8ol" path="res://assets/sounds/meow2.wav" id="8_0r8g4"]
 [ext_resource type="AudioStream" uid="uid://c5bmkp0gf01bh" path="res://assets/sounds/meow3.wav" id="9_yl3ha"]
@@ -15,6 +17,36 @@
 [ext_resource type="PackedScene" uid="uid://bkriai8twr63d" path="res://scenes/catsim/cat.tscn" id="13_yrtix"]
 [ext_resource type="PackedScene" uid="uid://3dihg5lpayrh" path="res://scenes/catsim/shower_head.tscn" id="14_4kprh"]
 [ext_resource type="Texture2D" uid="uid://ecnm3gx6u58x" path="res://assets/textures/catsim/shower_head.png" id="14_fl870"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u0nxf"]
+atlas = ExtResource("7_2etbn")
+region = Rect2(0, 0, 18, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l5ewy"]
+atlas = ExtResource("7_2etbn")
+region = Rect2(18, 0, 18, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_asxy8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_47keu")
+}],
+"loop": true,
+"name": &"empty",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u0nxf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l5ewy")
+}],
+"loop": true,
+"name": &"sleeping",
+"speed": 0.75
+}]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8seon"]
 shader = ExtResource("5_8pllu")
@@ -182,8 +214,17 @@ texture = ExtResource("4_ksyhg")
 position = Vector2(-72, 24)
 texture = ExtResource("5_l5bcd")
 
-[node name="Bed" parent="." instance=ExtResource("4_t11mk")]
+[node name="Bed" type="AnimatedSprite2D" parent="."]
 position = Vector2(28, 23)
+sprite_frames = SubResource("SpriteFrames_asxy8")
+animation = &"empty"
+
+[node name="Button" type="Button" parent="Bed"]
+modulate = Color(1, 1, 1, 0)
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
 
 [node name="Cat" parent="." instance=ExtResource("13_yrtix")]
 position = Vector2(-25, -19)
