@@ -173,11 +173,7 @@ func debug(lowest_useable_stat):
 		+ "\nStat Tick Time: " + str(0.001*round(1000*($StatTickTimer.wait_time)))
 	
 	
-	if Input.is_action_just_pressed("debug_menu"):
-		if not $Debug.visible:
-			$Debug.show()
-		else:
-			$Debug.hide()
+	
 
 
 @onready var min_idle_range = $MinIdleRange.position
@@ -326,6 +322,12 @@ func _process(delta):
 			random_refill_timer_node.stop()
 			refill_stat(lowest_useable_stat)
 	
+	
+	if Input.is_action_just_pressed("debug_menu"):
+		if not $Debug.visible:
+			$Debug.show()
+		else:
+			$Debug.hide()
 	
 	debug(get_lowest_valued_useable_stat())
 
