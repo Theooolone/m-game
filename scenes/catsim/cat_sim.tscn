@@ -15,7 +15,6 @@
 [ext_resource type="AudioStream" uid="uid://c5bmkp0gf01bh" path="res://assets/sounds/meow3.wav" id="9_yl3ha"]
 [ext_resource type="LabelSettings" uid="uid://dguaiif1dpkwk" path="res://resources/5px.tres" id="10_qs8rk"]
 [ext_resource type="FontFile" uid="uid://d0bw2pjoup6pc" path="res://assets/fonts/5px.ttf" id="13_breyg"]
-[ext_resource type="PackedScene" uid="uid://bkriai8twr63d" path="res://scenes/catsim/cat.tscn" id="13_yrtix"]
 [ext_resource type="PackedScene" uid="uid://3dihg5lpayrh" path="res://scenes/catsim/shower_head.tscn" id="14_4kprh"]
 [ext_resource type="Texture2D" uid="uid://ecnm3gx6u58x" path="res://assets/textures/catsim/shower_head.png" id="14_fl870"]
 
@@ -84,6 +83,9 @@ animations = [{
 "name": &"default",
 "speed": 7.0
 }]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nim6d"]
+radius = 7.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8seon"]
 shader = ExtResource("5_8pllu")
@@ -278,9 +280,28 @@ metadata/_edit_lock_ = true
 [node name="Target" type="Marker2D" parent="Bed"]
 position = Vector2(0, -5)
 
-[node name="Cat" parent="." instance=ExtResource("13_yrtix")]
+[node name="Cat" type="AnimatedSprite2D" parent="."]
 position = Vector2(-24, -16)
 sprite_frames = SubResource("SpriteFrames_1yrom")
+offset = Vector2(0, -6)
+
+[node name="Button" type="Button" parent="Cat"]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -7.0
+offset_top = -9.0
+offset_right = -18.0
+offset_bottom = -23.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ShowerDetection" type="Area2D" parent="Cat"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Cat/ShowerDetection"]
+position = Vector2(0, -4)
+shape = SubResource("CircleShape2D_nim6d")
 
 [node name="StatTickTimer" type="Timer" parent="."]
 autostart = true
