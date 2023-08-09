@@ -281,7 +281,6 @@ position = Vector2(0, -5)
 [node name="Cat" parent="." instance=ExtResource("13_yrtix")]
 position = Vector2(-24, -16)
 sprite_frames = SubResource("SpriteFrames_1yrom")
-frame_progress = 0.93669
 
 [node name="StatTickTimer" type="Timer" parent="."]
 autostart = true
