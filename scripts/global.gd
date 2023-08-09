@@ -96,11 +96,10 @@ func return_to_room():
 
 
 func change_scene(scene_path, music_path = null):
-	if scene_node.name == "Room":
-		m_position = scene_node.get_node("M").position
-	
 	if not main_node: return
 	if scene_node:
+		if scene_node.name == "Room":
+			m_position = scene_node.get_node("M").position
 		scene_node.queue_free()
 	var scene_instance = load(scene_path).instantiate()
 	main_node.add_child(scene_instance)
