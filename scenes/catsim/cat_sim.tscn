@@ -330,6 +330,7 @@ position = Vector2(23, 3)
 
 [node name="Meow" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_xqdvd")
+volume_db = 3.0
 max_distance = 1000.0
 max_polyphony = 2
 bus = &"Ambient"
