@@ -13,7 +13,7 @@ var textbox_on_cooldown = false
 
 var configpath = "user://usersettings.cfg"
 
-var config = ConfigFile.new()
+var config: ConfigFile = ConfigFile.new()
 var configerr = config.load(configpath)
 
 var main_node
