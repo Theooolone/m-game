@@ -1,54 +1,109 @@
 [gd_scene load_steps=3 format=3 uid="uid://dbw4x1utc5wy6"]
 
 [ext_resource type="Script" path="res://scripts/difficulty.gd" id="1_aydrc"]
+[ext_resource type="LabelSettings" uid="uid://dguaiif1dpkwk" path="res://resources/5px.tres" id="1_fwnny"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_dnyrl"]
-font_size = 32
-
-[node name="CanvasLayer" type="CanvasLayer"]
+[node name="Node2D" type="Node2D"]
 script = ExtResource("1_aydrc")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(8, 8)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -120.0
+offset_top = -68.0
+offset_right = 121.0
+offset_bottom = 67.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -322.5
-offset_top = -194.0
-offset_right = 322.5
-offset_bottom = 194.0
+offset_left = -90.5
+offset_top = -51.0
+offset_right = 90.5
+offset_bottom = 51.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="VBoxContainer"]
+[node name="Label" type="Label" parent="Control/VBoxContainer"]
 layout_mode = 2
 text = "Select Difficulty"
-label_settings = SubResource("LabelSettings_dnyrl")
+label_settings = ExtResource("1_fwnny")
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="EasyButton" type="Button" parent="VBoxContainer"]
+[node name="EasyButton" type="Button" parent="Control/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+tooltip_text = "Test"
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/EasyButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 text = "Easy"
+label_settings = ExtResource("1_fwnny")
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="NormalButton" type="Button" parent="VBoxContainer"]
+[node name="NormalButton" type="Button" parent="Control/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-text = "Normal"
 
-[node name="HardButton" type="Button" parent="VBoxContainer"]
+[node name="Label" type="Label" parent="Control/VBoxContainer/NormalButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Easy"
+label_settings = ExtResource("1_fwnny")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HardButton" type="Button" parent="Control/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-text = "Hard"
 
-[node name="PainButton" type="Button" parent="VBoxContainer"]
+[node name="Label" type="Label" parent="Control/VBoxContainer/HardButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Easy"
+label_settings = ExtResource("1_fwnny")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PainButton" type="Button" parent="Control/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-text = "Pain"
 
-[connection signal="pressed" from="VBoxContainer/EasyButton" to="." method="_on_easy_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/NormalButton" to="." method="_on_normal_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/HardButton" to="." method="_on_hard_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/PainButton" to="." method="_on_pain_button_pressed"]
+[node name="Label" type="Label" parent="Control/VBoxContainer/PainButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Easy"
+label_settings = ExtResource("1_fwnny")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="Control/VBoxContainer/EasyButton" to="." method="_on_easy_button_pressed"]
+[connection signal="pressed" from="Control/VBoxContainer/NormalButton" to="." method="_on_normal_button_pressed"]
+[connection signal="pressed" from="Control/VBoxContainer/HardButton" to="." method="_on_hard_button_pressed"]
+[connection signal="pressed" from="Control/VBoxContainer/PainButton" to="." method="_on_pain_button_pressed"]
