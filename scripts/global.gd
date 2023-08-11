@@ -97,9 +97,12 @@ func return_to_room():
 var scene_data = null
 
 func change_scene(scene_path, music_path = null, data = null):
+	if not main_node:
+		push_error("Main node not found. (Cannot change scene if project not ran from main scene)")
+		return
+	
 	scene_data = data
 	
-	if not main_node: return
 	if scene_node:
 		if scene_node.name == "Room":
 			m_position = scene_node.get_node("M").position
