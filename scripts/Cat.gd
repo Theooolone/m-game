@@ -387,7 +387,10 @@ func sleep_start():
 
 func sleep_end():
 	set_value("awakeness", 64)
-	sleep_abort()
+	meow_node.play()
+	sleeping = false
+	cat_node.show()
+	bed_node.play("empty")
 
 
 func sleep_abort():
