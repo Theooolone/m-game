@@ -94,8 +94,11 @@ var m_position = Vector2.ZERO
 func return_to_room():
 	change_scene("res://scenes/room.tscn", "res://assets/music/void_resonance.wav")
 
+var scene_data = null
 
-func change_scene(scene_path, music_path = null):
+func change_scene(scene_path, music_path = null, data = null):
+	scene_data = data
+	
 	if not main_node: return
 	if scene_node:
 		if scene_node.name == "Room":

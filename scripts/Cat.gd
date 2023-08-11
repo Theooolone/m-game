@@ -171,9 +171,6 @@ func debug(lowest_useable_stat):
 		+ "\nRandom Refill Max: " + lowest_useable_stat_text \
 		+ "\nElapsed Time: " + str(seconds_elapsed) \
 		+ "\nStat Tick Time: " + str(0.001*round(1000*($StatTickTimer.wait_time)))
-	
-	
-	
 
 
 @onready var min_idle_range = $MinIdleRange.position
@@ -337,6 +334,9 @@ func _process(delta):
 @onready var bed_node = $Bed
 
 func _ready():
+	
+	if Global.scene_data:
+		difficulty = Global.scene_data
 	
 	shower_detection_node.area_entered.connect(_on_shower_detection_area_entered)
 	shower_detection_node.area_exited.connect(_on_shower_detection_area_exited)

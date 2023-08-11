@@ -1,0 +1,54 @@
+[gd_scene load_steps=3 format=3 uid="uid://dbw4x1utc5wy6"]
+
+[ext_resource type="Script" path="res://scripts/difficulty.gd" id="1_aydrc"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_dnyrl"]
+font_size = 32
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource("1_aydrc")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -322.5
+offset_top = -194.0
+offset_right = 322.5
+offset_bottom = 194.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Select Difficulty"
+label_settings = SubResource("LabelSettings_dnyrl")
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="EasyButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Easy"
+
+[node name="NormalButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Normal"
+
+[node name="HardButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Hard"
+
+[node name="PainButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Pain"
+
+[connection signal="pressed" from="VBoxContainer/EasyButton" to="." method="_on_easy_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/NormalButton" to="." method="_on_normal_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HardButton" to="." method="_on_hard_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/PainButton" to="." method="_on_pain_button_pressed"]
