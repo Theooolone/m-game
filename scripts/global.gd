@@ -115,6 +115,9 @@ func change_scene(scene_path, music_path = null, data = null):
 		scene_node.get_node("M").position = m_position
 	
 	if music_path:
+		var music_node = main_node.get_node("Music")
+		music_node.stop()
 		var music_asset = load(music_path)
-		if music_asset != main_node.get_node("Music").stream:
-			main_node.get_node("Music").stream = music_asset
+		if music_asset != music_node.stream:
+			music_node.stream = music_asset
+			music_node.play()
