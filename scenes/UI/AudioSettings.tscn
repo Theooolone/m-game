@@ -9,6 +9,7 @@ outline_size = 8
 outline_color = Color(0, 0, 0, 1)
 
 [node name="Audiosettings" type="CanvasLayer"]
+process_mode = 3
 script = ExtResource("1_hwfb2")
 
 [node name="Panel" type="Panel" parent="."]

@@ -24,6 +24,8 @@ var autosave_timer = Timer.new()
 var times_opened
 
 func _ready():
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	
 	get_tree().set_auto_accept_quit(false)
 	
 	times_opened = change_config_value("misc", "times_opened", 1, 0, true)
@@ -77,10 +79,17 @@ func quit():
 	save_config()
 	get_tree().quit()
 
+var pause_hold_timer = 0
 
-func _process(_delta):
-	if Input.is_action_just_pressed("exit"):
+func _process(delta):
+	if Input.is_action_pressed("pause"):
+		pause_hold_timer += delta
+	else:
+		pause_hold_timer = 0
+	
+	if pause_hold_timer > 1.2:
 		quit()
+	
 	
 	if Input.is_action_just_pressed("toggle_fullscreen"):
 		if get_window().mode == DisplayServer.WINDOW_MODE_FULLSCREEN:
