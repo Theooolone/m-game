@@ -1,12 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://c5dsh6ix1rffr"]
+[gd_scene load_steps=5 format=3 uid="uid://c5dsh6ix1rffr"]
 
 [ext_resource type="Script" path="res://scripts/AudioSettings.gd" id="1_hwfb2"]
 [ext_resource type="PackedScene" uid="uid://pc434amk7nwh" path="res://scenes/ui/AudioSlider.tscn" id="2_rlafp"]
+[ext_resource type="FontFile" uid="uid://dlgmhijh1yaqn" path="res://assets/fonts/16px.ttf" id="3_o3y33"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_oep8k"]
-font_size = 32
+[sub_resource type="LabelSettings" id="LabelSettings_klqem"]
+font = ExtResource("3_o3y33")
+font_size = 48
 outline_size = 8
 outline_color = Color(0, 0, 0, 1)
+shadow_size = 0
+shadow_color = Color(0, 0, 0, 0.498039)
+shadow_offset = Vector2(4, 4)
 
 [node name="Audiosettings" type="CanvasLayer"]
 process_mode = 3
@@ -18,24 +23,18 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -256.0
+offset_left = -336.0
 offset_top = -384.0
-offset_right = 256.0
+offset_right = 336.0
 offset_bottom = 384.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -256.0
-offset_top = -384.0
-offset_right = 256.0
-offset_bottom = 384.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 0
@@ -76,7 +75,7 @@ anchor_right = 1.0
 grow_horizontal = 2
 grow_vertical = 0
 text = "Audio Settings"
-label_settings = SubResource("LabelSettings_oep8k")
+label_settings = SubResource("LabelSettings_klqem")
 horizontal_alignment = 1
 vertical_alignment = 2
 

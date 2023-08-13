@@ -1,14 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://cwah6nf3q1aqu"]
+[gd_scene load_steps=5 format=3 uid="uid://cwah6nf3q1aqu"]
 
 [ext_resource type="Script" path="res://scripts/controls.gd" id="1_owb3h"]
+[ext_resource type="FontFile" uid="uid://dlgmhijh1yaqn" path="res://assets/fonts/16px.ttf" id="2_w825x"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ofyy1"]
 font_color = Color(1, 1, 1, 0.498039)
 
-[sub_resource type="LabelSettings" id="LabelSettings_j1twt"]
-font_size = 32
+[sub_resource type="LabelSettings" id="LabelSettings_7tfwk"]
+font = ExtResource("2_w825x")
+font_size = 48
 outline_size = 8
 outline_color = Color(0, 0, 0, 1)
+shadow_size = 0
+shadow_color = Color(0, 0, 0, 0.498039)
+shadow_offset = Vector2(4, 4)
 
 [node name="Controls" type="CanvasLayer"]
 process_mode = 3
@@ -266,6 +271,6 @@ anchor_right = 1.0
 grow_horizontal = 2
 grow_vertical = 0
 text = "Controls"
-label_settings = SubResource("LabelSettings_j1twt")
+label_settings = SubResource("LabelSettings_7tfwk")
 horizontal_alignment = 1
 vertical_alignment = 2
