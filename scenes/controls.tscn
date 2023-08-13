@@ -1,10 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://cwah6nf3q1aqu"]
+[gd_scene load_steps=4 format=3 uid="uid://cwah6nf3q1aqu"]
 
 [ext_resource type="Script" path="res://scripts/controls.gd" id="1_owb3h"]
 [ext_resource type="FontFile" uid="uid://dlgmhijh1yaqn" path="res://assets/fonts/16px.ttf" id="2_w825x"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_ofyy1"]
-font_color = Color(1, 1, 1, 0.498039)
 
 [sub_resource type="LabelSettings" id="LabelSettings_7tfwk"]
 font = ExtResource("2_w825x")
@@ -82,27 +79,27 @@ text = "Move"
 horizontal_alignment = 1
 
 [node name="Label5" type="Label" parent="Panel/MarginContainer/GridContainer"]
+modulate = Color(1, 1, 1, 0.588235)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "WASD"
-label_settings = SubResource("LabelSettings_ofyy1")
 horizontal_alignment = 1
 
 [node name="Label6" type="Label" parent="Panel/MarginContainer/GridContainer"]
+modulate = Color(1, 1, 1, 0.588235)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Arrow Keys"
-label_settings = SubResource("LabelSettings_ofyy1")
 horizontal_alignment = 1
 
 [node name="Label7" type="Label" parent="Panel/MarginContainer/GridContainer"]
+modulate = Color(1, 1, 1, 0.588235)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "Left Stick"
-label_settings = SubResource("LabelSettings_ofyy1")
 horizontal_alignment = 1
 
 [node name="Label8" type="Label" parent="Panel/MarginContainer/GridContainer"]
@@ -113,27 +110,27 @@ text = "Interact"
 horizontal_alignment = 1
 
 [node name="Label9" type="Label" parent="Panel/MarginContainer/GridContainer"]
+modulate = Color(1, 1, 1, 0.588235)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "E"
-label_settings = SubResource("LabelSettings_ofyy1")
 horizontal_alignment = 1
 
 [node name="Label10" type="Label" parent="Panel/MarginContainer/GridContainer"]
+modulate = Color(1, 1, 1, 0.588235)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "Z"
-label_settings = SubResource("LabelSettings_ofyy1")
 horizontal_alignment = 1
 
 [node name="Label11" type="Label" parent="Panel/MarginContainer/GridContainer"]
+modulate = Color(1, 1, 1, 0.588235)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "A"
-label_settings = SubResource("LabelSettings_ofyy1")
 horizontal_alignment = 1
 
 [node name="Label12" type="Label" parent="Panel/MarginContainer/GridContainer"]
@@ -144,27 +141,27 @@ text = "Pause"
 horizontal_alignment = 1
 
 [node name="Label13" type="Label" parent="Panel/MarginContainer/GridContainer"]
+modulate = Color(1, 1, 1, 0.588235)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "Esc"
-label_settings = SubResource("LabelSettings_ofyy1")
 horizontal_alignment = 1
 
 [node name="Label14" type="Label" parent="Panel/MarginContainer/GridContainer"]
+modulate = Color(1, 1, 1, 0.588235)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "-"
-label_settings = SubResource("LabelSettings_ofyy1")
 horizontal_alignment = 1
 
 [node name="Label15" type="Label" parent="Panel/MarginContainer/GridContainer"]
+modulate = Color(1, 1, 1, 0.588235)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "Home/Start"
-label_settings = SubResource("LabelSettings_ofyy1")
 horizontal_alignment = 1
 
 [node name="Label24" type="Label" parent="Panel/MarginContainer/GridContainer"]
@@ -175,27 +172,27 @@ text = "Toggle Fullscreen"
 horizontal_alignment = 1
 
 [node name="Label25" type="Label" parent="Panel/MarginContainer/GridContainer"]
+modulate = Color(1, 1, 1, 0.588235)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "F11"
-label_settings = SubResource("LabelSettings_ofyy1")
 horizontal_alignment = 1
 
 [node name="Label26" type="Label" parent="Panel/MarginContainer/GridContainer"]
+modulate = Color(1, 1, 1, 0.588235)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "-"
-label_settings = SubResource("LabelSettings_ofyy1")
 horizontal_alignment = 1
 
 [node name="Label27" type="Label" parent="Panel/MarginContainer/GridContainer"]
+modulate = Color(1, 1, 1, 0.588235)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "-"
-label_settings = SubResource("LabelSettings_ofyy1")
 horizontal_alignment = 1
 
 [node name="Label16" type="Label" parent="Panel/MarginContainer/GridContainer"]
@@ -206,29 +203,29 @@ text = "Audio Settings"
 horizontal_alignment = 1
 
 [node name="Label17" type="Label" parent="Panel/MarginContainer/GridContainer"]
+modulate = Color(1, 1, 1, 0.588235)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "O"
-label_settings = SubResource("LabelSettings_ofyy1")
 horizontal_alignment = 1
 
 [node name="Label18" type="Label" parent="Panel/MarginContainer/GridContainer"]
+modulate = Color(1, 1, 1, 0.588235)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "-
 "
-label_settings = SubResource("LabelSettings_ofyy1")
 horizontal_alignment = 1
 
 [node name="Label19" type="Label" parent="Panel/MarginContainer/GridContainer"]
+modulate = Color(1, 1, 1, 0.588235)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "-
 "
-label_settings = SubResource("LabelSettings_ofyy1")
 horizontal_alignment = 1
 
 [node name="Label20" type="Label" parent="Panel/MarginContainer/GridContainer"]
@@ -240,28 +237,28 @@ text = "Controls
 horizontal_alignment = 1
 
 [node name="Label21" type="Label" parent="Panel/MarginContainer/GridContainer"]
+modulate = Color(1, 1, 1, 0.588235)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "C"
-label_settings = SubResource("LabelSettings_ofyy1")
 horizontal_alignment = 1
 
 [node name="Label22" type="Label" parent="Panel/MarginContainer/GridContainer"]
+modulate = Color(1, 1, 1, 0.588235)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "-
 "
-label_settings = SubResource("LabelSettings_ofyy1")
 horizontal_alignment = 1
 
 [node name="Label23" type="Label" parent="Panel/MarginContainer/GridContainer"]
+modulate = Color(1, 1, 1, 0.588235)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "Select"
-label_settings = SubResource("LabelSettings_ofyy1")
 horizontal_alignment = 1
 
 [node name="Label" type="Label" parent="Panel"]
