@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://pc434amk7nwh"]
+[gd_scene load_steps=5 format=3 uid="uid://pc434amk7nwh"]
 
 [ext_resource type="Script" path="res://scripts/AudioSlider.gd" id="1_c2poq"]
 [ext_resource type="FontFile" uid="uid://d0bw2pjoup6pc" path="res://assets/fonts/5px.ttf" id="2_f6lim"]
@@ -6,6 +6,11 @@
 [sub_resource type="LabelSettings" id="LabelSettings_qcuto"]
 font = ExtResource("2_f6lim")
 font_size = 15
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_j2fr6"]
+font_size = 24
 outline_size = 4
 outline_color = Color(0, 0, 0, 1)
 
@@ -32,7 +37,7 @@ ticks_on_borders = true
 [node name="Value" type="Label" parent="."]
 layout_mode = 2
 text = "100%"
-label_settings = SubResource("LabelSettings_qcuto")
+label_settings = SubResource("LabelSettings_j2fr6")
 horizontal_alignment = 1
 
 [connection signal="drag_ended" from="VSlider" to="." method="_on_v_slider_drag_ended"]
