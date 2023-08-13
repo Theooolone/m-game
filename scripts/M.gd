@@ -28,8 +28,9 @@ func vector_to_4way_direction(vector: Vector2) -> Vector2:
 
 func _physics_process(_delta):
 	if Global.textbox_visible:
-		return
-	movevector = Input.get_vector("left", "right", "up", "down")
+		movevector = Vector2.ZERO
+	else:
+		movevector = Input.get_vector("left", "right", "up", "down")
 	if ominous:
 		movevector /= 2
 	# velocity is a variable in CharacterBody2D used by functions like move_and_slide()
