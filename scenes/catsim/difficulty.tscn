@@ -114,7 +114,9 @@ text = "Pet cat to increase happiness
 
 Click empty bowls to fill them
 
-Shower cat to clean them"
+Shower cat to clean them
+
+Controllers not yet supported (sorry)"
 label_settings = ExtResource("1_fwnny")
 horizontal_alignment = 1
 vertical_alignment = 1
