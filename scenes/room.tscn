@@ -32,6 +32,7 @@ b = Vector2(40, 0)
 y_sort_enabled = true
 
 [node name="FunnyHubert" parent="." instance=ExtResource("2_nj3n7")]
+z_index = -2
 position = Vector2(-305, 359)
 
 [node name="SpoopyArea" type="Area2D" parent="."]
