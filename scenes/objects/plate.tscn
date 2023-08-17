@@ -1,7 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://chtjyjl6om78o"]
+[gd_scene load_steps=4 format=3 uid="uid://chtjyjl6om78o"]
 
 [ext_resource type="PackedScene" uid="uid://blrow0klriehp" path="res://scenes/baseobject.tscn" id="1_o7bbq"]
 [ext_resource type="Texture2D" uid="uid://6bmk8yquqcjt" path="res://assets/textures/objects/plate.png" id="2_lwmin"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_v3dmb"]
+radius = 6.0
+height = 16.0
 
 [node name="Plate" instance=ExtResource("1_o7bbq")]
 
@@ -13,3 +17,6 @@ WHYS IT SO BIG", "WHAT EVEN IS THIS HOME", "WHY IS IT BUILT LIKE THIS"])
 [node name="Sprite2D" parent="." index="1"]
 position = Vector2(0, 0)
 texture = ExtResource("2_lwmin")
+
+[node name="CollisionShape2D" parent="." index="2"]
+shape = SubResource("CapsuleShape2D_v3dmb")
