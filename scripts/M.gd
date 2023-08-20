@@ -75,8 +75,3 @@ func _on_spoopy_area_body_exited(body):
 	if body != self: return
 	ominous = false
 	#Global.music.play()
-
-
-func _on_teleport_area_body_entered(body):
-	if body != self: return
-	position += Vector2(0,16)
