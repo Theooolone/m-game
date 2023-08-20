@@ -13,7 +13,7 @@ func _ready():
 
 
 func _on_easy_button_pressed():
-	Global.change_scene("res://scenes/catsim/cat_sim.tscn", "res://assets/music/beans_of_anxiety.wav", 0.6)
+	Global.change_scene("res://scenes/catsim/cat_sim.tscn", "res://assets/music/beans_of_anxiety_easy.wav", 0.6)
 
 
 func _on_normal_button_pressed():
@@ -25,4 +25,4 @@ func _on_hard_button_pressed():
 
 
 func _on_pain_button_pressed():
-	Global.change_scene("res://scenes/catsim/cat_sim.tscn", "res://assets/music/beans_of_anxiety.wav", 5)
+	Global.change_scene("res://scenes/catsim/cat_sim.tscn", "res://assets/music/beans_of_anxiety_pain.wav", 5)
