@@ -521,7 +521,7 @@ label_settings = SubResource("LabelSettings_wcvt4")
 [node name="RedTint" type="CanvasModulate" parent="."]
 visible = false
 position = Vector2(-24, -16)
-color = Color(1, 0.85098, 0.85098, 1)
+color = Color(1, 0.9, 0.9, 1)
 
 [connection signal="timeout" from="StatTickTimer" to="." method="_on_stat_tick_timer_timeout"]
 [connection signal="timeout" from="ShowerTickTimer" to="." method="_on_shower_tick_timeout"]
