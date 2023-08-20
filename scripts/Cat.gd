@@ -335,8 +335,14 @@ func _process(delta):
 
 func _ready():
 	
+	
 	if Global.scene_data:
 		difficulty = Global.scene_data
+	
+	if difficulty == 5:
+		RenderingServer.set_default_clear_color(Color("332626"))
+		$RedTint.show()
+		pass
 	
 	shower_detection_node.area_entered.connect(_on_shower_detection_area_entered)
 	shower_detection_node.area_exited.connect(_on_shower_detection_area_exited)

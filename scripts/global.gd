@@ -23,8 +23,12 @@ var autosave_timer = Timer.new()
 
 var times_opened
 
+var default_clear_color: Color
+
 func _ready():
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	
+	default_clear_color = RenderingServer.get_default_clear_color()
 	
 	get_tree().set_auto_accept_quit(false)
 	
@@ -111,6 +115,8 @@ func change_scene(scene_path, music_path = null, data = null):
 		return
 	
 	scene_data = data
+	
+	RenderingServer.set_default_clear_color(default_clear_color)
 	
 	if scene_node:
 		if scene_node.name == "Room":
