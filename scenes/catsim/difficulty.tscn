@@ -41,7 +41,6 @@ vertical_alignment = 2
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
-tooltip_text = "Test"
 
 [node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/EasyButton"]
 layout_mode = 1
@@ -106,10 +105,31 @@ label_settings = ExtResource("1_fwnny")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label2" type="Label" parent="HBoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 1
+
+[node name="BackButton" type="Button" parent="HBoxContainer/VBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer2/BackButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Back
+"
+label_settings = ExtResource("1_fwnny")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 text = "Pet cat to increase happiness
 
 Click empty bowls to fill them
@@ -126,3 +146,4 @@ autowrap_mode = 2
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/NormalButton" to="." method="_on_normal_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/HardButton" to="." method="_on_hard_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/PainButton" to="." method="_on_pain_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer2/BackButton" to="." method="_on_back_button_pressed"]

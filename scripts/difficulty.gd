@@ -26,3 +26,7 @@ func _on_hard_button_pressed():
 
 func _on_pain_button_pressed():
 	Global.change_scene("res://scenes/catsim/cat_sim.tscn", "res://assets/music/beans_of_anxiety_pain.wav", 5)
+
+
+func _on_back_button_pressed():
+	Global.return_to_room()
