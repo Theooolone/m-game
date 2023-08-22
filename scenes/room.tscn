@@ -81,6 +81,7 @@ autoplay = "new_animation"
 position = Vector2(198, 37)
 
 [node name="Camera2D" type="Camera2D" parent="M"]
+position = Vector2(0, -4)
 zoom = Vector2(8, 8)
 position_smoothing_enabled = true
 position_smoothing_speed = 8.0
