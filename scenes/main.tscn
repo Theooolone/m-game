@@ -1,11 +1,17 @@
-[gd_scene load_steps=7 format=3 uid="uid://be1xemtd7td60"]
+[gd_scene load_steps=9 format=3 uid="uid://be1xemtd7td60"]
 
 [ext_resource type="PackedScene" uid="uid://bomyo23b5yead" path="res://scenes/room.tscn" id="1_uxiy3"]
 [ext_resource type="PackedScene" uid="uid://cgvt7kh2yf5ww" path="res://scenes/pause_menu.tscn" id="6_h5upv"]
+[ext_resource type="Script" path="res://scripts/fps.gd" id="7_6ii6o"]
 [ext_resource type="PackedScene" uid="uid://c5dsh6ix1rffr" path="res://scenes/ui/AudioSettings.tscn" id="12_jage7"]
 [ext_resource type="AudioStream" uid="uid://bq5hx53ka6uqq" path="res://assets/music/void_resonance.wav" id="13_e1xm7"]
 [ext_resource type="PackedScene" uid="uid://bq7gse2bd8uxc" path="res://scenes/textbox.tscn" id="14_ri8sk"]
 [ext_resource type="PackedScene" uid="uid://cwah6nf3q1aqu" path="res://scenes/controls.tscn" id="16_qgkb2"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_pcwdf"]
+font_size = 32
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
 
 [node name="Main" type="Node"]
 
@@ -27,3 +33,13 @@ visible = false
 
 [node name="Controls" parent="." instance=ExtResource("16_qgkb2")]
 visible = false
+
+[node name="FPS" type="CanvasLayer" parent="."]
+visible = false
+script = ExtResource("7_6ii6o")
+
+[node name="Label" type="Label" parent="FPS"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "60 FPS"
+label_settings = SubResource("LabelSettings_pcwdf")
