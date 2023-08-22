@@ -321,10 +321,7 @@ func _process(delta):
 	
 	
 	if Input.is_action_just_pressed("debug_menu"):
-		if not $Debug.visible:
-			$Debug.show()
-		else:
-			$Debug.hide()
+		$Debug.visible = not $Debug.visible
 	
 	debug(get_lowest_valued_useable_stat())
 
