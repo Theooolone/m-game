@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://scripts/shower_head.gd" id="2_2j7ly"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8rosg"]
-size = Vector2(6, 11)
+size = Vector2(6, 12)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jfaw8"]
 size = Vector2(6.70996, 13.5146)
@@ -40,10 +40,11 @@ position = Vector2(-4, -3)
 texture = ExtResource("1_0tdtv")
 
 [node name="GrabHitbox" type="Area2D" parent="."]
+position = Vector2(-1, -1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GrabHitbox"]
-position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_8rosg")
+metadata/_edit_lock_ = true
 
 [node name="ShowerHeadHitbox" type="Area2D" parent="."]
 position = Vector2(-4, -3)
@@ -52,6 +53,7 @@ position = Vector2(-4, -3)
 position = Vector2(-5.55751, 2.83893)
 rotation = 0.586533
 shape = SubResource("RectangleShape2D_jfaw8")
+metadata/_edit_lock_ = true
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 position = Vector2(-7, -4)
