@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bomyo23b5yead"]
+[gd_scene load_steps=22 format=3 uid="uid://bomyo23b5yead"]
 
 [ext_resource type="TileSet" uid="uid://jidy50o2532o" path="res://resources/room.tres" id="2_7oi8r"]
 [ext_resource type="PackedScene" uid="uid://ds2er2baig65x" path="res://scenes/funny_hubert.tscn" id="2_nj3n7"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://1aym6npw6xb2" path="res://scenes/objects/hubert.tscn" id="7_r6e0n"]
 [ext_resource type="PackedScene" uid="uid://d3r4gwc2jvqfr" path="res://scenes/text_interact_area.tscn" id="8_qnajo"]
 [ext_resource type="PackedScene" uid="uid://chtjyjl6om78o" path="res://scenes/objects/plate.tscn" id="9_7eubt"]
+[ext_resource type="PackedScene" uid="uid://dod5ivx3dm4ny" path="res://scenes/m_clone.tscn" id="10_hvcb7"]
 [ext_resource type="PackedScene" uid="uid://blrow0klriehp" path="res://scenes/baseobject.tscn" id="10_kf21y"]
 [ext_resource type="Texture2D" uid="uid://k2eocvy6b05o" path="res://assets/textures/objects/hubert.png" id="11_8wv3o"]
 [ext_resource type="Script" path="res://scripts/Border.gd" id="12_rgis5"]
@@ -103,12 +104,10 @@ Wait what"])
 [node name="Plate" parent="." instance=ExtResource("9_7eubt")]
 position = Vector2(104, 503)
 
-[node name="M Clone" parent="." instance=ExtResource("4_s1qrg")]
+[node name="M Clone" parent="." instance=ExtResource("10_hvcb7")]
 position = Vector2(713, 423)
-collision_layer = 3
-collision_mask = 3
 
-[node name="TextInteractArea" parent="M Clone" instance=ExtResource("8_qnajo")]
+[node name="MCloneText" parent="M Clone" instance=ExtResource("8_qnajo")]
 alert_type = 0
 textlist = Array[String](["It's you!", "Hi M!", "She doesn't have much to say...", "Lets just leave her alone"])
 metadata/_edit_lock_ = true
@@ -116,7 +115,7 @@ metadata/_edit_lock_ = true
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(604, 352)
 collision_layer = 2
-collision_mask = 3
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 shape = SubResource("SegmentShape2D_676lo")

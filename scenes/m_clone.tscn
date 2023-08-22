@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dod5ivx3dm4ny"]
+
+[ext_resource type="PackedScene" uid="uid://dyjsiqk42bq5w" path="res://scenes/m.tscn" id="1_e8sku"]
+[ext_resource type="Script" path="res://scripts/m_clone.gd" id="2_l3irq"]
+
+[node name="M Clone" instance=ExtResource("1_e8sku")]
+collision_mask = 3
+script = ExtResource("2_l3irq")
