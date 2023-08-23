@@ -1,6 +1,6 @@
 [gd_scene load_steps=40 format=3 uid="uid://coy8ycn8wwfvl"]
 
-[ext_resource type="Script" path="res://scripts/Cat.gd" id="1_jus8a"]
+[ext_resource type="Script" path="res://scripts/catsim_main.gd" id="1_mh1t5"]
 [ext_resource type="TileSet" uid="uid://jidy50o2532o" path="res://resources/room.tres" id="2_yp0iu"]
 [ext_resource type="PackedScene" uid="uid://cndlh00l1npxt" path="res://scenes/catsim/statbar.tscn" id="4_kofum"]
 [ext_resource type="Texture2D" uid="uid://b6whkt023c6jq" path="res://assets/textures/catsim/food_bowl.png" id="4_ksyhg"]
@@ -233,7 +233,7 @@ outline_color = Color(0, 0, 0, 1)
 
 [node name="CatSim" type="Node2D"]
 y_sort_enabled = true
-script = ExtResource("1_jus8a")
+script = ExtResource("1_mh1t5")
 
 [node name="TileMap" type="TileMap" parent="."]
 z_index = -10
