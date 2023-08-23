@@ -1,8 +1,6 @@
 extends Node2D
 
 
-# Stat related functions
-
 var cats = {
 #	"Socks": {
 #		"node": null, # the node which represents the cat.
@@ -12,6 +10,7 @@ var cats = {
 #
 #		"current_state": State.IDLE,
 #		"being_showered": false, # true if under the shower head
+#		"speed": 1,
 #
 #		"stats": {}, # Contains per-cat values for each stat
 #		"random_refill_timer": null, # cat tries to refill lowest useable stat on timeout
@@ -50,7 +49,8 @@ func add_new_cat_timer(cat, timername, one_shot: bool = false, autostart: bool =
 	cats[cat]["node"].add_child(cats[cat][timername])
 	cats[cat][timername].wait_time = wait_time
 	cats[cat][timername].one_shot = one_shot
-	cats[cat][timername].autostart = autostart
+	if autostart:
+		cats[cat][timername].start()
 
 
 func new_cat(
@@ -62,34 +62,42 @@ func new_cat(
 	cats[catname]["node"] = node
 	cats[catname]["stats"] = {}
 	
-	cats[catname]["random_goal"] = Vector2.ZERO
+	cats[catname]["node"].position.x = randi_range(min_idle_range.x, max_idle_range.x)
+	cats[catname]["node"].position.y = randi_range(min_idle_range.y, max_idle_range.y)
+	cats[catname]["random_goal"] = cats[catname]["node"].position
+	
 	cats[catname]["current_state"] = State.IDLE
 	
 	cats[catname]["stat_goal"] = null
 	cats[catname]["being_showered"] = false
+	cats[catname]["speed"] = cat_speed_base
 	cats[catname]["sleeping"] = false
 	
 	
 	# Cursed lambda use
 	# I was stuck on these signal connections for so long
 	add_new_cat_timer(catname, "idle_walk_timer", true, true)
-	cats[catname]["idle_walk_timer"].timeout.connect((func(): _on_cat_idle_walk_timeout(catname)))
+	cats[catname]["idle_walk_timer"].timeout.connect(func():_on_cat_idle_walk_timeout(catname))
 	
 	add_new_cat_timer(catname, "random_refill_timer", true, true, 8)
 	
 	add_new_cat_timer(catname, "use_duration_timer", true)
-	cats[catname]["use_duration_timer"].timeout.connect((func(): _on_use_duration_timer_timeout(catname)))
+	
+	cats[catname]["use_duration_timer"].timeout.connect(func(): _on_use_duration_timer_timeout(catname))
 	
 	add_new_cat_timer(catname, "shower_cooldown_timer", true, false, 3.5)
-	cats[catname]["shower_cooldown_timer"].timeout.connect((func(): _on_shower_cooldown_timeout(catname)))
+	cats[catname]["shower_cooldown_timer"].timeout.connect(func(): _on_shower_cooldown_timeout(catname))
 	
 	add_new_cat_timer(catname, "meow_timer", true, true)
-	cats[catname]["meow_timer"].timeout.connect((func(): _on_meow_timer_timeout(catname)))
+	cats[catname]["meow_timer"].timeout.connect(func(): _on_meow_timer_timeout(catname))
 	
-	# TODO: shower detection node signals should be connected when cat is created
+	cats[catname]["node"].get_node("Button").button_down.connect(func(): pet(catname))
+	
 	var shower_detection_node: Area2D = cats[catname]["node"].get_node("ShowerDetection")
-	shower_detection_node.area_entered.connect((func(area2D): _on_shower_detection_area_entered(catname,area2D)))
-	shower_detection_node.area_exited.connect((func(area2D): _on_shower_detection_area_exited(catname,area2D)))
+	shower_detection_node.area_entered.connect(func(area2D): _on_shower_detection_area_entered(catname,area2D))
+	shower_detection_node.area_exited.connect(func(area2D): _on_shower_detection_area_exited(catname,area2D))
+	
+	
 
 
 var score = 0
@@ -132,6 +140,10 @@ func set_useable(stat, value: bool) -> void:
 	stats[stat]["useable"] = value
 
 
+func get_useable(stat) -> bool:
+	return stats[stat]["useable"]
+
+
 func get_value(cat, stat) -> int:
 	return cats[cat]["stats"][stat]["value"]
 
@@ -147,7 +159,8 @@ func change_score(value):
 	score += value
 	score_text_node.text = str(10*score)
 	if score > highscore:
-		Global.set_config_value("cat_sim_highscores", "difficulty_"+str(difficulty), score)
+		# Highscore saving temp disabled
+		#Global.set_config_value("cat_sim_highscores", "difficulty_"+str(difficulty), score)
 		highscore_text_node.text = str(10*score)
 
 
@@ -160,7 +173,6 @@ func set_value(cat, stat, value, add_score = true) -> void:
 
 func change_value(cat, stat, value, add_score = true) -> void:
 	set_value(cat, stat, get_value(cat, stat)+value, add_score)
-	
 
 
 func update_bar(cat, stat):
@@ -228,6 +240,10 @@ func get_random_goal(cat):
 	return cats[cat]["random_goal"]
 
 
+func set_random_goal(cat, value):
+	cats[cat]["random_goal"] = value
+
+
 func is_being_showered(cat) -> bool:
 	return cats[cat]["being_showered"]
 
@@ -242,6 +258,10 @@ func is_sleeping(cat) -> bool:
 
 func set_sleeping(cat, value):
 	cats[cat]["sleeping"] = value
+
+
+func set_speed(cat, value):
+	cats[cat]["speed"] = value
 
 
 enum State {
@@ -264,10 +284,10 @@ func set_current_state(cat, new_state: State, force = false):
 	cats[cat]["current_state"] = new_state
 	if new_state == State.RUNNING:
 		get_cat_node(cat).speed_scale = 2.5
-		cat_speed = 2.5*cat_speed_base
+		set_speed(cat, 2.5*cat_speed_base)
 	else:
 		get_cat_node(cat).speed_scale = 1
-		cat_speed = cat_speed_base
+		set_speed(cat, cat_speed_base)
 		
 	if new_state == State.WALKING:
 		get_cat_node(cat).play("default")
@@ -288,7 +308,7 @@ func abort_object_use(cat, reset_random_refill: bool = true):
 
 
 var cat_speed_base = 2.25
-@onready var cat_speed = cat_speed_base
+
 
 func refill_stat(cat, stat):
 	if not (stats[stat]["object_node"] and stats[stat]["useable"]):
@@ -327,7 +347,7 @@ func move_towards(cat, pos, delta):
 			cat_node.scale = Vector2(-1,1)
 		else:
 			cat_node.scale = Vector2(1,1)
-	cat_node.position = cat_node.position.move_toward(pos, cat_speed*16*delta)
+	cat_node.position = cat_node.position.move_toward(pos, cats[cat]["speed"]*16*delta)
 	return cat_node.position == pos
 
 
@@ -340,6 +360,7 @@ func move_random_goal(cat):
 	var random_goal = get_random_goal(cat)
 	random_goal.x = randi_range(min_idle_range.x, max_idle_range.x)
 	random_goal.y = randi_range(min_idle_range.y, max_idle_range.y)
+	set_random_goal(cat, random_goal)
 	get_idle_walk_timer(cat).start(randf_range(4,8))
 	get_cat_node(cat).play("default")
 
@@ -358,9 +379,11 @@ func _on_shower_detection_area_entered(cat, area2D):
 	if area2D.name == "ShowerHeadHitbox":
 		shower_tick_timer.start()
 		set_being_showered(cat, true)
-		shower_tick_timer.stop()
+		#shower_tick_timer.stop()
 		abort_object_use(cat, false)
 		set_current_state(cat, State.RUNNING)
+		change_value(cat, "human_tolerance", -2)
+
 
 func _on_shower_detection_area_exited(cat, area2D):
 	if area2D.name == "ShowerHeadHitbox":
@@ -374,9 +397,11 @@ func _on_shower_cooldown_timeout(cat):
 	set_current_state(cat, State.IDLE, true)
 
 
-func _on_shower_tick_timeout(cat):
-	change_value(cat, "cleanliness", 1)
-	change_value(cat, "human_tolerance", -1)
+func _on_shower_tick_timeout():
+	for cat in cats:
+		if is_being_showered(cat):
+			change_value(cat, "cleanliness", 1)
+			change_value(cat, "human_tolerance", -1)
 
 
 func walking_process(cat, delta):
@@ -390,6 +415,10 @@ func walking_process(cat, delta):
 		goal_position = target_node.global_position
 	else:
 		goal_position = object_node.global_position
+	
+	if not get_useable(stat_goal):
+		set_current_state(cat, State.IDLE)
+		stat_goal = null
 	
 	# Returns true when at destination
 	if move_towards(cat, goal_position, delta):
@@ -405,7 +434,7 @@ func _on_use_duration_timer_timeout(cat):
 	
 	if stats[stat_goal]["end_use_func"]:
 		stats[stat_goal]["end_use_func"].call(cat)
-		stat_goal = null
+	stat_goal = null
 	get_random_refill_timer(cat).start()
 	set_current_state(cat, State.IDLE)
 	get_cat_node(cat).play("default")
@@ -473,6 +502,7 @@ func _process(delta):
 @onready var shower_tick_timer = $ShowerTickTimer
 
 func _ready():
+	#Engine.time_scale = 10
 	
 	if Global.scene_data:
 		difficulty = Global.scene_data
@@ -485,10 +515,8 @@ func _ready():
 	
 	msec_start = Time.get_ticks_msec()
 	
-	# idk if cats should be created before or after stats but i think it should be before
-	
 	new_cat("Socks", $Cat)
-	
+	new_cat("Penny", $Cat2)
 	
 	new_stat("hunger", $Hunger, $Food, start_eat, eat, null, fill_food_bowl, 64, 3)
 	new_stat("thirst", $Thirst, $Water, null, drink, null, fill_water_bowl)
@@ -501,8 +529,6 @@ func _ready():
 	
 	if OS.is_debug_build():
 		$Debug.show()
-	
-	$Cat/Button.button_down.connect(pet)
 
 
 func start_eat(cat):
@@ -530,6 +556,7 @@ func sleep_start(cat):
 	set_sleeping(cat, true)
 	get_cat_node(cat).hide()
 	bed_node.play("sleeping")
+	set_useable("awakeness", false)
 
 
 func sleep_end(cat):
@@ -538,6 +565,7 @@ func sleep_end(cat):
 	set_sleeping(cat, false)
 	get_cat_node(cat).show()
 	bed_node.play("empty")
+	set_useable("awakeness", true)
 
 
 func sleep_abort(cat):

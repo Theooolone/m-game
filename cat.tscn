@@ -1,0 +1,64 @@
+[gd_scene load_steps=8 format=3 uid="uid://bt2dpylnii81v"]
+
+[ext_resource type="Texture2D" uid="uid://bq860rahhq1pc" path="res://assets/textures/catsim/cat.png" id="1_axdct"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_igbm0"]
+atlas = ExtResource("1_axdct")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s1ubk"]
+atlas = ExtResource("1_axdct")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8th28"]
+atlas = ExtResource("1_axdct")
+region = Rect2(48, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fnt0g"]
+atlas = ExtResource("1_axdct")
+region = Rect2(72, 0, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1yrom"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_igbm0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s1ubk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8th28")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fnt0g")
+}],
+"loop": true,
+"name": &"default",
+"speed": 7.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nim6d"]
+radius = 7.0
+
+[node name="Cat" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_1yrom")
+offset = Vector2(0, -6)
+
+[node name="Button" type="Button" parent="."]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -7.0
+offset_top = -9.0
+offset_right = -18.0
+offset_bottom = -23.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ShowerDetection" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ShowerDetection"]
+position = Vector2(0, -4)
+shape = SubResource("CircleShape2D_nim6d")
