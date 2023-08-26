@@ -102,6 +102,11 @@ func _process(_delta):
 
 func _ready():
 	
+	
+	var scroll_bar = %ScrollContainer.get_v_scroll_bar()
+	scroll_bar.scale = Vector2.ONE/2
+	scroll_bar.custom_minimum_size.y = scroll_bar.size.y*2
+	
 	var statbar_sets_left = statbar_sets.duplicate()
 	for cat in cats:
 		cat.statbar_set = statbar_sets_left.pop_front()
