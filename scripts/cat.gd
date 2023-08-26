@@ -285,7 +285,7 @@ func _ready():
 	new_stat("thirst", "Thirst", null, drink, null,)
 	new_stat("fun", "Fun")
 	new_stat("human_tolerance", "Human Tolerance")
-	new_stat("awakeness", "Awakeness", sleep_start, sleep_end, sleep_abort)
+	new_stat("energy", "Energy", sleep_start, sleep_end, sleep_abort)
 	new_stat("cleanliness", "Cleanliness")
 
 
@@ -311,17 +311,17 @@ func drink():
 func sleep_start():
 	sleeping = true
 	hide()
-	MAIN.get_obj_node("awakeness").play("sleeping")
-	MAIN.set_useable("awakeness", false)
+	MAIN.get_obj_node("energy").play("sleeping")
+	MAIN.set_useable("energy", false)
 
 
 func sleep_end():
-	set_value("awakeness", 64)
+	set_value("energy", 64)
 	meow_node.play()
 	sleeping = false
 	show()
-	MAIN.get_obj_node("awakeness").play("empty")
-	MAIN.set_useable("awakeness", true)
+	MAIN.get_obj_node("energy").play("empty")
+	MAIN.set_useable("energy", true)
 
 
 func sleep_abort():
@@ -329,8 +329,8 @@ func sleep_abort():
 	sleeping = false
 	change_value("human_tolerance", -12)
 	show()
-	MAIN.get_obj_node("awakeness").play("empty")
-	MAIN.set_useable("awakeness", true)
+	MAIN.get_obj_node("energy").play("empty")
+	MAIN.set_useable("energy", true)
 
 
 @onready var meow_node = $Meow
@@ -364,7 +364,7 @@ func _on_stat_tick_timer_timeout():
 	match stat_changed:
 		"human_tolerance":
 			change_value(stat_changed, 1, false)
-		"awakeness":
+		"energy":
 			if not sleeping:
 				change_value(stat_changed, -1)
 		"cleanliness":

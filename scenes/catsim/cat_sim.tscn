@@ -233,13 +233,13 @@ position = Vector2(0, -5)
 position = Vector2(-24, -16)
 
 [node name="Cat2" parent="." instance=ExtResource("8_dw7o2")]
-position = Vector2(-24, -16)
+position = Vector2(-55, -26)
 
 [node name="Cat3" parent="." instance=ExtResource("8_dw7o2")]
-position = Vector2(-24, -16)
+position = Vector2(-8, -38)
 
 [node name="Cat4" parent="." instance=ExtResource("8_dw7o2")]
-position = Vector2(-24, -16)
+position = Vector2(4, -2)
 
 [node name="StatTickTimer" type="Timer" parent="."]
 autostart = true
@@ -312,7 +312,7 @@ offset_left = -8.0
 offset_right = 56.0
 scale = Vector2(0.64, 1)
 
-[node name="Awakeness" parent="." instance=ExtResource("4_kofum")]
+[node name="Energy" parent="." instance=ExtResource("4_kofum")]
 visible = false
 z_index = 10
 material = SubResource("ShaderMaterial_3ssys")

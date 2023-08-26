@@ -120,7 +120,7 @@ func _ready():
 	new_stat("thirst", $Thirst, $Water, fill_water_bowl)
 	new_stat("fun", $Fun)
 	new_stat("human_tolerance", $"Human Tolerance")
-	new_stat("awakeness", $Awakeness, bed_node, on_bed_clicked, 10)
+	new_stat("energy", $Energy, bed_node, on_bed_clicked, 10)
 	new_stat("cleanliness", $Cleanliness)
 	
 	highscore_text_node.text = str(10*Global.get_config_value("cat_sim_highscores", "difficulty_"+str(difficulty), 0))
