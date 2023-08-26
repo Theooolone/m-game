@@ -106,6 +106,10 @@ func _ready():
 	for cat in cats:
 		cat.statbar_set = statbar_sets_left.pop_front()
 	
+	for statbar_set in statbar_sets_left:
+		statbar_set.queue_free()
+	
+	
 	if Global.scene_data:
 		difficulty = Global.scene_data
 	
