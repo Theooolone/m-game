@@ -83,11 +83,9 @@ metadata/_edit_lock_ = true
 
 [node name="IdleWalkTimer" type="Timer" parent="."]
 one_shot = true
-autostart = true
 
 [node name="MeowTimer" type="Timer" parent="."]
 one_shot = true
-autostart = true
 
 [node name="UseDurationTimer" type="Timer" parent="."]
 one_shot = true
@@ -109,6 +107,7 @@ max_polyphony = 2
 bus = &"Ambient"
 
 [connection signal="input_event" from="ClickDetection" to="." method="_on_click_detection_input_event"]
+[connection signal="mouse_entered" from="ClickDetection" to="." method="_on_click_detection_mouse_entered"]
 [connection signal="timeout" from="IdleWalkTimer" to="." method="_on_cat_idle_walk_timeout"]
 [connection signal="timeout" from="MeowTimer" to="." method="_on_meow_timer_timeout"]
 [connection signal="timeout" from="UseDurationTimer" to="." method="_on_use_duration_timer_timeout"]

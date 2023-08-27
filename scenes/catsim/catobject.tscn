@@ -1,14 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://bbu3xsdp51vud"]
+[gd_scene load_steps=3 format=3 uid="uid://bbu3xsdp51vud"]
 
 [ext_resource type="Texture2D" uid="uid://dr327yyh30yl7" path="res://assets/textures/missing.png" id="1_sf3wu"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4aoee"]
+radius = 8.0
 
 [node name="Object" type="Sprite2D"]
 texture = ExtResource("1_sf3wu")
 
-[node name="Button" type="Button" parent="."]
-modulate = Color(1, 1, 1, 0)
-offset_left = -8.0
-offset_top = -8.0
-offset_right = 8.0
-offset_bottom = 8.0
-flat = true
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_4aoee")

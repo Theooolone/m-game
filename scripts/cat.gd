@@ -98,6 +98,8 @@ func change_state(new_state: State, force = false):
 func abort_object(reset_random_refill: bool = true):
 	if not stat_goal:
 		return
+	if not current_state == State.USING:
+		return
 	if stats[stat_goal]["abort_func"]:
 		stats[stat_goal]["abort_func"].call()
 	change_state(State.IDLE)
@@ -148,6 +150,13 @@ func move_random_goal():
 	random_goal.y = randi_range(min_idle_range.y, max_idle_range.y)
 	idle_walk_timer.start(randf_range(4,8))
 	sprite.play("default")
+
+
+func random_teleport():
+	@warning_ignore("narrowing_conversion")
+	random_goal.x = randi_range(min_idle_range.x, max_idle_range.x)
+	@warning_ignore("narrowing_conversion")
+	random_goal.y = randi_range(min_idle_range.y, max_idle_range.y)
 
 
 func _on_cat_idle_walk_timeout():
@@ -281,12 +290,18 @@ func _ready():
 	shower_detection_node.area_entered.connect(_on_shower_detection_area_entered)
 	shower_detection_node.area_exited.connect(_on_shower_detection_area_exited)
 	
+	MAIN.get_node("Bed").get_node("Area2D").mouse_entered.connect(_on_bed_mouse_entered)
+	
 	new_stat("hunger", "Hunger", start_eat, eat, null)
 	new_stat("thirst", "Thirst", null, drink, null,)
 	new_stat("fun", "Fun")
 	new_stat("human_tolerance", "Human Tolerance")
 	new_stat("energy", "Energy", sleep_start, sleep_end, sleep_abort)
 	new_stat("cleanliness", "Cleanliness")
+	
+	move_random_goal()
+	position = random_goal
+	meow_timer_node.start(randf_range(10,25))
 
 
 func start_eat():
@@ -391,3 +406,16 @@ func _on_stat_tick_timer_timeout():
 func _on_click_detection_input_event(_viewport, _event, _shape_idx):
 	if Input.is_action_just_pressed("click"):
 		pet()
+
+
+func _on_click_detection_mouse_entered():
+	if MAIN.highlighted_statbar_set:
+		MAIN.highlighted_statbar_set.get_node("Highlight").hide()
+	statbar_set.get_node("Highlight").show()
+	MAIN.highlighted_statbar_set = statbar_set
+
+
+func _on_bed_mouse_entered():
+	if not sleeping:
+		return
+	_on_click_detection_mouse_entered()

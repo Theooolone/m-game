@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://coy8ycn8wwfvl"]
+[gd_scene load_steps=32 format=3 uid="uid://coy8ycn8wwfvl"]
 
 [ext_resource type="Script" path="res://scripts/catsim_main.gd" id="1_mh1t5"]
 [ext_resource type="TileSet" uid="uid://jidy50o2532o" path="res://resources/room.tres" id="2_yp0iu"]
@@ -9,12 +9,10 @@
 [ext_resource type="Texture2D" uid="uid://pwvsa7d527sd" path="res://assets/textures/catsim/water_bowl.png" id="5_l5bcd"]
 [ext_resource type="Texture2D" uid="uid://bx8dn1ne7f4ya" path="res://assets/textures/catsim/catbed_empty.png" id="6_47keu"]
 [ext_resource type="Texture2D" uid="uid://bpc2becmdwkh0" path="res://assets/textures/catsim/catbed_sleeping.png" id="7_2etbn"]
-[ext_resource type="PackedScene" uid="uid://dvmkbvvh4jml2" path="res://scenes/catsim/cat.tscn" id="8_dw7o2"]
 [ext_resource type="LabelSettings" uid="uid://dguaiif1dpkwk" path="res://resources/5px.tres" id="10_qs8rk"]
 [ext_resource type="FontFile" uid="uid://d0bw2pjoup6pc" path="res://assets/fonts/5px.ttf" id="13_breyg"]
 [ext_resource type="PackedScene" uid="uid://3dihg5lpayrh" path="res://scenes/catsim/shower_head.tscn" id="14_4kprh"]
 [ext_resource type="Texture2D" uid="uid://ecnm3gx6u58x" path="res://assets/textures/catsim/shower_head.png" id="14_fl870"]
-[ext_resource type="PackedScene" uid="uid://c3ytxc6l5cigj" path="res://scenes/catsim/statbar_set.tscn" id="15_c2rby"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_u0nxf"]
 atlas = ExtResource("7_2etbn")
@@ -45,6 +43,10 @@ animations = [{
 "name": &"sleeping",
 "speed": 0.75
 }]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5243n"]
+radius = 6.0
+height = 16.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wlijk"]
 bg_color = Color(0.713726, 0.745098, 0.776471, 1)
@@ -201,6 +203,7 @@ outline_color = Color(0, 0, 0, 1)
 [node name="CatSim" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_mh1t5")
+cat_amount = 2
 
 [node name="TileMap" type="TileMap" parent="."]
 z_index = -10
@@ -209,6 +212,7 @@ tile_set = ExtResource("2_yp0iu")
 format = 2
 layer_0/name = "Background"
 layer_0/tile_data = PackedInt32Array(-196615, 65536, 2, -131079, 65536, 2, -65543, 65536, 2, -7, 65536, 2, 65529, 65536, 2, 131065, 65536, 2, -196614, 65536, 2, -131078, 65536, 2, -65542, 65536, 2, -6, 65536, 2, 65530, 65536, 2, 131066, 65536, 2, -196613, 65536, 2, -131077, 65536, 2, -65541, 65536, 2, -5, 65536, 2, 65531, 65536, 2, 131067, 65536, 2, -196612, 65536, 2, -131076, 65536, 2, -65540, 65536, 2, -4, 65536, 2, 65532, 65536, 2, 131068, 65536, 2, -196611, 65536, 2, -131075, 65536, 2, -65539, 65536, 2, -3, 65536, 2, 65533, 65536, 2, 131069, 65536, 2, -196610, 65536, 2, -131074, 65536, 2, -65538, 65536, 2, -2, 65536, 2, 65534, 65536, 2, 131070, 65536, 2, -262151, 65536, 1, -262150, 262144, 3, -262149, 262144, 1, -262148, 65536, 1, -262147, 196608, 3, -262146, 65536, 1, -262152, 0, 1, -196616, 0, 2, -131080, 0, 2, -65544, 0, 2, -8, 0, 2, 65528, 0, 2, 131064, 0, 2, -262145, 262144, 3, -196609, 65536, 2, -131073, 65536, 2, -65537, 65536, 2, -1, 65536, 2, 65535, 65536, 2, 131071, 65536, 2, -327687, 65536, 0, -327686, 262144, 2, -327684, 65536, 0, -327683, 196608, 2, -327682, 65536, 0, -327681, 262144, 2, -327688, 0, 0, -327685, 262144, 0, -393216, 458752, 0, -327680, 458752, 1, -262144, 65536, 2, -196608, 65536, 2, -131072, 65536, 2, -65536, 65536, 2, 0, 65536, 2, 65536, 65536, 2, -393215, 65536, 0, -327679, 65536, 1, -262143, 65536, 2, -196607, 65536, 2, -131071, 65536, 2, -65535, 65536, 2, 1, 65536, 2, 65537, 65536, 2, -393214, 131072, 0, -327678, 131072, 1, -262142, 131072, 2, -196606, 131072, 2, -131070, 131072, 2, -65534, 131072, 2, 2, 131072, 2, 65538, 131072, 2, 196600, 0, 3, 196601, 65536, 3, 196602, 65536, 3, 196603, 65536, 3, 196604, 65536, 3, 196605, 65536, 3, 196606, 65536, 3, 196607, 65536, 3, 131072, 65536, 3, 131073, 65536, 3, 131074, 131072, 3)
+metadata/_edit_lock_ = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 ignore_rotation = false
@@ -236,28 +240,16 @@ sprite_frames = SubResource("SpriteFrames_asxy8")
 animation = &"empty"
 offset = Vector2(0, -1)
 
-[node name="Button" type="Button" parent="Bed"]
-modulate = Color(1, 1, 1, 0)
-offset_left = -8.0
-offset_top = -8.0
-offset_right = 8.0
-offset_bottom = 8.0
-metadata/_edit_lock_ = true
-
 [node name="Target" type="Marker2D" parent="Bed"]
 position = Vector2(0, -5)
 
-[node name="Cat" parent="." instance=ExtResource("8_dw7o2")]
-position = Vector2(-24, -16)
+[node name="Area2D" type="Area2D" parent="Bed"]
+position = Vector2(0, -1)
 
-[node name="Cat2" parent="." instance=ExtResource("8_dw7o2")]
-position = Vector2(-55, -26)
-
-[node name="Cat3" parent="." instance=ExtResource("8_dw7o2")]
-position = Vector2(-8, -38)
-
-[node name="Cat4" parent="." instance=ExtResource("8_dw7o2")]
-position = Vector2(4, -2)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bed/Area2D"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_5243n")
+metadata/_edit_lock_ = true
 
 [node name="StatTickTimer" type="Timer" parent="."]
 autostart = true
@@ -278,6 +270,7 @@ offset_bottom = 31.0
 [node name="ScrollContainer" type="ScrollContainer" parent="StatbarSets"]
 unique_name_in_owner = true
 clip_contents = false
+layout_mode = 0
 offset_top = 9.0
 offset_right = 73.0
 offset_bottom = 99.0
@@ -287,75 +280,59 @@ horizontal_scroll_mode = 0
 [node name="VBoxContainer" type="VBoxContainer" parent="StatbarSets/ScrollContainer"]
 layout_mode = 2
 
-[node name="StatbarSet" parent="StatbarSets/ScrollContainer/VBoxContainer" instance=ExtResource("15_c2rby")]
-layout_mode = 2
+[node name="Statbars" type="Node2D" parent="."]
 
-[node name="StatbarSet2" parent="StatbarSets/ScrollContainer/VBoxContainer" instance=ExtResource("15_c2rby")]
-layout_mode = 2
-
-[node name="StatbarSet3" parent="StatbarSets/ScrollContainer/VBoxContainer" instance=ExtResource("15_c2rby")]
-layout_mode = 2
-
-[node name="StatbarSet4" parent="StatbarSets/ScrollContainer/VBoxContainer" instance=ExtResource("15_c2rby")]
-layout_mode = 2
-
-[node name="Hunger" parent="." instance=ExtResource("4_kofum")]
-visible = false
+[node name="Hunger" parent="Statbars" instance=ExtResource("4_kofum")]
 z_index = 10
 material = SubResource("ShaderMaterial_8seon")
 offset_left = 50.0
-offset_top = -60.0
+offset_top = -59.0
 offset_right = 114.0
-offset_bottom = -52.0
+offset_bottom = -51.0
 
-[node name="Thirst" parent="." instance=ExtResource("4_kofum")]
-visible = false
+[node name="Thirst" parent="Statbars" instance=ExtResource("4_kofum")]
 z_index = 10
 material = SubResource("ShaderMaterial_k78kn")
 offset_left = 50.0
-offset_top = -44.0
+offset_top = -43.0
 offset_right = 114.0
-offset_bottom = -36.0
+offset_bottom = -35.0
 
-[node name="Fun" parent="." instance=ExtResource("4_kofum")]
-visible = false
+[node name="Fun" parent="Statbars" instance=ExtResource("4_kofum")]
 z_index = 10
 material = SubResource("ShaderMaterial_i57ft")
 offset_left = 50.0
-offset_top = -28.0
+offset_top = -27.0
 offset_right = 114.0
-offset_bottom = -20.0
+offset_bottom = -19.0
 
-[node name="Human Tolerance" parent="." instance=ExtResource("4_kofum")]
-visible = false
+[node name="Human Tolerance" parent="Statbars" instance=ExtResource("4_kofum")]
 z_index = 10
 offset_left = 50.0
-offset_top = -12.0
+offset_top = -11.0
 offset_right = 114.0
-offset_bottom = -4.0
+offset_bottom = -3.0
 
-[node name="Label" parent="Human Tolerance" index="0"]
+[node name="Label" parent="Statbars/Human Tolerance" index="0"]
 offset_left = -8.0
 offset_right = 56.0
 scale = Vector2(0.64, 1)
 
-[node name="Energy" parent="." instance=ExtResource("4_kofum")]
-visible = false
+[node name="Energy" parent="Statbars" instance=ExtResource("4_kofum")]
 z_index = 10
 material = SubResource("ShaderMaterial_3ssys")
 offset_left = 50.0
-offset_top = 4.0
+offset_top = 5.0
 offset_right = 114.0
-offset_bottom = 12.0
+offset_bottom = 13.0
 
-[node name="Cleanliness" parent="." instance=ExtResource("4_kofum")]
-visible = false
+[node name="Cleanliness" parent="Statbars" instance=ExtResource("4_kofum")]
 z_index = 10
 material = SubResource("ShaderMaterial_cedye")
 offset_left = 50.0
-offset_top = 20.0
+offset_top = 21.0
 offset_right = 114.0
-offset_bottom = 28.0
+offset_bottom = 29.0
 
 [node name="MinIdleRange" type="Marker2D" parent="."]
 position = Vector2(-88, -48)
@@ -496,4 +473,4 @@ color = Color(1, 0.9, 0.9, 1)
 [connection signal="pressed" from="OtherMenuButton" to="." method="_on_other_menu_button_pressed"]
 [connection signal="pressed" from="ExtraMenus/BackButton" to="." method="_on_back_button_pressed"]
 
-[editable path="Human Tolerance"]
+[editable path="Statbars/Human Tolerance"]
