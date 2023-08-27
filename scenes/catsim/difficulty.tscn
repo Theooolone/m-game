@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/difficulty.gd" id="1_aydrc"]
 [ext_resource type="LabelSettings" uid="uid://dguaiif1dpkwk" path="res://resources/5px.tres" id="1_fwnny"]
 
-[node name="Control" type="Control"]
+[node name="Difficulty" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 240.0
@@ -39,19 +39,36 @@ vertical_alignment = 2
 
 [node name="EasyButton" type="Button" parent="HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
+self_modulate = Color(0.741176, 1, 0.745098, 1)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/EasyButton"]
+[node name="Difficulty" type="Label" parent="HBoxContainer/VBoxContainer/EasyButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 2.0
+offset_right = -2.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Easy"
 label_settings = ExtResource("1_fwnny")
-horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Highscore" type="Label" parent="HBoxContainer/VBoxContainer/EasyButton"]
+modulate = Color(1, 1, 1, 0.25098)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_right = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "800"
+label_settings = ExtResource("1_fwnny")
+horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="NormalButton" type="Button" parent="HBoxContainer/VBoxContainer"]
@@ -59,16 +76,32 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/NormalButton"]
+[node name="Difficulty" type="Label" parent="HBoxContainer/VBoxContainer/NormalButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 2.0
+offset_right = -2.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Normal"
 label_settings = ExtResource("1_fwnny")
-horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Highscore" type="Label" parent="HBoxContainer/VBoxContainer/NormalButton"]
+modulate = Color(1, 1, 1, 0.25098)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_right = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "800"
+label_settings = ExtResource("1_fwnny")
+horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="HardButton" type="Button" parent="HBoxContainer/VBoxContainer"]
@@ -76,31 +109,85 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/HardButton"]
+[node name="Difficulty" type="Label" parent="HBoxContainer/VBoxContainer/HardButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 2.0
+offset_right = -2.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Hard"
 label_settings = ExtResource("1_fwnny")
-horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PainButton" type="Button" parent="HBoxContainer/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/PainButton"]
+[node name="Highscore" type="Label" parent="HBoxContainer/VBoxContainer/HardButton"]
+modulate = Color(1, 1, 1, 0.25098)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 2.0
+offset_right = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "800"
+label_settings = ExtResource("1_fwnny")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="PainButton" type="Button" parent="HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+modulate = Color(1, 0.811765, 0.811765, 1)
+self_modulate = Color(1, 0.470588, 0.470588, 1)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Difficulty" type="Label" parent="HBoxContainer/VBoxContainer/PainButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_right = -2.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Pain"
+label_settings = ExtResource("1_fwnny")
+vertical_alignment = 1
+
+[node name="Highscore" type="Label" parent="HBoxContainer/VBoxContainer/PainButton"]
+modulate = Color(1, 1, 1, 0.25098)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_right = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "800"
+label_settings = ExtResource("1_fwnny")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="CustomButton" type="Button" parent="HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+self_modulate = Color(0.588235, 0.721569, 1, 1)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Difficulty" type="Label" parent="HBoxContainer/VBoxContainer/CustomButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_right = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Custom"
 label_settings = ExtResource("1_fwnny")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -146,4 +233,5 @@ autowrap_mode = 2
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/NormalButton" to="." method="_on_normal_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/HardButton" to="." method="_on_hard_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/PainButton" to="." method="_on_pain_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/CustomButton" to="." method="_on_custom_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer2/BackButton" to="." method="_on_back_button_pressed"]

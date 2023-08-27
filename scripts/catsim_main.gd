@@ -47,11 +47,11 @@ func get_obj_node(stat) -> Node2D:
 @onready var highscore_text_node = $Highscore
 
 func change_score(value):
-	var highscore = Global.get_config_value("cat_sim_highscores", "difficulty_"+str(difficulty), 0)
+	var highscore = Global.get_config_value("cat_sim_highscores", "difficulty_"+difficulty_save_id, 0)
 	score += value
 	score_text_node.text = str(10*score)
 	if score > highscore:
-		Global.set_config_value("cat_sim_highscores", "difficulty_"+str(difficulty), score)
+		Global.set_config_value("cat_sim_highscores", "difficulty_"+difficulty_save_id, score)
 		highscore_text_node.text = str(10*score)
 
 

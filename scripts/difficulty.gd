@@ -3,47 +3,68 @@ extends Control
 
 func _ready():
 	# Easy and Normal difficulty buttons
-	var easy_highscore = Global.get_config_value("cat_sim_highscores", "difficulty_0.6", 0)
-	%EasyButton/Label.text = "Easy (" + str(10*easy_highscore) + ")"
-	var normal_highscore = Global.get_config_value("cat_sim_highscores", "difficulty_1", 0)
-	%NormalButton/Label.text = "Normal (" + str(10*normal_highscore) + ")"
+	var easy_highscore = Global.get_config_value("cat_sim_highscores", "difficulty_easy", 0)
+	%EasyButton/Highscore.text = str(10*easy_highscore)
+	var normal_highscore = Global.get_config_value("cat_sim_highscores", "difficulty_normal", 0)
+	%NormalButton/Highscore.text = str(10*normal_highscore)
 	
 	# Hard difficulty button
-	var hard_highscore = Global.get_config_value("cat_sim_highscores", "difficulty_2", 0)
+	var hard_highscore = Global.get_config_value("cat_sim_highscores", "difficulty_hard", 0)
 	
-	if normal_highscore >= 250:
-		%HardButton/Label.text = "Hard (" + str(10*hard_highscore) + ")"
+	if normal_highscore >= 350:
+		%HardButton/Highscore.text = str(10*hard_highscore)
 	else:
 		%HardButton.disabled = true
-		%HardButton/Label.text = "Locked"
-		%HardButton.tooltip_text = "2500 points in Normal to unlock"
+		%HardButton/Difficulty.text = "Locked"
+		%HardButton/Highscore.hide()
+		%HardButton/Difficulty.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		%HardButton.tooltip_text = "3500 points in Normal to unlock"
 	
 	# Pain difficulty button
-	var pain_highscore = Global.get_config_value("cat_sim_highscores", "difficulty_5", 0)
+	var pain_highscore = Global.get_config_value("cat_sim_highscores", "difficulty_pain", 0)
 	
-	if hard_highscore >= 250:
-		%PainButton/Label.text = "Pain (" + str(10*pain_highscore) + ")"
+	if hard_highscore >= 350:
+		%PainButton/Highscore.text = str(10*pain_highscore)
 	else:
 		%PainButton.disabled = true
-		%PainButton/Label.text = "Locked"
-		if normal_highscore >= 250:
-			%PainButton.tooltip_text = "2500 points in Hard to unlock"
+		%PainButton.modulate = Color.WHITE
+		%PainButton.self_modulate = Color.WHITE
+		%PainButton/Difficulty.text = "Locked"
+		%PainButton/Highscore.hide()
+		%PainButton/Difficulty.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		if normal_highscore >= 350:
+			%PainButton.tooltip_text = "3500 points in Hard to unlock"
+	
+	
+	if min(easy_highscore,normal_highscore,hard_highscore,pain_highscore) < 450:
+		%CustomButton.modulate = Color.WHITE
+		%CustomButton.disabled = true
+		%CustomButton/Difficulty.text = "Locked"
+		%CustomButton.tooltip_text = "4500 points in every difficulty to unlock"
+	
+
+func enter_minigame(music, gameinfo):
+	Global.change_scene("res://scenes/catsim/cat_sim.tscn", "res://assets/music/"+music, gameinfo)
 
 
 func _on_easy_button_pressed():
-	Global.change_scene("res://scenes/catsim/cat_sim.tscn", "res://assets/music/beans_of_anxiety_easy.wav", 0.6)
+	enter_minigame("beans_of_anxiety_easy.wav", ["easy", 0.6, 1, false])
 
 
 func _on_normal_button_pressed():
-	Global.change_scene("res://scenes/catsim/cat_sim.tscn", "res://assets/music/beans_of_anxiety.wav", 1)
+	enter_minigame("beans_of_anxiety.wav", ["normal", 1, 1, false])
 
 
 func _on_hard_button_pressed():
-	Global.change_scene("res://scenes/catsim/cat_sim.tscn", "res://assets/music/beans_of_anxiety.wav", 2)
+	enter_minigame("beans_of_anxiety.wav", ["hard", 1.5, 2, false])
 
 
 func _on_pain_button_pressed():
-	Global.change_scene("res://scenes/catsim/cat_sim.tscn", "res://assets/music/beans_of_anxiety_pain.wav", 5)
+	enter_minigame("beans_of_anxiety_pain.wav", ["pain", 3, 3, true])
+
+
+func _on_custom_button_pressed():
+	Global.change_scene("res://scenes/catsim/custom_difficulty.tscn")
 
 
 func _on_back_button_pressed():

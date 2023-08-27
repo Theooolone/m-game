@@ -1,0 +1,303 @@
+[gd_scene load_steps=3 format=3 uid="uid://3qom14lccqy6"]
+
+[ext_resource type="LabelSettings" uid="uid://dguaiif1dpkwk" path="res://resources/5px.tres" id="1_jgk7s"]
+[ext_resource type="Script" path="res://scripts/custom_difficulty.gd" id="1_mjrii"]
+
+[node name="CustomDifficulty" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 240.0
+offset_bottom = 135.0
+script = ExtResource("1_mjrii")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+zoom = Vector2(8, 8)
+
+[node name="BackButton" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -118.0
+offset_top = 4.0
+offset_right = -5.0
+offset_bottom = 12.0
+grow_horizontal = 0
+
+[node name="Label" type="Label" parent="BackButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Back
+"
+label_settings = ExtResource("1_jgk7s")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Difficulty" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -120.0
+offset_top = -12.5
+offset_right = 120.0
+offset_bottom = -5.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Stat Decrease Multiplier"
+label_settings = ExtResource("1_jgk7s")
+horizontal_alignment = 1
+
+[node name="HSlider" type="HSlider" parent="Difficulty"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = 4.5
+offset_right = 448.0
+offset_bottom = 20.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.25, 0.25)
+max_value = 5.0
+step = 0.05
+value = 1.0
+tick_count = 6
+ticks_on_borders = true
+
+[node name="Label" type="Label" parent="Difficulty/HSlider"]
+layout_mode = 0
+offset_left = -16.0
+offset_right = -10.0
+offset_bottom = 7.0
+scale = Vector2(2, 2)
+text = "0"
+label_settings = ExtResource("1_jgk7s")
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="Difficulty/HSlider"]
+layout_mode = 0
+offset_left = 520.0
+offset_right = 526.0
+offset_bottom = 7.0
+scale = Vector2(2, 2)
+text = "5"
+label_settings = ExtResource("1_jgk7s")
+horizontal_alignment = 1
+
+[node name="CatNum" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -120.0
+offset_top = 11.5
+offset_right = 120.0
+offset_bottom = 18.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Number of cats"
+label_settings = ExtResource("1_jgk7s")
+horizontal_alignment = 1
+
+[node name="HSlider" type="HSlider" parent="CatNum"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = 4.5
+offset_right = 448.0
+offset_bottom = 20.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.25, 0.25)
+min_value = 1.0
+max_value = 8.0
+value = 1.0
+tick_count = 8
+ticks_on_borders = true
+
+[node name="Label" type="Label" parent="CatNum/HSlider"]
+layout_mode = 0
+offset_left = -16.0
+offset_right = -10.0
+offset_bottom = 7.0
+scale = Vector2(2, 2)
+text = "1"
+label_settings = ExtResource("1_jgk7s")
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="CatNum/HSlider"]
+layout_mode = 0
+offset_left = 520.0
+offset_right = 526.0
+offset_bottom = 7.0
+scale = Vector2(2, 2)
+text = "8"
+label_settings = ExtResource("1_jgk7s")
+horizontal_alignment = 1
+
+[node name="PresetOption" type="OptionButton" parent="."]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 28.0
+offset_right = 288.0
+offset_bottom = 60.0
+scale = Vector2(0.25, 0.25)
+item_count = 4
+selected = 1
+popup/item_0/text = "Easy"
+popup/item_0/id = 0
+popup/item_1/text = "Normal"
+popup/item_1/id = 1
+popup/item_2/text = "Hard"
+popup/item_2/id = 2
+popup/item_3/text = "Pain"
+popup/item_3/id = 3
+
+[node name="Label" type="Label" parent="PresetOption"]
+layout_mode = 0
+offset_top = -16.0
+offset_right = 96.0
+offset_bottom = -8.0
+scale = Vector2(2, 2)
+text = "Preset"
+label_settings = ExtResource("1_jgk7s")
+horizontal_alignment = 1
+
+[node name="MusicOption" type="OptionButton" parent="."]
+layout_mode = 0
+offset_left = 58.0
+offset_top = 43.0
+offset_right = 250.0
+offset_bottom = 75.0
+scale = Vector2(0.25, 0.25)
+item_count = 4
+selected = 1
+popup/item_0/text = "Slow"
+popup/item_0/id = 0
+popup/item_1/text = "Normal"
+popup/item_1/id = 1
+popup/item_2/text = "Fast"
+popup/item_2/id = 2
+popup/item_3/text = "Void Resonance"
+popup/item_3/id = 3
+
+[node name="Label" type="Label" parent="MusicOption"]
+layout_mode = 0
+offset_top = -16.0
+offset_right = 96.0
+offset_bottom = -8.0
+scale = Vector2(2, 2)
+text = "Music"
+label_settings = ExtResource("1_jgk7s")
+horizontal_alignment = 1
+
+[node name="TintedButton" type="CheckButton" parent="."]
+layout_mode = 0
+offset_left = 165.0
+offset_top = 44.0
+offset_right = 209.0
+offset_bottom = 68.0
+scale = Vector2(0.25, 0.25)
+
+[node name="Label" type="Label" parent="TintedButton"]
+layout_mode = 0
+offset_left = -80.0
+offset_top = 4.0
+offset_right = -38.0
+offset_bottom = 11.0
+scale = Vector2(2, 2)
+text = "Tinted?"
+label_settings = ExtResource("1_jgk7s")
+horizontal_alignment = 1
+
+[node name="PlayButton" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -56.5
+offset_top = 35.5
+offset_right = 56.5
+offset_bottom = 54.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+
+[node name="Difficulty" type="Label" parent="PlayButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_right = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Play"
+label_settings = ExtResource("1_jgk7s")
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="Highscore" type="Label" parent="PlayButton"]
+modulate = Color(1, 1, 1, 0.25098)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_right = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "800"
+label_settings = ExtResource("1_jgk7s")
+horizontal_alignment = 2
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="DifficultyLabel" type="Label" parent="."]
+layout_mode = 0
+offset_top = 67.0
+offset_right = 480.0
+offset_bottom = 74.0
+scale = Vector2(0.5, 0.5)
+text = "1"
+label_settings = ExtResource("1_jgk7s")
+horizontal_alignment = 1
+
+[node name="CatNumLabel" type="Label" parent="."]
+layout_mode = 0
+offset_top = 91.0
+offset_right = 480.0
+offset_bottom = 98.0
+scale = Vector2(0.5, 0.5)
+text = "1"
+label_settings = ExtResource("1_jgk7s")
+horizontal_alignment = 1
+
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="value_changed" from="Difficulty/HSlider" to="." method="_on_difficulty_value_changed"]
+[connection signal="value_changed" from="CatNum/HSlider" to="." method="_on_cat_num_value_changed"]
+[connection signal="item_selected" from="PresetOption" to="." method="_on_preset_option_item_selected"]
+[connection signal="item_selected" from="MusicOption" to="." method="_on_music_option_item_selected"]
+[connection signal="toggled" from="TintedButton" to="." method="_on_tinted_button_toggled"]
+[connection signal="pressed" from="PlayButton" to="." method="_on_play_button_pressed"]
