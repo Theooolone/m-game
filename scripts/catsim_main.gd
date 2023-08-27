@@ -167,7 +167,7 @@ func _ready():
 	new_stat("energy", $Statbars/Energy, $Bed, on_bed_clicked, 10)
 	new_stat("cleanliness", $Statbars/Cleanliness)
 	
-	highscore_text_node.text = str(10*Global.get_config_value("cat_sim_highscores", "difficulty_"+str(difficulty), 0))
+	highscore_text_node.text = str(10*Global.get_config_value("cat_sim_highscores", "difficulty_"+difficulty_save_id, 0))
 	
 	if OS.is_debug_build():
 		$Debug.show()
