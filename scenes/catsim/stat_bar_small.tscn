@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://bfi754tsd2upr"]
+
+[ext_resource type="PackedScene" uid="uid://cndlh00l1npxt" path="res://scenes/catsim/statbar.tscn" id="1_bttot"]
+[ext_resource type="Texture2D" uid="uid://bdn42dbxw3bp" path="res://assets/textures/catsim/catbar_thin_under.png" id="2_l25t1"]
+[ext_resource type="Texture2D" uid="uid://bxm7efr1dvdth" path="res://assets/textures/catsim/catbar_thin_progress.png" id="3_o7i62"]
+
+[node name="StatBar" instance=ExtResource("1_bttot")]
+offset_bottom = 4.0
+texture_under = ExtResource("2_l25t1")
+texture_progress = ExtResource("3_o7i62")
+
+[node name="Label" parent="." index="0"]
+modulate = Color(1, 1, 1, 0.74902)
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 64.0
+offset_bottom = 8.0
+scale = Vector2(0.5, 0.5)
+vertical_alignment = 1

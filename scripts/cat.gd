@@ -1,87 +1,56 @@
 extends Node2D
 
 
-# Stat related functions
+# Parent Node
+@onready var MAIN: Node2D = get_node("..")
+
+@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+
+var statbar_set: Node
 
 var stats = {}
 
-var score = 0
-
 func new_stat(
 		statname: String, # Identification
-		bar: TextureProgressBar = null, # UI Bar
-		object_node = null, # Object cat goes to (if applicable)
+		bar_name: String, # Name of the bar node inside statbar
 		start_use_func = null, # When cat starts using object
 		end_use_func = null, # When cat stops using object
 		abort_func = null, # When cat prematurely kicked out of using object
-		click_func = null, # When object clicked
-		start_value: int = 64,
-		use_time: float = 1.5, # Time it takes for cat to use object
-		useable: bool = true, # If cat can use object
+		start_value: int = 64
 ):
 	stats[statname] = {}
-	stats[statname]["object_node"] = object_node
-	stats[statname]["bar"] = bar
-	stats[statname]["value"] = start_value
-	stats[statname]["use_time"] = use_time
-	stats[statname]["useable"] = useable
+	stats[statname]["bar_name"] = bar_name
 	stats[statname]["start_use_func"] = start_use_func
 	stats[statname]["end_use_func"] = end_use_func
 	stats[statname]["abort_func"] = abort_func
-	if object_node and click_func:
-		object_node.get_node("Button").button_down.connect(click_func)
-	update_bar(statname)
-
-
-# Three functions for reading and writing a stat's value
-
-func set_useable(stat, value: bool) -> void:
-	stats[stat]["useable"] = value
+	stats[statname]["value"] = start_value
 
 
 func get_value(stat) -> int:
 	return stats[stat]["value"]
 
 
-func get_obj_node(stat) -> Node2D:
-	return stats[stat]["object_node"]
-
-@onready var score_text_node = $Score
-@onready var highscore_text_node = $Highscore
-
-func change_score(value):
-	var highscore = Global.get_config_value("cat_sim_highscores", "difficulty_"+str(difficulty), 0)
-	score += value
-	score_text_node.text = str(10*score)
-	if score > highscore:
-		Global.set_config_value("cat_sim_highscores", "difficulty_"+str(difficulty), score)
-		highscore_text_node.text = str(10*score)
-
-
 func set_value(stat, value, add_score = true) -> void:
 	if add_score:
-		change_score(max(0, clamp(value, 0, 64)-stats[stat]["value"]))
+		MAIN.change_score(max(0, clamp(value, 0, 64)-stats[stat]["value"]))
 	stats[stat]["value"] = clamp(value, 0, 64)
 	update_bar(stat)
 
 
 func change_value(stat, value, add_score = true) -> void:
 	set_value(stat, get_value(stat)+value, add_score)
-	
-
 
 func update_bar(stat):
-	stats[stat]["bar"].value = get_value(stat)
-
-
-func nodeof(stat) -> Node:
-	return stats[stat]["object_node"]
+	if statbar_set:
+		statbar_set.get_node(stats[stat]["bar_name"]).value = get_value(stat)
+	else:
+		MAIN.stats[stat]["bar"].value = get_value(stat)
 
 
 func filter_useable_stats():
 	var filtered_stats = stats.duplicate()
 	for stat in stats.keys():
-		if not (stats[stat]["object_node"] and stats[stat]["useable"]):
+		if not (MAIN.stats[stat]["object_node"] and MAIN.stats[stat]["useable"]):
 			filtered_stats.erase(stat)
 	return filtered_stats
 
@@ -101,10 +70,6 @@ func get_lowest_valued_useable_stat():
 	return get_lowest_valued_stat(filter_useable_stats())
 
 
-# Cat AI
-
-@onready var cat_node = $Cat
-
 enum State {
 	IDLE, ## Will walk around doing nothing
 	RUNNING, ## Running away from shower head
@@ -121,17 +86,19 @@ func change_state(new_state: State, force = false):
 	
 	current_state = new_state
 	if new_state == State.RUNNING:
-		cat_node.speed_scale = 2.5
+		sprite.speed_scale = 2.5
 		cat_speed = 2.5*cat_speed_base
 	else:
-		cat_node.speed_scale = 1
+		sprite.speed_scale = 1
 		cat_speed = cat_speed_base
 		
 	if new_state == State.WALKING:
-		cat_node.play("default")
+		sprite.play("default")
 
 func abort_object(reset_random_refill: bool = true):
 	if not stat_goal:
+		return
+	if not current_state == State.USING:
 		return
 	if stats[stat_goal]["abort_func"]:
 		stats[stat_goal]["abort_func"].call()
@@ -149,87 +116,80 @@ var cat_speed_base = 2.25
 @onready var cat_speed = cat_speed_base
 
 func refill_stat(stat):
-	if not (stats[stat]["object_node"] and stats[stat]["useable"]):
+	if not (MAIN.stats[stat]["object_node"] and MAIN.stats[stat]["useable"]):
 		return
 	stat_goal = stat
 	change_state(State.WALKING)
 
 
-func debug(lowest_useable_stat):
-	if not $Debug.visible:
-		return
-	
-	var stat_goal_text = stat_goal if stat_goal else "Null"
-	var lowest_useable_stat_text = str(0.1875*get_value(lowest_useable_stat)-4) \
-		if lowest_useable_stat else "Null"
-	var random_refill_text = str(0.1*round(10*(8-random_refill_timer_node.time_left))) \
-		if current_state == State.IDLE else "Null"
-	
-	$Debug.text = "State: " + State.keys()[current_state] \
-		+ "\nUsing: " + stat_goal_text \
-		+ "\nRandom Refill: " + random_refill_text \
-		+ "\nRandom Refill Max: " + lowest_useable_stat_text \
-		+ "\nElapsed Time: " + str(seconds_elapsed) \
-		+ "\nStat Tick Time: " + str(0.001*round(1000*($StatTickTimer.wait_time)))
+@onready var idle_walk_timer = $IdleWalkTimer
 
-
-@onready var min_idle_range = $MinIdleRange.position
-@onready var max_idle_range = $MaxIdleRange.position
-@onready var cat_idle_walk_timer = $CatIdleWalkTimer
-
-@onready var random_goal = cat_node.position
+@onready var random_goal = position
 
 func move_towards(pos, delta):
-	if cat_node.position != pos:
-		if (pos - cat_node.position).x > 0:
-			cat_node.scale = Vector2(-1,1)
+	if position != pos:
+		if (pos - position).x > 0:
+			scale = Vector2(-1,1)
 		else:
-			cat_node.scale = Vector2(1,1)
-	cat_node.position = cat_node.position.move_toward(pos, cat_speed*16*delta)
-	return cat_node.position == pos
+			scale = Vector2(1,1)
+	position = position.move_toward(pos, cat_speed*16*delta)
+	return position == pos
 
 
 func idle_process(delta):
 	if move_towards(random_goal, delta):
-		cat_node.stop()
+		sprite.stop()
 
+var min_idle_range: Vector2
+var max_idle_range: Vector2
 
 func move_random_goal():
+	@warning_ignore("narrowing_conversion")
 	random_goal.x = randi_range(min_idle_range.x, max_idle_range.x)
+	@warning_ignore("narrowing_conversion")
 	random_goal.y = randi_range(min_idle_range.y, max_idle_range.y)
-	cat_idle_walk_timer.start(randf_range(4,8))
-	cat_node.play("default")
+	idle_walk_timer.start(randf_range(4,8))
+	sprite.play("default")
+
+
+func random_teleport():
+	@warning_ignore("narrowing_conversion")
+	random_goal.x = randi_range(min_idle_range.x, max_idle_range.x)
+	@warning_ignore("narrowing_conversion")
+	random_goal.y = randi_range(min_idle_range.y, max_idle_range.y)
 
 
 func _on_cat_idle_walk_timeout():
+	
 	if current_state == State.RUNNING: return
 	move_random_goal()
-	cat_idle_walk_timer.start(randf_range(4,8))
+	idle_walk_timer.start(randf_range(4,8))
 
+@onready var stat_tick_timer = MAIN.get_node("StatTickTimer")
 
-@onready var shower_detection_node = $Cat/ShowerDetection
+@onready var shower_detection_node = $ShowerDetection
 @onready var shower_cooldown_timer = $ShowerCooldownTimer
-@onready var shower_tick_timer = $ShowerTickTimer
+@onready var shower_tick_timer = MAIN.get_node("ShowerTickTimer")
 
 func running_process(delta):
 	if move_towards(random_goal, delta):
 		move_random_goal()
 
+
 var getting_showered = false
 
 func _on_shower_detection_area_entered(area2D):
 	if area2D.name == "ShowerHeadHitbox":
-		shower_tick_timer.start()
 		getting_showered = true
 		shower_cooldown_timer.stop()
 		abort_object(false)
 		change_state(State.RUNNING)
 
+
 func _on_shower_detection_area_exited(area2D):
 	if area2D.name == "ShowerHeadHitbox":
 		getting_showered = false
 		shower_cooldown_timer.start()
-		shower_tick_timer.stop()
 
 
 func _on_shower_cooldown_timeout():
@@ -238,15 +198,15 @@ func _on_shower_cooldown_timeout():
 
 
 func _on_shower_tick_timeout():
-	change_value("cleanliness", 1)
-	change_value("human_tolerance", -1)
+	if getting_showered:
+		change_value("cleanliness", 1)
+		change_value("human_tolerance", -1)
 
 
 @onready var use_duration_timer_node = $UseDurationTimer
 
 func walking_process(delta):
-	
-	var object_node: Node2D  = get_obj_node(stat_goal)
+	var object_node: Node2D  = MAIN.get_obj_node(stat_goal)
 	var target_node: Node2D = object_node.get_node_or_null("Target")
 	var goal_position: Vector2
 	
@@ -257,10 +217,14 @@ func walking_process(delta):
 	
 	# Returns true when at destination
 	if move_towards(goal_position, delta):
-		use_duration_timer_node.start(stats[stat_goal]["use_time"])
+		if not MAIN.get_useable(stat_goal):
+			random_refill_timer_node.start()
+			change_state(State.IDLE)
+			return
+		use_duration_timer_node.start(MAIN.stats[stat_goal]["use_time"])
 		if stats[stat_goal]["start_use_func"]:
 			stats[stat_goal]["start_use_func"].call()
-		cat_node.stop()
+		sprite.stop()
 		change_state(State.USING)
 
 
@@ -270,28 +234,19 @@ func _on_use_duration_timer_timeout():
 		stat_goal = null
 	random_refill_timer_node.start()
 	change_state(State.IDLE)
-	cat_node.play("default")
+	sprite.play("default")
 
 
 @onready var random_refill_timer_node = $RandomRefillTimer
 
-var msec_start
-var msec_elapsed
-var seconds_elapsed
-
-@export var difficulty: float = 1
+var difficulty: float = 1
 
 func _process(delta):
-	msec_elapsed = (Time.get_ticks_msec()-msec_start)*Engine.time_scale
-	seconds_elapsed = msec_elapsed/1000.0
 	
-	var sleeping_multiplier = 2 if sleeping else 1
+	var _sleeping_multiplier = 2 if sleeping else 1
 	
-	# Magic formula
-	$StatTickTimer.wait_time = 600/(seconds_elapsed+150) * sleeping_multiplier
-	$StatTickTimer.wait_time /= stats.size()
-	
-	$StatTickTimer.wait_time /= difficulty
+	if statbar_set:
+		statbar_set.get_node("Title").text = name
 	
 	match current_state:
 		State.IDLE:
@@ -304,7 +259,7 @@ func _process(delta):
 	#		using_process(delta)
 	
 	if get_value(get_lowest_valued_stat()) == 0:
-		_on_leave_button_pressed()
+		Global.return_to_room()
 	
 	if current_state == State.IDLE:
 		# Cat will look for valid objects to use more often the lower the lowest stat is
@@ -318,47 +273,35 @@ func _process(delta):
 			):
 			random_refill_timer_node.stop()
 			refill_stat(lowest_useable_stat)
-	
-	
-	if Input.is_action_just_pressed("debug_menu"):
-		$Debug.visible = not $Debug.visible
-	
-	debug(get_lowest_valued_useable_stat())
 
 
 # Misc
 
-@onready var bed_node = $Bed
-
 func _ready():
 	
+	difficulty = MAIN.difficulty
+
+	stat_tick_timer.timeout.connect(_on_stat_tick_timer_timeout)
+	shower_tick_timer.timeout.connect(_on_shower_tick_timeout)
 	
-	if Global.scene_data:
-		difficulty = Global.scene_data
-	
-	if difficulty == 5:
-		RenderingServer.set_default_clear_color(Color("332626"))
-		$RedTint.show()
-		pass
+	min_idle_range = MAIN.get_node("MinIdleRange").position
+	max_idle_range = MAIN.get_node("MaxIdleRange").position
 	
 	shower_detection_node.area_entered.connect(_on_shower_detection_area_entered)
 	shower_detection_node.area_exited.connect(_on_shower_detection_area_exited)
 	
-	msec_start = Time.get_ticks_msec()
+	MAIN.get_node("Bed").get_node("Area2D").mouse_entered.connect(_on_bed_mouse_entered)
 	
-	new_stat("hunger", $Hunger, $Food, start_eat, eat, null, fill_food_bowl, 64, 3)
-	new_stat("thirst", $Thirst, $Water, null, drink, null, fill_water_bowl)
-	new_stat("fun", $Fun)
-	new_stat("human_tolerance", $"Human Tolerance")
-	new_stat("awakeness", $Awakeness, bed_node, sleep_start, sleep_end, sleep_abort, on_bed_clicked, 64, 10)
-	new_stat("cleanliness", $Cleanliness)
+	new_stat("hunger", "Hunger", start_eat, eat, null)
+	new_stat("thirst", "Thirst", null, drink, null,)
+	new_stat("fun", "Fun")
+	new_stat("human_tolerance", "Human Tolerance")
+	new_stat("energy", "Energy", sleep_start, sleep_end, sleep_abort)
+	new_stat("cleanliness", "Cleanliness")
 	
-	highscore_text_node.text = str(10*Global.get_config_value("cat_sim_highscores", "difficulty_"+str(difficulty), 0))
-	
-	if OS.is_debug_build():
-		$Debug.show()
-	
-	$Cat/Button.button_down.connect(pet)
+	move_random_goal()
+	position = random_goal
+	meow_timer_node.start(randf_range(10,25))
 
 
 func start_eat():
@@ -366,60 +309,43 @@ func start_eat():
 
 
 var empty_bowl_tex = preload("res://assets/textures/catsim/empty_bowl.png")
-var food_bowl_tex = preload("res://assets/textures/catsim/food_bowl.png")
-var water_bowl_tex = preload("res://assets/textures/catsim/water_bowl.png")
 
 func eat():
-	nodeof("hunger").texture = empty_bowl_tex
+	MAIN.get_obj_node("hunger").texture = empty_bowl_tex
 	change_value("hunger", 12)
 	change_value("thirst", -4)
-	set_useable("hunger", false)
+	MAIN.set_useable("hunger", false)
 
 
 func drink():
-	nodeof("thirst").texture = empty_bowl_tex
+	MAIN.get_obj_node("thirst").texture = empty_bowl_tex
 	change_value("thirst", 8)
-	set_useable("thirst", false)
+	MAIN.set_useable("thirst", false)
 
 
 func sleep_start():
 	sleeping = true
-	cat_node.hide()
-	bed_node.play("sleeping")
+	hide()
+	MAIN.get_obj_node("energy").play("sleeping")
+	MAIN.set_useable("energy", false)
 
 
 func sleep_end():
-	set_value("awakeness", 64)
+	set_value("energy", 64)
 	meow_node.play()
 	sleeping = false
-	cat_node.show()
-	bed_node.play("empty")
+	show()
+	MAIN.get_obj_node("energy").play("empty")
+	MAIN.set_useable("energy", true)
 
 
 func sleep_abort():
 	meow_node.play()
 	sleeping = false
 	change_value("human_tolerance", -12)
-	cat_node.show()
-	bed_node.play("empty")
-
-
-func on_bed_clicked():
-	if sleeping:
-		meow_node.play()
-		change_value("human_tolerance", -12)
-		abort_object()
-		return
-
-
-func fill_food_bowl():
-	nodeof("hunger").texture = food_bowl_tex
-	set_useable("hunger", true)
-
-
-func fill_water_bowl():
-	nodeof("thirst").texture = water_bowl_tex
-	set_useable("thirst", true)
+	show()
+	MAIN.get_obj_node("energy").play("empty")
+	MAIN.set_useable("energy", true)
 
 
 @onready var meow_node = $Meow
@@ -448,16 +374,12 @@ func _on_meow_timer_timeout():
 	meow_timer_node.start(randf_range(10,25))
 
 
-func _on_leave_button_pressed():
-	Global.return_to_room()
-
-
 func _on_stat_tick_timer_timeout():
 	var stat_changed = stats.keys().pick_random()
 	match stat_changed:
 		"human_tolerance":
 			change_value(stat_changed, 1, false)
-		"awakeness":
+		"energy":
 			if not sleeping:
 				change_value(stat_changed, -1)
 		"cleanliness":
@@ -481,11 +403,19 @@ func _on_stat_tick_timer_timeout():
 		refill_stat(lowest_useable_stat)
 
 
-@onready var camera_move_anim = $CameraMove
+func _on_click_detection_input_event(_viewport, _event, _shape_idx):
+	if Input.is_action_just_pressed("click"):
+		pet()
 
-func _on_other_menu_button_pressed():
-	camera_move_anim.play("CameraMoveAnim")
+
+func _on_click_detection_mouse_entered():
+	if MAIN.highlighted_statbar_set:
+		MAIN.highlighted_statbar_set.get_node("Highlight").hide()
+	statbar_set.get_node("Highlight").show()
+	MAIN.highlighted_statbar_set = statbar_set
 
 
-func _on_back_button_pressed():
-	camera_move_anim.play("CameraMoveBack")
+func _on_bed_mouse_entered():
+	if not sleeping:
+		return
+	_on_click_detection_mouse_entered()
