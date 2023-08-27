@@ -411,7 +411,8 @@ func _on_click_detection_input_event(_viewport, _event, _shape_idx):
 func _on_click_detection_mouse_entered():
 	if MAIN.highlighted_statbar_set:
 		MAIN.highlighted_statbar_set.get_node("Highlight").hide()
-	statbar_set.get_node("Highlight").show()
+	if statbar_set:
+		statbar_set.get_node("Highlight").show()
 	MAIN.highlighted_statbar_set = statbar_set
 
 
