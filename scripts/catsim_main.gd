@@ -57,7 +57,7 @@ func change_score(value):
 
 # Cat AI
 
-func debug(debug_cat):
+func debug():
 	var lowest_useable_stat = debug_cat.get_lowest_valued_useable_stat()
 	
 	if not $Debug.visible:
@@ -106,7 +106,7 @@ func _process(_delta):
 	
 	
 	
-	if debug_cat: debug(debug_cat)
+	if debug_cat: debug()
 
 
 # Misc
