@@ -1,5 +1,5 @@
 # M Game
-Quick game I made in about a week to learn Godot.
+Quick game I'm making to learn Godot.
 
 [View latest release](https://github.com/Theooolone/m-game/releases/latest)
 
