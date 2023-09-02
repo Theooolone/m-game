@@ -1,7 +1,6 @@
 extends CanvasLayer
 
 
-
 func _ready():
 	
 	if Global.config.has_section("audio"):
@@ -14,12 +13,14 @@ func _ready():
 			
 	get_node("/root/Main/Music").play()
 
+
 func _process(_delta):
-	if Input.is_action_just_pressed("audio_settings"):
+	if Input.is_action_just_pressed("audio_settings") and not Global.line_edit_focused:
 		if not visible:
 			show()
 		else:
 			hide()
+
 
 func _on_drag_ended(slider, value, default):
 	if value == default:

@@ -7,6 +7,8 @@ signal id_interaction
 signal textbox_show
 signal textbox_hide
 
+var line_edit_focused = false
+
 var textbox_visible = false
 
 var textbox_on_cooldown = false
