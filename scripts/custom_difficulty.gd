@@ -36,6 +36,10 @@ func match_default_difficulty():
 			return "hard"
 		[300, 3, 2, true]:
 			return "pain"
+		[200, 1, 1, false]:
+			return "hard_old"
+		[500, 1, 2, true]:
+			return "pain_old"
 		_:
 			return
 
@@ -78,20 +82,28 @@ func _on_setting_changed():
 			preset_option.selected = 2
 		"pain":
 			preset_option.selected = 3
+		"hard_old":
+			preset_option.selected = 4
+		"pain_old":
+			preset_option.selected = 5
 		_:
 			preset_option.selected = -1
 
 
 func _on_preset_option_item_selected(index):
 	match index:
-		0:
+		0: # Easy
 			set_settings(0.6,1,0,false)
-		1:
+		1: # Normal
 			set_settings(1,1,1,false)
-		2:
+		2: # Hard
 			set_settings(1.5,2,1,false)
-		3:
+		3: # Pain
 			set_settings(3,3,2,true)
+		4: # Hard (Old ver.)
+			set_settings(2,1,1,false)
+		5: # Pain (Old ver.)
+			set_settings(5,1,2,true)
 	preset_option.selected = index
 
 

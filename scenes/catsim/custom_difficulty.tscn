@@ -160,7 +160,7 @@ offset_top = 28.0
 offset_right = 288.0
 offset_bottom = 60.0
 scale = Vector2(0.25, 0.25)
-item_count = 4
+item_count = 6
 selected = 1
 popup/item_0/text = "Easy"
 popup/item_0/id = 0
@@ -170,6 +170,10 @@ popup/item_2/text = "Hard"
 popup/item_2/id = 2
 popup/item_3/text = "Pain"
 popup/item_3/id = 3
+popup/item_4/text = "Hard (Old ver.)"
+popup/item_4/id = 4
+popup/item_5/text = "Pain (Old ver.)"
+popup/item_5/id = 5
 
 [node name="Label" type="Label" parent="PresetOption"]
 layout_mode = 0
