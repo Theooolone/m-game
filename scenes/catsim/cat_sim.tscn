@@ -204,7 +204,6 @@ outline_color = Color(0, 0, 0, 1)
 [node name="CatSim" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_mh1t5")
-cat_amount = 2
 
 [node name="TileMap" type="TileMap" parent="."]
 z_index = -10
@@ -314,11 +313,6 @@ offset_top = -11.0
 offset_right = 114.0
 offset_bottom = -3.0
 
-[node name="Label" parent="Statbars/Human Tolerance" index="0"]
-offset_left = -8.0
-offset_right = 56.0
-scale = Vector2(0.64, 1)
-
 [node name="Energy" parent="Statbars" instance=ExtResource("4_kofum")]
 z_index = 10
 material = SubResource("ShaderMaterial_3ssys")
@@ -400,6 +394,7 @@ theme = SubResource("Theme_35v54")
 placeholder_text = "Cat Name"
 alignment = 1
 max_length = 16
+caret_blink = true
 script = ExtResource("12_x07he")
 
 [node name="BackButton" type="Button" parent="ExtraMenus"]
@@ -476,5 +471,3 @@ color = Color(1, 0.9, 0.9, 1)
 [connection signal="focus_entered" from="ExtraMenus/LineEdit" to="ExtraMenus/LineEdit" method="_on_focus_entered"]
 [connection signal="focus_exited" from="ExtraMenus/LineEdit" to="ExtraMenus/LineEdit" method="_on_focus_exited"]
 [connection signal="pressed" from="ExtraMenus/BackButton" to="." method="_on_back_button_pressed"]
-
-[editable path="Statbars/Human Tolerance"]
