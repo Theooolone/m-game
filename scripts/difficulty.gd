@@ -1,7 +1,25 @@
 extends Control
 
 
+func transfer_score_if_needed(old_save_id, new_save_id):
+	old_save_id = "difficulty_" + old_save_id
+	new_save_id = "difficulty_" + new_save_id
+	
+	var old_score_exists = Global.config_value_exists("cat_sim_highscores", old_save_id)
+	var new_score = Global.get_config_value("cat_sim_highscores", new_save_id, 0)
+	
+	if old_score_exists and new_score == 0:
+		var old_score = Global.get_config_value("cat_sim_highscores", old_save_id, 0)
+		Global.set_config_value("cat_sim_highscores", new_save_id, old_score)
+
+
 func _ready():
+	# transer scores from v1.1.0
+	transfer_score_if_needed("0.6", "easy") # Easy
+	transfer_score_if_needed("1", "normal") # Normal
+	transfer_score_if_needed("2", "200_1") # Hard
+	transfer_score_if_needed("5", "500_1") # Pain
+	
 	# Easy and Normal difficulty buttons
 	var easy_highscore = Global.get_config_value("cat_sim_highscores", "difficulty_easy", 0)
 	%EasyButton/Highscore.text = str(10*easy_highscore)

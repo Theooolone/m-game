@@ -49,6 +49,10 @@ func _ready():
 	if OS.is_debug_build(): DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 
 
+func config_value_exists(section: String, key: String):
+	return config.has_section_key(section, key)
+
+
 func get_config_value(section: String, key: String, default = null):
 	return config.get_value(section, key, default)
 
