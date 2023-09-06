@@ -9,6 +9,8 @@ extends Node2D
 var statbar_set: Node
 var highlighted: bool = false
 
+var id: int
+
 var stats = {}
 
 func new_stat(

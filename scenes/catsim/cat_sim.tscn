@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://coy8ycn8wwfvl"]
+[gd_scene load_steps=32 format=3 uid="uid://coy8ycn8wwfvl"]
 
 [ext_resource type="Script" path="res://scripts/catsim_main.gd" id="1_mh1t5"]
 [ext_resource type="TileSet" uid="uid://jidy50o2532o" path="res://resources/room.tres" id="2_yp0iu"]
@@ -12,6 +12,7 @@
 [ext_resource type="LabelSettings" uid="uid://dguaiif1dpkwk" path="res://resources/5px.tres" id="10_qs8rk"]
 [ext_resource type="FontFile" uid="uid://d0bw2pjoup6pc" path="res://assets/fonts/5px.ttf" id="13_breyg"]
 [ext_resource type="PackedScene" uid="uid://3dihg5lpayrh" path="res://scenes/catsim/shower_head.tscn" id="14_4kprh"]
+[ext_resource type="PackedScene" uid="uid://c427vq4wd1ykq" path="res://scenes/cat_rename.tscn" id="14_dpwi4"]
 [ext_resource type="Texture2D" uid="uid://ecnm3gx6u58x" path="res://assets/textures/catsim/shower_head.png" id="14_fl870"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_u0nxf"]
@@ -261,6 +262,7 @@ offset_left = 49.0
 offset_top = -68.0
 offset_right = 124.0
 offset_bottom = 31.0
+mouse_filter = 1
 
 [node name="ScrollContainer" type="ScrollContainer" parent="StatbarSets"]
 unique_name_in_owner = true
@@ -448,6 +450,9 @@ label_settings = SubResource("LabelSettings_wcvt4")
 visible = false
 position = Vector2(-24, -16)
 color = Color(1, 0.9, 0.9, 1)
+
+[node name="CatRename" parent="." instance=ExtResource("14_dpwi4")]
+visible = false
 
 [connection signal="pressed" from="LeaveButton" to="." method="_on_leave_button_pressed"]
 [connection signal="pressed" from="OtherMenuButton" to="." method="_on_other_menu_button_pressed"]

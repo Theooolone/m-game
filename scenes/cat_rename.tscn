@@ -1,0 +1,77 @@
+[gd_scene load_steps=6 format=3 uid="uid://c427vq4wd1ykq"]
+
+[ext_resource type="FontFile" uid="uid://dlgmhijh1yaqn" path="res://assets/fonts/16px.ttf" id="1_2ig3m"]
+[ext_resource type="Script" path="res://scenes/cat_rename.gd" id="1_fcqnd"]
+[ext_resource type="FontFile" uid="uid://d0bw2pjoup6pc" path="res://assets/fonts/5px.ttf" id="2_xra81"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_w8xjc"]
+font = ExtResource("1_2ig3m")
+font_size = 128
+outline_size = 16
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 16
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(8, 8)
+
+[sub_resource type="Theme" id="Theme_3x740"]
+LineEdit/font_sizes/font_size = 5
+LineEdit/fonts/font = ExtResource("2_xra81")
+
+[node name="CatRename" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_fcqnd")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = 1000
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.498039)
+
+[node name="Label" type="Label" parent="."]
+z_index = 1000
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -200.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Rename Cat"
+label_settings = SubResource("LabelSettings_w8xjc")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="LineEdit" type="LineEdit" parent="CenterContainer/Control"]
+unique_name_in_owner = true
+z_index = 1000
+layout_mode = 1
+offset_left = -416.0
+offset_top = -80.0
+offset_right = -312.0
+offset_bottom = -60.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(8, 8)
+theme = SubResource("Theme_3x740")
+placeholder_text = "Name"
+alignment = 1
+max_length = 16
+caret_blink = true
+metadata/_edit_use_anchors_ = true
+
+[connection signal="focus_entered" from="CenterContainer/Control/LineEdit" to="." method="_on_line_edit_focus_entered"]
+[connection signal="focus_exited" from="CenterContainer/Control/LineEdit" to="." method="_on_line_edit_focus_exited"]
+[connection signal="text_submitted" from="CenterContainer/Control/LineEdit" to="." method="_on_line_edit_text_submitted"]

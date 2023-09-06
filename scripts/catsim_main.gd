@@ -120,6 +120,7 @@ var difficulty_save_id = "debug"
 @export_range(1,8) var cat_amount = 1
 @export var red_tint: bool = false
 
+
 func _ready():
 	#Engine.time_scale = 0.5
 	
@@ -142,14 +143,18 @@ func _ready():
 		$Statbars.hide()
 		for i in cat_amount:
 			var cat = load("res://scenes/catsim/cat.tscn").instantiate()
-			cat.name = "Cat" + str(i+1)
+			cat.name = Global.get_config_value("cat_sim", "cat_name_"+str(i), "Cat " + str(i+1))
+			cat.id = i
 			add_child(cat)
 			var statbar_set: Control = load("res://scenes/catsim/statbar_set.tscn").instantiate()
-			statbar_set.name = "StatbarSet" + str(i+1)
 			%ScrollContainer/VBoxContainer.add_child(statbar_set)
 			cat.statbar_set = statbar_set
 			statbar_set.get_node("Area2D").mouse_entered.connect(cat.start_highlight)
 			statbar_set.get_node("Area2D").mouse_exited.connect(cat.end_highlight)
+			statbar_set.get_node("Area2D").input_event.connect(func(_viewport, _event, _shape_idx):
+				if Input.is_action_just_pressed("click"):
+					$CatRename.show_menu(cat)
+			)
 			if i == 0:
 				debug_cat = cat
 	else:

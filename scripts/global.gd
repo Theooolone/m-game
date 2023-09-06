@@ -13,6 +13,8 @@ var textbox_visible = false
 
 var textbox_on_cooldown = false
 
+var pauseable = true
+
 var configpath = "user://usersettings.cfg"
 
 var config: ConfigFile = ConfigFile.new()
