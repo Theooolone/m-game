@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://coy8ycn8wwfvl"]
+[gd_scene load_steps=31 format=3 uid="uid://coy8ycn8wwfvl"]
 
 [ext_resource type="Script" path="res://scripts/catsim_main.gd" id="1_mh1t5"]
 [ext_resource type="TileSet" uid="uid://jidy50o2532o" path="res://resources/room.tres" id="2_yp0iu"]
@@ -10,7 +10,6 @@
 [ext_resource type="Texture2D" uid="uid://bx8dn1ne7f4ya" path="res://assets/textures/catsim/catbed_empty.png" id="6_47keu"]
 [ext_resource type="Texture2D" uid="uid://bpc2becmdwkh0" path="res://assets/textures/catsim/catbed_sleeping.png" id="7_2etbn"]
 [ext_resource type="LabelSettings" uid="uid://dguaiif1dpkwk" path="res://resources/5px.tres" id="10_qs8rk"]
-[ext_resource type="Script" path="res://scripts/cat_name_line_edit.gd" id="12_x07he"]
 [ext_resource type="FontFile" uid="uid://d0bw2pjoup6pc" path="res://assets/fonts/5px.ttf" id="13_breyg"]
 [ext_resource type="PackedScene" uid="uid://3dihg5lpayrh" path="res://scenes/catsim/shower_head.tscn" id="14_4kprh"]
 [ext_resource type="Texture2D" uid="uid://ecnm3gx6u58x" path="res://assets/textures/catsim/shower_head.png" id="14_fl870"]
@@ -86,10 +85,6 @@ shader_parameter/Shift_Hue = 0.65
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cedye"]
 shader = ExtResource("5_8pllu")
 shader_parameter/Shift_Hue = 0.25
-
-[sub_resource type="Theme" id="Theme_35v54"]
-LineEdit/font_sizes/font_size = 5
-LineEdit/fonts/font = ExtResource("13_breyg")
 
 [sub_resource type="Animation" id="Animation_vhnkx"]
 resource_name = "CameraMoveAnim"
@@ -385,18 +380,6 @@ enabled = false
 zoom = Vector2(6, 6)
 metadata/_edit_lock_ = true
 
-[node name="LineEdit" type="LineEdit" parent="ExtraMenus"]
-offset_left = -155.0
-offset_top = -85.0
-offset_right = -51.0
-offset_bottom = -65.0
-theme = SubResource("Theme_35v54")
-placeholder_text = "Cat Name"
-alignment = 1
-max_length = 16
-caret_blink = true
-script = ExtResource("12_x07he")
-
 [node name="BackButton" type="Button" parent="ExtraMenus"]
 offset_left = 93.0
 offset_top = -87.0
@@ -468,6 +451,4 @@ color = Color(1, 0.9, 0.9, 1)
 
 [connection signal="pressed" from="LeaveButton" to="." method="_on_leave_button_pressed"]
 [connection signal="pressed" from="OtherMenuButton" to="." method="_on_other_menu_button_pressed"]
-[connection signal="focus_entered" from="ExtraMenus/LineEdit" to="ExtraMenus/LineEdit" method="_on_focus_entered"]
-[connection signal="focus_exited" from="ExtraMenus/LineEdit" to="ExtraMenus/LineEdit" method="_on_focus_exited"]
 [connection signal="pressed" from="ExtraMenus/BackButton" to="." method="_on_back_button_pressed"]
