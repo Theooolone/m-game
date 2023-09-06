@@ -24,6 +24,7 @@ shadow_offset = Vector2(2, 2)
 
 [node name="PauseMenu" type="CanvasLayer"]
 process_mode = 3
+layer = 100
 script = ExtResource("1_sf1jr")
 
 [node name="ColorRect" type="ColorRect" parent="."]
