@@ -37,6 +37,7 @@ func set_value(stat, value, add_score = true) -> void:
 	if add_score:
 		MAIN.change_score(max(0, clamp(value, 0, 64)-stats[stat]["value"]))
 	stats[stat]["value"] = clamp(value, 0, 64)
+	check_stat_for_death(stat)
 	update_bar(stat)
 
 
@@ -259,9 +260,6 @@ func _process(delta):
 	#	State.USING:
 	#		using_process(delta)
 	
-	if get_value(get_lowest_valued_stat()) == 0:
-		Global.return_to_room()
-	
 	if current_state == State.IDLE:
 		# Cat will look for valid objects to use more often the lower the lowest stat is
 		# https://www.desmos.com/calculator/ksgmxn8uwa
@@ -393,6 +391,17 @@ func _on_meow_timer_timeout():
 	meow_timer_node.start(randf_range(10,25))
 
 
+func check_if_died():
+	for stat in stats.keys():
+		check_stat_for_death(stat)
+
+
+func check_stat_for_death(stat):
+	if get_value(stat) <= 0:
+		# Fail, with stat being the specific stat that caused the loss.
+		Global.change_scene("res://scenes/catsim/cat_death.tscn", null, [stat, name])
+
+
 func _on_stat_tick_timer_timeout():
 	var stat_changed = stats.keys().pick_random()
 	match stat_changed:
@@ -407,11 +416,7 @@ func _on_stat_tick_timer_timeout():
 		_:
 			change_value(stat_changed, -1)
 	
-	
-	for stat in stats.keys():
-		if get_value(stat) <= 0:
-			# Fail, with stat being the specific stat that caused the loss.
-			pass
+	check_if_died()
 	
 	var lowest_useable_stat = get_lowest_valued_useable_stat()
 	if (

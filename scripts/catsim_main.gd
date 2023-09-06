@@ -159,7 +159,7 @@ func _ready():
 				debug_cat = cat
 	else:
 		var cat = load("res://scenes/catsim/cat.tscn").instantiate()
-		cat.name = "Cat"
+		cat.name = Global.get_config_value("cat_sim", "cat_name_0", "Cat")
 		add_child(cat)
 		debug_cat = cat
 	
