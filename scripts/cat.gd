@@ -325,6 +325,7 @@ func start_eat():
 var empty_bowl_tex = preload("res://assets/textures/catsim/empty_bowl.png")
 
 func eat():
+	MAIN.food_bowl_full = false
 	MAIN.get_obj_node("hunger").texture = empty_bowl_tex
 	change_value("hunger", 12)
 	change_value("thirst", -4)

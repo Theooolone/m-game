@@ -104,7 +104,7 @@ func _process(_delta):
 	if Input.is_action_just_pressed("debug_menu"):
 		$Debug.visible = not $Debug.visible
 	
-	
+	$ExtraMenus/FoodDeliverProgressBar.value = $FoodDeliveryTimer.time_left
 	
 	if debug_cat: debug()
 
@@ -174,6 +174,8 @@ func _ready():
 	new_stat("energy", $Statbars/Energy, $Bed, on_bed_clicked, 10)
 	new_stat("cleanliness", $Statbars/Cleanliness)
 	
+	get_obj_node("hunger").get_node("Count").text = str(food_left)
+	
 	highscore_text_node.text = str(10*Global.get_config_value("cat_sim_highscores", "difficulty_"+difficulty_save_id, 0))
 	
 	if OS.is_debug_build():
@@ -198,12 +200,18 @@ func on_bed_clicked():
 			cat.meow_node.play()
 			cat.change_value("human_tolerance", -12)
 			cat.abort_object()
-			return
 
+
+var food_left: int = 3
+var food_bowl_full: bool = true
 
 func fill_food_bowl():
-	get_obj_node("hunger").texture = food_bowl_tex
-	set_useable("hunger", true)
+	if food_left > 0 and not food_bowl_full:
+		food_bowl_full = true
+		food_left -= 1
+		get_obj_node("hunger").get_node("Count").text = str(food_left)
+		get_obj_node("hunger").texture = food_bowl_tex
+		set_useable("hunger", true)
 
 
 func fill_water_bowl():
@@ -223,3 +231,18 @@ func _on_other_menu_button_pressed():
 
 func _on_back_button_pressed():
 	camera_move_anim.play("CameraMoveBack")
+
+
+func _on_food_delivery_timeout():
+	food_left = min(food_left+3,5)
+	get_obj_node("hunger").get_node("Count").text = str(food_left)
+	$ExtraMenus/BuyFoodButton.disabled = false
+	$ExtraMenus/BuyFoodButton/Label.modulate = Color.WHITE
+	$ExtraMenus/BuyFoodButton/Label.text = "Buy Food"
+
+
+func _on_buy_food_button_pressed():
+	$FoodDeliveryTimer.start()
+	$ExtraMenus/BuyFoodButton.disabled = true
+	$ExtraMenus/BuyFoodButton/Label.modulate = Color(1,1,1,0.5)
+	$ExtraMenus/BuyFoodButton/Label.text = "Delivering..."

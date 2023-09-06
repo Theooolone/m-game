@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://coy8ycn8wwfvl"]
+[gd_scene load_steps=35 format=3 uid="uid://coy8ycn8wwfvl"]
 
 [ext_resource type="Script" path="res://scripts/catsim_main.gd" id="1_mh1t5"]
 [ext_resource type="TileSet" uid="uid://jidy50o2532o" path="res://resources/room.tres" id="2_yp0iu"]
@@ -10,10 +10,18 @@
 [ext_resource type="Texture2D" uid="uid://bx8dn1ne7f4ya" path="res://assets/textures/catsim/catbed_empty.png" id="6_47keu"]
 [ext_resource type="Texture2D" uid="uid://bpc2becmdwkh0" path="res://assets/textures/catsim/catbed_sleeping.png" id="7_2etbn"]
 [ext_resource type="LabelSettings" uid="uid://dguaiif1dpkwk" path="res://resources/5px.tres" id="10_qs8rk"]
+[ext_resource type="Texture2D" uid="uid://bdn42dbxw3bp" path="res://assets/textures/catsim/catbar_thin_under.png" id="12_p4fx6"]
 [ext_resource type="FontFile" uid="uid://d0bw2pjoup6pc" path="res://assets/fonts/5px.ttf" id="13_breyg"]
+[ext_resource type="Texture2D" uid="uid://bxm7efr1dvdth" path="res://assets/textures/catsim/catbar_thin_progress.png" id="13_p5f4f"]
 [ext_resource type="PackedScene" uid="uid://3dihg5lpayrh" path="res://scenes/catsim/shower_head.tscn" id="14_4kprh"]
 [ext_resource type="PackedScene" uid="uid://c427vq4wd1ykq" path="res://scenes/cat_rename.tscn" id="14_dpwi4"]
 [ext_resource type="Texture2D" uid="uid://ecnm3gx6u58x" path="res://assets/textures/catsim/shower_head.png" id="14_fl870"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_41ryy"]
+line_spacing = -1.0
+font = ExtResource("13_breyg")
+font_size = 5
+font_color = Color(0, 0, 0, 0.376471)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_u0nxf"]
 atlas = ExtResource("7_2etbn")
@@ -86,6 +94,10 @@ shader_parameter/Shift_Hue = 0.65
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cedye"]
 shader = ExtResource("5_8pllu")
 shader_parameter/Shift_Hue = 0.25
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cd6v7"]
+shader = ExtResource("5_8pllu")
+shader_parameter/Shift_Hue = 0.4
 
 [sub_resource type="Animation" id="Animation_vhnkx"]
 resource_name = "CameraMoveAnim"
@@ -187,12 +199,6 @@ _data = {
 "RESET": SubResource("Animation_r7vsj")
 }
 
-[sub_resource type="LabelSettings" id="LabelSettings_41ryy"]
-line_spacing = -1.0
-font = ExtResource("13_breyg")
-font_size = 5
-font_color = Color(0, 0, 0, 0.376471)
-
 [sub_resource type="LabelSettings" id="LabelSettings_wcvt4"]
 outline_size = 8
 outline_color = Color(0, 0, 0, 1)
@@ -221,6 +227,16 @@ offset = Vector2(0, -2)
 
 [node name="Target" type="Marker2D" parent="Food"]
 position = Vector2(0, -4)
+
+[node name="Count" type="Label" parent="Food"]
+z_index = -1
+offset_left = -23.0
+offset_top = 8.0
+offset_right = 23.0
+offset_bottom = 15.0
+text = "99"
+label_settings = SubResource("LabelSettings_41ryy")
+horizontal_alignment = 1
 
 [node name="Water" parent="." instance=ExtResource("4_t11mk")]
 position = Vector2(-72, 26)
@@ -253,6 +269,10 @@ autostart = true
 [node name="ShowerTickTimer" type="Timer" parent="."]
 wait_time = 0.1
 autostart = true
+
+[node name="FoodDeliveryTimer" type="Timer" parent="."]
+wait_time = 15.0
+one_shot = true
 
 [node name="StatbarSets" type="Control" parent="."]
 clip_contents = true
@@ -335,9 +355,9 @@ position = Vector2(24, 8)
 [node name="LeaveButton" type="Button" parent="."]
 z_index = 10
 offset_left = -112.0
-offset_top = 40.0
+offset_top = 42.0
 offset_right = -51.0
-offset_bottom = 60.0
+offset_bottom = 62.0
 
 [node name="Label" type="Label" parent="LeaveButton"]
 layout_mode = 1
@@ -355,9 +375,9 @@ metadata/_edit_lock_ = true
 [node name="OtherMenuButton" type="Button" parent="."]
 z_index = 10
 offset_left = 16.0
-offset_top = 40.0
+offset_top = 42.0
 offset_right = 112.0
-offset_bottom = 60.0
+offset_bottom = 62.0
 
 [node name="Label" type="Label" parent="OtherMenuButton"]
 layout_mode = 1
@@ -401,6 +421,44 @@ label_settings = ExtResource("10_qs8rk")
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_lock_ = true
+
+[node name="BuyFoodButton" type="Button" parent="ExtraMenus"]
+offset_left = -48.0
+offset_top = -8.0
+offset_right = 48.0
+offset_bottom = 8.0
+
+[node name="Label" type="Label" parent="ExtraMenus/BuyFoodButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Buy Food"
+label_settings = ExtResource("10_qs8rk")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="FoodDeliverProgressBar" type="TextureProgressBar" parent="ExtraMenus"]
+material = SubResource("ShaderMaterial_cd6v7")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = 12.0
+offset_right = 32.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+max_value = 15.0
+step = 0.0
+value = 7.4
+texture_under = ExtResource("12_p4fx6")
+texture_progress = ExtResource("13_p5f4f")
 
 [node name="CameraMove" type="AnimationPlayer" parent="."]
 libraries = {
@@ -454,6 +512,8 @@ color = Color(1, 0.9, 0.9, 1)
 [node name="CatRename" parent="." instance=ExtResource("14_dpwi4")]
 visible = false
 
+[connection signal="timeout" from="FoodDeliveryTimer" to="." method="_on_food_delivery_timeout"]
 [connection signal="pressed" from="LeaveButton" to="." method="_on_leave_button_pressed"]
 [connection signal="pressed" from="OtherMenuButton" to="." method="_on_other_menu_button_pressed"]
 [connection signal="pressed" from="ExtraMenus/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="ExtraMenus/BuyFoodButton" to="." method="_on_buy_food_button_pressed"]
