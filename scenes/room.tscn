@@ -165,7 +165,7 @@ text = ":D"
 [node name="TextInteractArea2" parent="." instance=ExtResource("8_qnajo")]
 position = Vector2(168, 20)
 alert_type = 2
-textlist = Array[String](["v1.2.0-beta.1", "owo"])
+textlist = Array[String](["v1.2.0-beta.2", "uwu"])
 
 [node name="Border" type="StaticBody2D" parent="."]
 position = Vector2(12, 144)
