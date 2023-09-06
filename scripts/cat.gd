@@ -240,8 +240,6 @@ func _on_use_duration_timer_timeout():
 
 @onready var random_refill_timer_node = $RandomRefillTimer
 
-var difficulty: float = 1
-
 func _process(delta):
 	
 	var _sleeping_multiplier = 2 if sleeping else 1
@@ -279,8 +277,6 @@ func _process(delta):
 # Misc
 
 func _ready():
-	
-	difficulty = MAIN.difficulty
 
 	stat_tick_timer.timeout.connect(_on_stat_tick_timer_timeout)
 	shower_tick_timer.timeout.connect(_on_shower_tick_timeout)
