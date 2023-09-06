@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://c427vq4wd1ykq"]
 
 [ext_resource type="FontFile" uid="uid://dlgmhijh1yaqn" path="res://assets/fonts/16px.ttf" id="1_2ig3m"]
-[ext_resource type="Script" path="res://scenes/cat_rename.gd" id="1_fcqnd"]
+[ext_resource type="Script" path="res://scripts/cat_rename.gd" id="1_s3bt8"]
 [ext_resource type="FontFile" uid="uid://d0bw2pjoup6pc" path="res://assets/fonts/5px.ttf" id="2_xra81"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_w8xjc"]
@@ -19,7 +19,7 @@ LineEdit/fonts/font = ExtResource("2_xra81")
 
 [node name="CatRename" type="CanvasLayer"]
 process_mode = 3
-script = ExtResource("1_fcqnd")
+script = ExtResource("1_s3bt8")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 z_index = 1000

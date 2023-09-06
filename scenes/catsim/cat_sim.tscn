@@ -14,7 +14,7 @@
 [ext_resource type="FontFile" uid="uid://d0bw2pjoup6pc" path="res://assets/fonts/5px.ttf" id="13_breyg"]
 [ext_resource type="Texture2D" uid="uid://bxm7efr1dvdth" path="res://assets/textures/catsim/catbar_thin_progress.png" id="13_p5f4f"]
 [ext_resource type="PackedScene" uid="uid://3dihg5lpayrh" path="res://scenes/catsim/shower_head.tscn" id="14_4kprh"]
-[ext_resource type="PackedScene" uid="uid://c427vq4wd1ykq" path="res://scenes/cat_rename.tscn" id="14_dpwi4"]
+[ext_resource type="PackedScene" uid="uid://c427vq4wd1ykq" path="res://scenes/catsim/cat_rename.tscn" id="14_dpwi4"]
 [ext_resource type="Texture2D" uid="uid://ecnm3gx6u58x" path="res://assets/textures/catsim/shower_head.png" id="14_fl870"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_41ryy"]
