@@ -97,7 +97,7 @@ func _on_preset_option_item_selected(index):
 		1: # Normal
 			set_settings(1,1,1,false)
 		2: # Hard
-			set_settings(1.5,2,1,false)
+			set_settings(2,2,1,false)
 		3: # Pain
 			set_settings(3,3,2,true)
 		4: # Hard (Old ver.)
