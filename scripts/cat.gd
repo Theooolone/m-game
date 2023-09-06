@@ -408,15 +408,11 @@ func _on_click_detection_input_event(_viewport, _event, _shape_idx):
 		pet()
 
 
-func _on_click_detection_mouse_entered():
-	if MAIN.highlighted_statbar_set:
-		MAIN.highlighted_statbar_set.get_node("Highlight").hide()
-	if statbar_set:
-		statbar_set.get_node("Highlight").show()
-	MAIN.highlighted_statbar_set = statbar_set
+func _on_shower_detection_mouse_entered():
+	MAIN.change_highlighted_statbar_set(statbar_set)
 
 
 func _on_bed_mouse_entered():
 	if not sleeping:
 		return
-	_on_click_detection_mouse_entered()
+	_on_shower_detection_mouse_entered()

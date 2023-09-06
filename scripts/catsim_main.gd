@@ -144,10 +144,17 @@ func _ready():
 			var cat = load("res://scenes/catsim/cat.tscn").instantiate()
 			cat.name = "Cat" + str(i+1)
 			add_child(cat)
-			var statbar_set = load("res://scenes/catsim/statbar_set.tscn").instantiate()
+			var statbar_set: Control = load("res://scenes/catsim/statbar_set.tscn").instantiate()
 			statbar_set.name = "StatbarSet" + str(i+1)
 			%ScrollContainer/VBoxContainer.add_child(statbar_set)
 			cat.statbar_set = statbar_set
+			statbar_set.get_node("Area2D").mouse_entered.connect(func():
+				cat.modulate = Color(1.2, 1.2, 1.6)
+				change_highlighted_statbar_set(statbar_set)
+			)
+			statbar_set.get_node("Area2D").mouse_exited.connect(func():
+				cat.modulate = Color.WHITE
+			)
 			if i == 0:
 				debug_cat = cat
 	else:
@@ -171,6 +178,15 @@ func _ready():
 	
 	if OS.is_debug_build():
 		$Debug.show()
+
+
+func change_highlighted_statbar_set(statbar_set):
+	if highlighted_statbar_set:
+		highlighted_statbar_set.get_node("Highlight").hide()
+	if statbar_set:
+		statbar_set.get_node("Highlight").show()
+	highlighted_statbar_set = statbar_set
+
 
 var food_bowl_tex = preload("res://assets/textures/catsim/food_bowl.png")
 var water_bowl_tex = preload("res://assets/textures/catsim/water_bowl.png")

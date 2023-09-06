@@ -199,6 +199,7 @@ outline_color = Color(0, 0, 0, 1)
 [node name="CatSim" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_mh1t5")
+cat_amount = 3
 
 [node name="TileMap" type="TileMap" parent="."]
 z_index = -10
