@@ -3,7 +3,7 @@ extends CanvasLayer
 # If these are too morbid for innocent kittens then please let me know
 var death_messages: Dictionary = {
 	"hunger": "%s died from the hungy",
-	"thirst": "you didn't realse %s wasn't a cactus",
+	"thirst": "you didn't realise %s wasn't a cactus",
 	"fun": "%s found you uninsteresting so they died",
 	"human_tolerance": "%s died on the spot just to spite you",
 	"energy": "%s collapsed from exhaustion",
