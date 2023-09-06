@@ -7,6 +7,7 @@ extends Node2D
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 var statbar_set: Node
+var highlighted: bool = false
 
 var stats = {}
 
@@ -304,6 +305,21 @@ func _ready():
 	meow_timer_node.start(randf_range(10,25))
 
 
+func start_highlight():
+	highlighted = true
+	modulate = Color(1.2, 1.2, 1.6)
+	if sleeping:
+		MAIN.get_node("Bed").modulate = Color(1.2, 1.2, 1.6)
+	MAIN.change_highlighted_statbar_set(statbar_set)
+
+
+func end_highlight():
+	highlighted = false
+	modulate = Color.WHITE
+	if sleeping:
+		MAIN.get_node("Bed").modulate = Color.WHITE
+
+
 func start_eat():
 	change_value("human_tolerance", 20)
 
@@ -328,6 +344,8 @@ func sleep_start():
 	hide()
 	MAIN.get_obj_node("energy").play("sleeping")
 	MAIN.set_useable("energy", false)
+	if highlighted:
+		MAIN.get_node("Bed").modulate = Color(1.2, 1.2, 1.6)
 
 
 func sleep_end():
@@ -337,6 +355,7 @@ func sleep_end():
 	show()
 	MAIN.get_obj_node("energy").play("empty")
 	MAIN.set_useable("energy", true)
+	MAIN.get_node("Bed").modulate = Color.WHITE
 
 
 func sleep_abort():
@@ -346,6 +365,7 @@ func sleep_abort():
 	show()
 	MAIN.get_obj_node("energy").play("empty")
 	MAIN.set_useable("energy", true)
+	MAIN.get_node("Bed").modulate = Color.WHITE
 
 
 @onready var meow_node = $Meow

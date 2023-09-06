@@ -148,13 +148,8 @@ func _ready():
 			statbar_set.name = "StatbarSet" + str(i+1)
 			%ScrollContainer/VBoxContainer.add_child(statbar_set)
 			cat.statbar_set = statbar_set
-			statbar_set.get_node("Area2D").mouse_entered.connect(func():
-				cat.modulate = Color(1.2, 1.2, 1.6)
-				change_highlighted_statbar_set(statbar_set)
-			)
-			statbar_set.get_node("Area2D").mouse_exited.connect(func():
-				cat.modulate = Color.WHITE
-			)
+			statbar_set.get_node("Area2D").mouse_entered.connect(cat.start_highlight)
+			statbar_set.get_node("Area2D").mouse_exited.connect(cat.end_highlight)
 			if i == 0:
 				debug_cat = cat
 	else:
