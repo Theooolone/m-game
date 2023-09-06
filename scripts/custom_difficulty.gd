@@ -32,7 +32,7 @@ func match_default_difficulty():
 			return "easy"
 		[100, 1, 1, false]:
 			return "normal"
-		[150, 2, 1, false]:
+		[200, 2, 1, false]:
 			return "hard"
 		[300, 3, 2, true]:
 			return "pain"
@@ -50,7 +50,7 @@ func soft_match_default_difficulty():
 			return "easy"
 		[100, 1]:
 			return "normal"
-		[150, 2]:
+		[200, 2]:
 			return "hard"
 		[300, 3]:
 			return "pain"

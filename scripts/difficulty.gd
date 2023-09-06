@@ -74,7 +74,7 @@ func _on_normal_button_pressed():
 
 
 func _on_hard_button_pressed():
-	enter_minigame("beans_of_anxiety.wav", ["hard", 1.5, 2, false])
+	enter_minigame("beans_of_anxiety.wav", ["hard", 2, 2, false])
 
 
 func _on_pain_button_pressed():
