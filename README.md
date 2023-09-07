@@ -1,15 +1,16 @@
 # M Game
 Quick game I'm making to learn Godot.
 
-[View latest release](https://github.com/Theooolone/m-game/releases/latest)
-
+[View latest release](https://github.com/Theooolone/m-game/releases/latest)\
 [View on itch.io](https://theooolone.itch.io/m-game)
 
 ## CREDITS:
 
-Character and setting created by M.
+All code, music, SFX, art, and other game assets created by me unless otherwise specified below.
 
-Art and music created by me.
+Character and setting created by M.\
+Milk bucket sprite created by Mojang Studios\
+Hubert sprite based off blue chicken from Stardew Valley
 
 Fonts:
 - [ChiKareGo2 by Giles Booth](https://www.pentacom.jp/pentacom/bitfontmaker2/gallery/?id=3780)
