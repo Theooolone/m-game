@@ -1,23 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://d3r4gwc2jvqfr"]
+[gd_scene load_steps=3 format=3 uid="uid://duiw3ava7jsl3"]
 
-[ext_resource type="Script" path="res://scripts/TextInteractArea.gd" id="1_u8avt"]
-[ext_resource type="Texture2D" uid="uid://dgf38h33cdpxs" path="res://assets/textures/alerts/exclamation_mark.png" id="2_hejuk"]
+[ext_resource type="Script" path="res://scripts/text_interact_area.gd" id="1_svmb1"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ve8uh"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_28x30"]
 radius = 16.0
 
-[node name="TextInteractArea" type="Area2D"]
-monitorable = false
-script = ExtResource("1_u8avt")
+[node name="TextInteractArea" type="Area2D" node_paths=PackedStringArray("hitbox")]
+script = ExtResource("1_svmb1")
+hitbox = NodePath("CollisionShape2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_ve8uh")
-
-[node name="Alert" type="Sprite2D" parent="."]
-visible = false
-z_index = 10
-position = Vector2(0, -20)
-texture = ExtResource("2_hejuk")
-
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+shape = SubResource("CircleShape2D_28x30")

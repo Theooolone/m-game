@@ -1,15 +1,13 @@
 [gd_scene load_steps=4 format=3 uid="uid://blrow0klriehp"]
 
 [ext_resource type="Texture2D" uid="uid://dr327yyh30yl7" path="res://assets/textures/missing.png" id="1_whowx"]
-[ext_resource type="PackedScene" uid="uid://d3r4gwc2jvqfr" path="res://scenes/text_interact_area.tscn" id="3_wxir7"]
+[ext_resource type="PackedScene" uid="uid://duiw3ava7jsl3" path="res://scenes/text_interact_area.tscn" id="2_lj350"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i65uw"]
 radius = 2.0
 height = 10.0
 
 [node name="Object" type="StaticBody2D"]
-
-[node name="TextInteractArea" parent="." instance=ExtResource("3_wxir7")]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -6)
@@ -18,3 +16,6 @@ texture = ExtResource("1_whowx")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_i65uw")
+
+[node name="TextInteractArea" parent="." instance=ExtResource("2_lj350")]
+alert_type = 1
