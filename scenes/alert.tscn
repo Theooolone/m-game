@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bduqr1i272las"]
+
+[ext_resource type="Texture2D" uid="uid://dgf38h33cdpxs" path="res://assets/textures/alerts/exclamation_mark.png" id="1_xuph7"]
+
+[node name="Alert" type="Sprite2D"]
+z_index = 10
+position = Vector2(0, -20)
+texture = ExtResource("1_xuph7")

@@ -6,14 +6,14 @@
 
 [node name="Hubert" instance=ExtResource("1_agioa")]
 
-[node name="TextInteractArea" parent="." index="0" node_paths=PackedStringArray("interation_sound")]
-alert_type = 0
-textlist = Array[String](["OH MY GOD ITS HUBERT"])
-interation_sound = NodePath("../sfx")
-id = 3
-
-[node name="Sprite2D" parent="." index="1"]
+[node name="Sprite2D" parent="." index="0"]
 texture = ExtResource("2_j52gc")
+
+[node name="TextInteractArea" parent="." index="2" node_paths=PackedStringArray("interaction_sound")]
+textlist = Array[String](["OH MY GOD ITS HUBERT"])
+id = 3
+interaction_sound = NodePath("../sfx")
+alert_type = 0
 
 [node name="sfx" type="AudioStreamPlayer" parent="." index="3"]
 stream = ExtResource("3_01evg")

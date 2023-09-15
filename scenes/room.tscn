@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bh18riawk5l1h" path="res://scenes/objects/teddy.tscn" id="5_eqead"]
 [ext_resource type="PackedScene" uid="uid://cb0xfwchtqn25" path="res://scenes/objects/milk.tscn" id="6_6leqd"]
 [ext_resource type="PackedScene" uid="uid://1aym6npw6xb2" path="res://scenes/objects/hubert.tscn" id="7_r6e0n"]
-[ext_resource type="PackedScene" uid="uid://d3r4gwc2jvqfr" path="res://scenes/text_interact_area.tscn" id="8_qnajo"]
+[ext_resource type="PackedScene" uid="uid://duiw3ava7jsl3" path="res://scenes/text_interact_area.tscn" id="8_qnajo"]
 [ext_resource type="PackedScene" uid="uid://chtjyjl6om78o" path="res://scenes/objects/plate.tscn" id="9_7eubt"]
 [ext_resource type="PackedScene" uid="uid://dod5ivx3dm4ny" path="res://scenes/m_clone.tscn" id="10_hvcb7"]
 [ext_resource type="PackedScene" uid="uid://blrow0klriehp" path="res://scenes/baseobject.tscn" id="10_kf21y"]
@@ -109,8 +109,8 @@ position = Vector2(104, 503)
 position = Vector2(713, 423)
 
 [node name="MCloneText" parent="M Clone" instance=ExtResource("8_qnajo")]
-alert_type = 0
 textlist = Array[String](["It's you!", "Hi M!", "She doesn't have much to say...", "Lets just leave her alone"])
+alert_type = 0
 metadata/_edit_lock_ = true
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
@@ -128,13 +128,12 @@ textlist = Array[String](["There's a door here?", "Why did you need to go the lo
 
 [node name="HiddenDialog" parent="." instance=ExtResource("8_qnajo")]
 position = Vector2(-8, 236)
-alert_type = 2
 textlist = Array[String](["Congrats", "You found the hidden text!", "fhgujyfdbnguydfhtgburjydgbuyfdgbujfd,kgbsudfyjgbdfyusgoirtkmjhgifudhjnghbduktybgius7jnghjbjstuhiyk5riuyg b5rujykwtgbjues5htgbjuyekisltghbsej5yugbvjhsyutkgfvbsrdybutgkrshtgb4sjyhuksgbjhtgyhbskrbgukisgfyhuaegfbvyhdsvfhakjsdfvytharkfvhyrtgefvbjhakuytgdfvhajgdst5gsfdy5drfdy456fuy564te546rytedfset5ty67rhgfdrde5y6yujhgnfbtry6u7i8hjgmnhtfdtgeuryujton8i6rf7drto8kurf6uoiuij876y6t6r56yrg", "I hope you enjoyed the hidden text"])
 
 [node name="Object" parent="." instance=ExtResource("10_kf21y")]
 position = Vector2(-198, 472)
 
-[node name="TextInteractArea" parent="Object" index="0"]
+[node name="TextInteractArea" parent="Object" index="2"]
 textlist = Array[String](["This is what the default texture looks like", "Idk why I spent so long on this texture but it's so much better than a flat 2x2 grid"])
 
 [node name="TextInteractArea" parent="." instance=ExtResource("8_qnajo")]
@@ -148,7 +147,7 @@ metadata/_edit_lock_ = true
 [node name="Teddy2" parent="." instance=ExtResource("5_eqead")]
 position = Vector2(-120.5, 570.5)
 
-[node name="TextInteractArea" parent="Teddy2" index="0"]
+[node name="TextInteractArea" parent="Teddy2" index="2"]
 textlist = Array[String](["WHY IS THE TEDDY NOT PIXEL ALIGNED", "REALITY IS BREAKINF DOWN"])
 
 [node name="Hubert2" type="Sprite2D" parent="."]
@@ -164,7 +163,6 @@ text = ":D"
 
 [node name="TextInteractArea2" parent="." instance=ExtResource("8_qnajo")]
 position = Vector2(168, 20)
-alert_type = 2
 textlist = Array[String](["v1.2.0-beta.2", "uwu"])
 
 [node name="Border" type="StaticBody2D" parent="."]
@@ -183,13 +181,13 @@ default_color = Color(0, 0, 0, 1)
 
 [node name="TextInteractArea3" parent="." instance=ExtResource("8_qnajo")]
 position = Vector2(-136, 430)
-alert_type = 0
 textlist = Array[String](["You don't recognise the individual in the photo", "So why do they look so familiar?"])
+alert_type = 0
 
 [node name="SceneChangeInteractArea" parent="." instance=ExtResource("12_vrsm6")]
 position = Vector2(152, 351)
-alert_type = 1
 scene_path = "res://scenes/catsim/difficulty.tscn"
+alert_type = 1
 
 [connection signal="body_entered" from="SpoopyArea" to="M" method="_on_spoopy_area_body_entered" flags=18]
 [connection signal="body_exited" from="SpoopyArea" to="M" method="_on_spoopy_area_body_exited" flags=18]
