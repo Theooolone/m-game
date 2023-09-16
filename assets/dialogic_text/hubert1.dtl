@@ -1,0 +1,6 @@
+m: OH MY GOD ITS HUBERT!!!!
+...
+if Global.get_config_value("cat_sim_highscores", "difficulty_pain", false) >= 400:
+	It's hard to tell, but Hubert seems proud of your ability to parent cats
+else:
+	Hubert sits in silence.

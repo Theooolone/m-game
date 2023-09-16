@@ -27,6 +27,43 @@ buses/default_bus_layout="res://resources/default_bus_layout.tres"
 Global="*res://scripts/global.gd"
 Dialogic="*res://addons/dialogic/Other/DialogicGameHandler.gd"
 
+[dialogic]
+
+glossary/default_case_sensitive=true
+layout/styles={
+"Default": {
+"export_overrides": {
+"box_size": "Vector2(600, 110)",
+"name_label_box_offset": "Vector2(0, 4)",
+"name_label_font": "\"res://assets/fonts/16px.ttf\"",
+"name_label_font_size": "32.0",
+"normal_font": "\"res://assets/fonts/5px.ttf\""
+},
+"inherits": "",
+"layout": "res://addons/dialogic/Modules/DefaultLayouts/Default/DialogicDefaultLayout.tscn"
+}
+}
+layout/default_style="Default"
+settings/text_speed=0.03
+text/skippable=true
+text/skippable_delay=0.1
+text/autoadvance_delay=1.0
+text/hide_empty_textbox=true
+animations/join_default_length=0.5
+animations/leave_default_length=0.5
+animations/leave_default_wait=true
+animations/join_default_wait=true
+choices/autofocus_first=true
+choices/delay=0.2
+choices/reveal_delay=0
+choices/reveal_by_input=false
+save/autosave_delay=60.0
+history/full_history_enabled=false
+animations/join_default="res://addons/dialogic/Modules/Character/DefaultAnimations/slide_in_right.gd"
+animations/leave_default="res://addons/dialogic/Modules/Character/DefaultAnimations/slide_out_left.gd"
+text/autopauses={}
+variables={}
+
 [display]
 
 window/size/viewport_width=1920
