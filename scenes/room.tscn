@@ -98,6 +98,7 @@ position = Vector2(-38, 88)
 
 [node name="Window" parent="." instance=ExtResource("8_qnajo")]
 position = Vector2(40, 21)
+timeline_file = "res://assets/dialogic_text/window1.dtl"
 
 [node name="Plate" parent="." instance=ExtResource("9_7eubt")]
 position = Vector2(104, 503)
@@ -106,6 +107,7 @@ position = Vector2(104, 503)
 position = Vector2(713, 423)
 
 [node name="MCloneText" parent="M Clone" instance=ExtResource("8_qnajo")]
+timeline_file = "res://assets/dialogic_text/m_clone1.dtl"
 alert_type = 0
 metadata/_edit_lock_ = true
 
@@ -120,22 +122,31 @@ metadata/_edit_lock_ = true
 
 [node name="Door" parent="." instance=ExtResource("8_qnajo")]
 position = Vector2(184, 428)
+timeline_file = "res://assets/dialogic_text/plate_door1.dtl"
 
 [node name="HiddenDialog" parent="." instance=ExtResource("8_qnajo")]
 position = Vector2(-8, 236)
+timeline_file = "res://assets/dialogic_text/hidden_dialog1.dtl"
 
-[node name="Object" parent="." instance=ExtResource("10_kf21y")]
+[node name="DefaultObject" parent="." instance=ExtResource("10_kf21y")]
 position = Vector2(-198, 472)
 
-[node name="TextInteractArea" parent="." instance=ExtResource("8_qnajo")]
-position = Vector2(-206, 368)
+[node name="TextInteractArea" parent="DefaultObject" index="2"]
+timeline_file = "res://assets/dialogic_text/default_object1.dtl"
 
-[node name="CollisionShape2D" parent="TextInteractArea" index="0"]
+[node name="HubertText" parent="." instance=ExtResource("8_qnajo")]
+position = Vector2(-206, 368)
+timeline_file = "res://assets/dialogic_text/big_hubert1.dtl"
+
+[node name="CollisionShape2D" parent="HubertText" index="0"]
 shape = SubResource("RectangleShape2D_186uj")
 metadata/_edit_lock_ = true
 
 [node name="Teddy2" parent="." instance=ExtResource("5_eqead")]
 position = Vector2(-120.5, 570.5)
+
+[node name="TextInteractArea" parent="Teddy2" index="2"]
+timeline_file = "res://assets/dialogic_text/not_pixel_aligned1.dtl"
 
 [node name="Hubert2" type="Sprite2D" parent="."]
 position = Vector2(-95, 270)
@@ -148,8 +159,9 @@ offset_right = 147.0
 offset_bottom = 702.0
 text = ":D"
 
-[node name="TextInteractArea2" parent="." instance=ExtResource("8_qnajo")]
+[node name="VersionText" parent="." instance=ExtResource("8_qnajo")]
 position = Vector2(168, 20)
+timeline_file = "res://assets/dialogic_text/ver.dtl"
 
 [node name="Border" type="StaticBody2D" parent="."]
 position = Vector2(12, 144)
@@ -165,11 +177,12 @@ points = PackedVector2Array(0, 0, 40, 0)
 width = 1.0
 default_color = Color(0, 0, 0, 1)
 
-[node name="TextInteractArea3" parent="." instance=ExtResource("8_qnajo")]
+[node name="FamiliarPhoto" parent="." instance=ExtResource("8_qnajo")]
 position = Vector2(-136, 430)
+timeline_file = "res://assets/dialogic_text/familiar_photo1.dtl"
 alert_type = 0
 
-[node name="SceneChangeInteractArea" parent="." instance=ExtResource("12_vrsm6")]
+[node name="CatScene" parent="." instance=ExtResource("12_vrsm6")]
 position = Vector2(152, 351)
 scene_path = "res://scenes/catsim/difficulty.tscn"
 alert_type = 1
@@ -177,6 +190,6 @@ alert_type = 1
 [connection signal="body_entered" from="SpoopyArea" to="M" method="_on_spoopy_area_body_entered" flags=18]
 [connection signal="body_exited" from="SpoopyArea" to="M" method="_on_spoopy_area_body_exited" flags=18]
 
-[editable path="Object"]
-[editable path="TextInteractArea"]
+[editable path="DefaultObject"]
+[editable path="HubertText"]
 [editable path="Teddy2"]

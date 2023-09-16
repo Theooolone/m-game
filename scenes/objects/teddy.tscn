@@ -5,10 +5,10 @@
 
 [node name="Teddy" instance=ExtResource("1_lgfro")]
 
-[node name="TextInteractArea" parent="." index="0"]
-textlist = Array[String](["It's a cute plush!", "You wonder why it's in colour but the rest of the room isn't", "This teddy clearly isn't from around here, but they're cute regardless."])
-id = 1
-
-[node name="Sprite2D" parent="." index="1"]
+[node name="Sprite2D" parent="." index="0"]
 position = Vector2(0, -4)
 texture = ExtResource("2_efksd")
+
+[node name="TextInteractArea" parent="." index="2"]
+timeline_file = "res://assets/dialogic_text/teddy1.dtl"
+id = 1
