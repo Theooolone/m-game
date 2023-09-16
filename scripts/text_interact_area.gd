@@ -12,7 +12,7 @@ func _ready():
 	)
 
 func _on_interact():
-	if Global.textbox_visible or Global.textbox_on_cooldown:
+	if Dialogic.has_active_layout_node() or Global.textbox_on_cooldown:
 		return
 	in_dialogue = true
 	interactable = false

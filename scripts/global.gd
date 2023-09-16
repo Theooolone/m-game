@@ -1,15 +1,8 @@
 extends Node
 
-signal textlist
 signal id_interaction
 
-
-signal textbox_show
-signal textbox_hide
-
 var line_edit_focused = false
-
-var textbox_visible = false
 
 var textbox_on_cooldown = false
 
@@ -49,6 +42,19 @@ func _ready():
 		scene_node = main_node.get_node_or_null("Room")
 	
 	if OS.is_debug_build(): DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+	
+	var text_cooldown_timer = Timer.new()
+	add_child(text_cooldown_timer)
+	autosave_timer.wait_time = 0.2
+	autosave_timer.one_shot = true
+	
+	Dialogic.timeline_ended.connect(func():
+		textbox_on_cooldown = true
+		autosave_timer.start()
+	)
+	autosave_timer.timeout.connect(func():
+		textbox_on_cooldown = false
+	)
 
 
 func config_value_exists(section: String, key: String):
