@@ -33,11 +33,11 @@ glossary/default_case_sensitive=true
 layout/styles={
 "Default": {
 "export_overrides": {
-"box_size": "Vector2(600, 110)",
+"box_size": "Vector2(1100, 220)",
 "name_label_box_offset": "Vector2(0, 4)",
 "name_label_font": "\"res://assets/fonts/16px.ttf\"",
 "name_label_font_size": "32.0",
-"normal_font": "\"res://assets/fonts/5px.ttf\""
+"text_size": "32.0"
 },
 "inherits": "",
 "layout": "res://addons/dialogic/Modules/DefaultLayouts/Default/DialogicDefaultLayout.tscn"
