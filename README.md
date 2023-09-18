@@ -4,9 +4,13 @@ Quick game I'm making to learn Godot.
 [View latest release](https://github.com/Theooolone/m-game/releases/latest)\
 [View on itch.io](https://theooolone.itch.io/m-game)
 
+[View branding assets](https://github.com/Theooolone/m-game-branding)
+
 ## CREDITS:
 
 All code, music, SFX, art, and other game assets created by me unless otherwise specified below.
+
+
 
 Character and setting created by M.\
 Milk bucket sprite created by Mojang Studios\
