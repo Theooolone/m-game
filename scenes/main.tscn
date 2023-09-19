@@ -1,11 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://be1xemtd7td60"]
+[gd_scene load_steps=8 format=3 uid="uid://be1xemtd7td60"]
 
 [ext_resource type="PackedScene" uid="uid://bomyo23b5yead" path="res://scenes/room.tscn" id="1_uxiy3"]
 [ext_resource type="PackedScene" uid="uid://cgvt7kh2yf5ww" path="res://scenes/pause_menu.tscn" id="6_h5upv"]
 [ext_resource type="Script" path="res://scripts/fps.gd" id="7_6ii6o"]
 [ext_resource type="PackedScene" uid="uid://c5dsh6ix1rffr" path="res://scenes/ui/AudioSettings.tscn" id="12_jage7"]
 [ext_resource type="AudioStream" uid="uid://bq5hx53ka6uqq" path="res://assets/music/void_resonance.wav" id="13_e1xm7"]
-[ext_resource type="PackedScene" uid="uid://bq7gse2bd8uxc" path="res://scenes/textbox.tscn" id="14_ri8sk"]
 [ext_resource type="PackedScene" uid="uid://cwah6nf3q1aqu" path="res://scenes/controls.tscn" id="16_qgkb2"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_pcwdf"]
@@ -21,9 +20,6 @@ outline_color = Color(0, 0, 0, 1)
 stream = ExtResource("13_e1xm7")
 volume_db = -18.0
 bus = &"Music"
-
-[node name="Textbox" parent="." instance=ExtResource("14_ri8sk")]
-visible = false
 
 [node name="PauseMenu" parent="." instance=ExtResource("6_h5upv")]
 visible = false

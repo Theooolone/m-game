@@ -27,7 +27,7 @@ func vector_to_4way_direction(vector: Vector2) -> Vector2:
 	return Vector2.ZERO
 
 func _physics_process(_delta):
-	if Global.textbox_visible:
+	if Dialogic.has_active_layout_node():
 		movevector = Vector2.ZERO
 	else:
 		movevector = Input.get_vector("left", "right", "up", "down")

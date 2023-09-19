@@ -5,10 +5,9 @@
 
 [node name="Milk" instance=ExtResource("1_yllru")]
 
-[node name="TextInteractArea" parent="." index="0"]
-textlist = Array[String](["Milk.", "You're quite fond of milk.", "...", "It's out of date, probably because you kept it in a bucket on the floor instead of in the fridge", "Nevermind. It went out of date 6 years ago...
-No fridge would have saved that", "Seems like you finally figured out why it smells so bad in here!"])
-id = 2
-
-[node name="Sprite2D" parent="." index="1"]
+[node name="Sprite2D" parent="." index="0"]
 texture = ExtResource("2_rsdix")
+
+[node name="TextInteractArea" parent="." index="2"]
+timeline_file = "res://assets/dialogic_text/milk1.dtl"
+id = 2

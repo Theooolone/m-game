@@ -10,7 +10,7 @@
 texture = ExtResource("2_j52gc")
 
 [node name="TextInteractArea" parent="." index="2" node_paths=PackedStringArray("interaction_sound")]
-textlist = Array[String](["OH MY GOD ITS HUBERT"])
+timeline_file = "res://assets/dialogic_text/hubert1.dtl"
 id = 3
 interaction_sound = NodePath("../sfx")
 alert_type = 0

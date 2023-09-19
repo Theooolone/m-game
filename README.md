@@ -10,7 +10,7 @@ A game I'm making to learn Godot.
 
 All code, music, SFX, art, and other game assets created by me unless otherwise specified below.
 
-
+Dialogue system handled by the Godot plugin [Dialogic](https://github.com/coppolaemilio/dialogic)
 
 Character and setting created by M.\
 Milk bucket sprite created by Mojang Studios\

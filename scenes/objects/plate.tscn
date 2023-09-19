@@ -9,14 +9,13 @@ height = 16.0
 
 [node name="Plate" instance=ExtResource("1_o7bbq")]
 
-[node name="TextInteractArea" parent="." index="0"]
-alert_type = 0
-textlist = Array[String](["WHY IS THERE A PLATE HERE
-WHYS IT SO BIG", "WHAT EVEN IS THIS HOME", "WHY IS IT BUILT LIKE THIS"])
-
-[node name="Sprite2D" parent="." index="1"]
+[node name="Sprite2D" parent="." index="0"]
 position = Vector2(0, 0)
 texture = ExtResource("2_lwmin")
 
-[node name="CollisionShape2D" parent="." index="2"]
+[node name="CollisionShape2D" parent="." index="1"]
 shape = SubResource("CapsuleShape2D_v3dmb")
+
+[node name="TextInteractArea" parent="." index="2"]
+timeline_file = "res://assets/dialogic_text/plate1.dtl"
+alert_type = 0

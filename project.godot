@@ -25,6 +25,44 @@ buses/default_bus_layout="res://resources/default_bus_layout.tres"
 [autoload]
 
 Global="*res://scripts/global.gd"
+Dialogic="*res://addons/dialogic/Other/DialogicGameHandler.gd"
+
+[dialogic]
+
+glossary/default_case_sensitive=true
+layout/styles={
+"Default": {
+"export_overrides": {
+"box_size": "Vector2(1100, 220)",
+"name_label_box_offset": "Vector2(0, 4)",
+"name_label_font": "\"res://assets/fonts/16px.ttf\"",
+"name_label_font_size": "32.0",
+"text_size": "32.0"
+},
+"inherits": "",
+"layout": "res://addons/dialogic/Modules/DefaultLayouts/Default/DialogicDefaultLayout.tscn"
+}
+}
+layout/default_style="Default"
+settings/text_speed=0.03
+text/skippable=true
+text/skippable_delay=0.1
+text/autoadvance_delay=1.0
+text/hide_empty_textbox=true
+animations/join_default_length=0.5
+animations/leave_default_length=0.5
+animations/leave_default_wait=true
+animations/join_default_wait=true
+choices/autofocus_first=true
+choices/delay=0.2
+choices/reveal_delay=0
+choices/reveal_by_input=false
+save/autosave_delay=60.0
+history/full_history_enabled=false
+animations/join_default="res://addons/dialogic/Modules/Character/DefaultAnimations/slide_in_right.gd"
+animations/leave_default="res://addons/dialogic/Modules/Character/DefaultAnimations/slide_out_left.gd"
+text/autopauses={}
+variables={}
 
 [display]
 
@@ -35,6 +73,10 @@ window/size/initial_position_type=3
 window/energy_saving/keep_screen_on=false
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/dialogic/plugin.cfg")
 
 [filesystem]
 
@@ -119,6 +161,13 @@ debug_menu={
 click={
 "deadzone": 0.5,
 "events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":1,"canceled":false,"pressed":false,"double_click":false,"script":null)
+]
+}
+dialogic_default_action={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":69,"key_label":0,"unicode":101,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":90,"key_label":0,"unicode":122,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":0,"pressure":0.0,"pressed":false,"script":null)
 ]
 }
 
