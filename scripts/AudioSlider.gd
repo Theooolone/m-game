@@ -27,7 +27,7 @@ func _ready():
 	AudioServer.set_bus_volume_db(bus_id, new_db)
 
 func _on_v_slider_value_changed(value):
-	if not bus_id: return
+	if bus_id == -1: return
 	var new_db = max(-60, 20*log(value)/log(10)-40)
 	AudioServer.set_bus_volume_db(bus_id, new_db)
 	value_node.text = str(value) + "%"

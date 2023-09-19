@@ -1,8 +1,10 @@
 # M Game
-Quick game I'm making to learn Godot.
+A game I'm making to learn Godot.
 
 [View latest release](https://github.com/Theooolone/m-game/releases/latest)\
 [View on itch.io](https://theooolone.itch.io/m-game)
+
+[View branding assets](https://github.com/Theooolone/m-game-branding)
 
 ## CREDITS:
 

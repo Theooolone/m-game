@@ -271,7 +271,7 @@ wait_time = 0.1
 autostart = true
 
 [node name="FoodDeliveryTimer" type="Timer" parent="."]
-wait_time = 15.0
+wait_time = 25.0
 one_shot = true
 
 [node name="StatbarSets" type="Control" parent="."]
@@ -454,9 +454,8 @@ offset_right = 32.0
 offset_bottom = 16.0
 grow_horizontal = 2
 grow_vertical = 2
-max_value = 15.0
+max_value = 25.0
 step = 0.0
-value = 7.4
 texture_under = ExtResource("12_p4fx6")
 texture_progress = ExtResource("13_p5f4f")
 
