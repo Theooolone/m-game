@@ -44,7 +44,6 @@ layout/styles={
 }
 }
 layout/default_style="Default"
-settings/text_speed=0.03
 text/skippable=true
 text/skippable_delay=0.1
 text/autoadvance_delay=1.0
@@ -63,6 +62,8 @@ animations/join_default="res://addons/dialogic/Modules/Character/DefaultAnimatio
 animations/leave_default="res://addons/dialogic/Modules/Character/DefaultAnimations/slide_out_left.gd"
 text/autopauses={}
 variables={}
+settings/text_speed=1
+text/letter_speed=0.03
 
 [display]
 
