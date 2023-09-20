@@ -39,6 +39,7 @@ func _init():
 	alert_node = _alert_node_preload.instantiate()
 	add_child(alert_node)
 	alert_node.hide()
+	
 	connect("body_entered", _on_body_entered)
 	connect("body_exited", _on_body_exited)
 
@@ -63,6 +64,7 @@ func _on_body_entered(body):
 	if body.name != "M":
 		return
 	inrange = true
+	alert_node.position = alert_offset
 	if alert_type != _alert.NONE:
 		alert_node.show()
 	match alert_type:
