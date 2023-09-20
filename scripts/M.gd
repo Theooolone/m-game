@@ -31,8 +31,10 @@ func _physics_process(_delta):
 		movevector = Vector2.ZERO
 	else:
 		movevector = Input.get_vector("left", "right", "up", "down")
-	if ominous:
-		movevector /= 2
+	
+	if ominous and movevector.x < 0:
+		movevector *= clamp(remap(position.x, -100, -150, 0.75, 0.33), 0.33, 0.75)
+	
 	# velocity is a variable in CharacterBody2D used by functions like move_and_slide()
 	velocity = movevector * speed
 	move_and_slide()
