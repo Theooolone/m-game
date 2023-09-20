@@ -19,3 +19,4 @@ shape = SubResource("CapsuleShape2D_v3dmb")
 [node name="TextInteractArea" parent="." index="2"]
 timeline_file = "res://assets/dialogic_text/plate1.dtl"
 alert_type = 0
+alert_offset = Vector2(0, -16)
