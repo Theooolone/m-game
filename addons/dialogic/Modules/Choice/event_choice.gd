@@ -51,7 +51,6 @@ func _init() -> void:
 	event_sorting_index = 0
 	can_contain_events = true
 	needs_parent_event = true
-	expand_by_default = false
 
 
 # if needs_parent_event is true, this needs to return true if the event is that event
@@ -135,9 +134,9 @@ func _get_property_original_translation(property:String) -> String:
 ################################################################################
 
 func build_event_editor() -> void:
-	add_header_edit("text", ValueType.SINGLELINE_TEXT, '','', {'autofocus':true})
-	add_body_edit("condition", ValueType.CONDITION, 'if ')
-	add_body_edit("else_action", ValueType.FIXED_OPTION_SELECTOR, 'else ', '', {
+	add_header_edit("text", ValueType.SINGLELINE_TEXT, {'autofocus':true})
+	add_body_edit("condition", ValueType.CONDITION, {'left_text':'if '})
+	add_body_edit("else_action", ValueType.FIXED_OPTION_SELECTOR, {'left_text':'else ',
 		'selector_options': [
 			{
 				'label': 'Default',
@@ -152,8 +151,9 @@ func build_event_editor() -> void:
 				'value': ElseActions.DISABLE,
 			}
 		]}, '!condition.is_empty()')
-	add_body_edit("disabled_text", ValueType.SINGLELINE_TEXT, 'Disabled text:', '', 
-			{'placeholder':'(Empty for same)'}, 'allow_alt_text()')
+	add_body_edit("disabled_text", ValueType.SINGLELINE_TEXT, {
+			'left_text':'Disabled text:', 
+			'placeholder':'(Empty for same)'}, 'allow_alt_text()')
 
 
 func allow_alt_text() -> bool:
