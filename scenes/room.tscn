@@ -139,6 +139,8 @@ timeline_file = "res://assets/dialogic_text/default_object1.dtl"
 [node name="HubertText" parent="." instance=ExtResource("8_qnajo")]
 position = Vector2(-206, 368)
 timeline_file = "res://assets/dialogic_text/big_hubert1.dtl"
+alert_type = 0
+alert_offset = Vector2(-16, -8)
 
 [node name="CollisionShape2D" parent="HubertText" index="0"]
 shape = SubResource("RectangleShape2D_186uj")
