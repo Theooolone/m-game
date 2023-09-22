@@ -1,4 +1,4 @@
-[wave amp=60 freq=4]OH MY GOD [speed=0.2]ITS [b]HUBERT[/b]!!!![/wave]
+\[wave amp=60 freq=4]OH MY GOD [lspeed=0.2]ITS [b]HUBERT[/b]!!!![/wave]
 Everybody loves Hubert!
 ...
 if Global.get_config_value("cat_sim_highscores", "difficulty_pain", false) >= 400:
