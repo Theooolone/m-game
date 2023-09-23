@@ -1,4 +1,7 @@
-# M Game
+<p align="center">
+<img src="https://github.com/Theooolone/m-game/assets/110533961/ac98359c-0962-4693-9665-8a90e216630e" alt="M Game"/>
+</p>
+
 A game I'm making to learn Godot.
 
 [View latest release](https://github.com/Theooolone/m-game/releases/latest)\
