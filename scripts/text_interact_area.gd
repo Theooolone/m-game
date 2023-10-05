@@ -2,7 +2,7 @@ extends InteractArea
 
 var in_dialogue = false
 
-@export_file("*.dtl") var timeline_file: String = "res://assets/dialogic_text/test_timeline.dtl"
+@export_file("*.dtl") var timeline_file: String = "res://dialogic_text/test_timeline.dtl"
 
 func _ready():
 	Dialogic.timeline_ended.connect(func():

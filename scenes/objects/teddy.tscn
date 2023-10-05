@@ -10,5 +10,5 @@ position = Vector2(0, -4)
 texture = ExtResource("2_efksd")
 
 [node name="TextInteractArea" parent="." index="2"]
-timeline_file = "res://assets/dialogic_text/teddy1.dtl"
+timeline_file = "res://dialogic_text/teddy1.dtl"
 id = 1
