@@ -98,7 +98,7 @@ position = Vector2(-38, 88)
 
 [node name="Window" parent="." instance=ExtResource("8_qnajo")]
 position = Vector2(40, 21)
-timeline_file = "res://assets/dialogic_text/window1.dtl"
+timeline_file = "res://dialogic_text/window1.dtl"
 
 [node name="Plate" parent="." instance=ExtResource("9_7eubt")]
 position = Vector2(104, 503)
@@ -107,7 +107,7 @@ position = Vector2(104, 503)
 position = Vector2(713, 423)
 
 [node name="MCloneText" parent="M Clone" instance=ExtResource("8_qnajo")]
-timeline_file = "res://assets/dialogic_text/m_clone1.dtl"
+timeline_file = "res://dialogic_text/m_clone1.dtl"
 alert_type = 0
 metadata/_edit_lock_ = true
 
@@ -122,23 +122,23 @@ metadata/_edit_lock_ = true
 
 [node name="Door" parent="." instance=ExtResource("8_qnajo")]
 position = Vector2(184, 428)
-timeline_file = "res://assets/dialogic_text/plate_door1.dtl"
+timeline_file = "res://dialogic_text/plate_door1.dtl"
 alert_type = 0
 alert_offset = Vector2(0, -28)
 
 [node name="HiddenDialog" parent="." instance=ExtResource("8_qnajo")]
 position = Vector2(-8, 236)
-timeline_file = "res://assets/dialogic_text/hidden_dialog1.dtl"
+timeline_file = "res://dialogic_text/hidden_dialog1.dtl"
 
 [node name="DefaultObject" parent="." instance=ExtResource("10_kf21y")]
 position = Vector2(-198, 472)
 
 [node name="TextInteractArea" parent="DefaultObject" index="2"]
-timeline_file = "res://assets/dialogic_text/default_object1.dtl"
+timeline_file = "res://dialogic_text/default_object1.dtl"
 
 [node name="HubertText" parent="." instance=ExtResource("8_qnajo")]
 position = Vector2(-206, 368)
-timeline_file = "res://assets/dialogic_text/big_hubert1.dtl"
+timeline_file = "res://dialogic_text/big_hubert1.dtl"
 alert_type = 0
 alert_offset = Vector2(-16, -8)
 
@@ -150,7 +150,7 @@ metadata/_edit_lock_ = true
 position = Vector2(-120.5, 570.5)
 
 [node name="TextInteractArea" parent="Teddy2" index="2"]
-timeline_file = "res://assets/dialogic_text/not_pixel_aligned1.dtl"
+timeline_file = "res://dialogic_text/not_pixel_aligned1.dtl"
 
 [node name="Hubert2" type="Sprite2D" parent="."]
 position = Vector2(-95, 270)
@@ -165,7 +165,7 @@ text = ":D"
 
 [node name="VersionText" parent="." instance=ExtResource("8_qnajo")]
 position = Vector2(168, 20)
-timeline_file = "res://assets/dialogic_text/ver.dtl"
+timeline_file = "res://dialogic_text/ver.dtl"
 
 [node name="Border" type="StaticBody2D" parent="."]
 position = Vector2(12, 144)
@@ -183,7 +183,7 @@ default_color = Color(0, 0, 0, 1)
 
 [node name="FamiliarPhoto" parent="." instance=ExtResource("8_qnajo")]
 position = Vector2(-136, 430)
-timeline_file = "res://assets/dialogic_text/familiar_photo1.dtl"
+timeline_file = "res://dialogic_text/familiar_photo1.dtl"
 alert_type = 0
 alert_offset = Vector2(0, -28)
 

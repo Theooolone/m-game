@@ -9,5 +9,5 @@
 texture = ExtResource("2_rsdix")
 
 [node name="TextInteractArea" parent="." index="2"]
-timeline_file = "res://assets/dialogic_text/milk1.dtl"
+timeline_file = "res://dialogic_text/milk1.dtl"
 id = 2
