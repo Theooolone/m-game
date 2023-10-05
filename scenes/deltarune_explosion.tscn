@@ -1,0 +1,142 @@
+[gd_scene load_steps=22 format=3 uid="uid://hb7c5kyyeyik"]
+
+[ext_resource type="Texture2D" uid="uid://ba6gqkvtpi032" path="res://assets/textures/ui/spr_realisticexplosion.png" id="1_skspy"]
+[ext_resource type="Script" path="res://scripts/deltarune_explosion.gd" id="2_rxijq"]
+[ext_resource type="AudioStream" uid="uid://en6gpjrpa3nh" path="res://assets/sounds/boom.mp3" id="3_funq6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cxfxs"]
+atlas = ExtResource("1_skspy")
+region = Rect2(0, 0, 71, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3lfpl"]
+atlas = ExtResource("1_skspy")
+region = Rect2(71, 0, 71, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qulop"]
+atlas = ExtResource("1_skspy")
+region = Rect2(142, 0, 71, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tgkdo"]
+atlas = ExtResource("1_skspy")
+region = Rect2(213, 0, 71, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ov1yr"]
+atlas = ExtResource("1_skspy")
+region = Rect2(284, 0, 71, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s8msg"]
+atlas = ExtResource("1_skspy")
+region = Rect2(355, 0, 71, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tue34"]
+atlas = ExtResource("1_skspy")
+region = Rect2(426, 0, 71, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0moik"]
+atlas = ExtResource("1_skspy")
+region = Rect2(497, 0, 71, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ryy58"]
+atlas = ExtResource("1_skspy")
+region = Rect2(568, 0, 71, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0v6no"]
+atlas = ExtResource("1_skspy")
+region = Rect2(639, 0, 71, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_80486"]
+atlas = ExtResource("1_skspy")
+region = Rect2(710, 0, 71, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dwl3s"]
+atlas = ExtResource("1_skspy")
+region = Rect2(781, 0, 71, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h7olh"]
+atlas = ExtResource("1_skspy")
+region = Rect2(852, 0, 71, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l7od6"]
+atlas = ExtResource("1_skspy")
+region = Rect2(923, 0, 71, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3u4q8"]
+atlas = ExtResource("1_skspy")
+region = Rect2(994, 0, 71, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8tc20"]
+atlas = ExtResource("1_skspy")
+region = Rect2(1065, 0, 71, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sil8l"]
+atlas = ExtResource("1_skspy")
+region = Rect2(1136, 0, 71, 100)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4k8na"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cxfxs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3lfpl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qulop")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tgkdo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ov1yr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s8msg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tue34")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0moik")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ryy58")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0v6no")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_80486")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dwl3s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h7olh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l7od6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3u4q8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8tc20")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sil8l")
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="DeltaruneExplosion" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_4k8na")
+frame = 4
+script = ExtResource("2_rxijq")
+
+[node name="Boom" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_funq6")
+
+[connection signal="animation_finished" from="." to="." method="_on_animation_finished"]
