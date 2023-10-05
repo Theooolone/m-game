@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://be1xemtd7td60"]
+[gd_scene load_steps=10 format=3 uid="uid://be1xemtd7td60"]
 
 [ext_resource type="PackedScene" uid="uid://svjhtfvi41u7" path="res://scenes/ui/main_menu.tscn" id="6_813yc"]
 [ext_resource type="PackedScene" uid="uid://cgvt7kh2yf5ww" path="res://scenes/pause_menu.tscn" id="6_h5upv"]
 [ext_resource type="Script" path="res://scripts/fps.gd" id="7_6ii6o"]
+[ext_resource type="Shader" path="res://resources/vignette.gdshader" id="7_wfhly"]
 [ext_resource type="PackedScene" uid="uid://c5dsh6ix1rffr" path="res://scenes/ui/AudioSettings.tscn" id="12_jage7"]
 [ext_resource type="AudioStream" uid="uid://bq5hx53ka6uqq" path="res://assets/music/void_resonance.wav" id="13_e1xm7"]
 [ext_resource type="PackedScene" uid="uid://cwah6nf3q1aqu" path="res://scenes/controls.tscn" id="16_qgkb2"]
@@ -11,6 +12,10 @@
 font_size = 32
 outline_size = 4
 outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_im2oe"]
+shader = ExtResource("7_wfhly")
+shader_parameter/color = Color(0, 0, 0, 0.0941176)
 
 [node name="Main" type="Node"]
 
@@ -39,3 +44,16 @@ text = "60 FPS"
 label_settings = SubResource("LabelSettings_pcwdf")
 
 [node name="Main Menu" parent="." instance=ExtResource("6_813yc")]
+
+[node name="Vignette" type="CanvasLayer" parent="."]
+layer = 120
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="Vignette"]
+material = SubResource("ShaderMaterial_im2oe")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2

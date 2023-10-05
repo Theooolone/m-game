@@ -1,20 +1,84 @@
-[gd_scene load_steps=12 format=3 uid="uid://svjhtfvi41u7"]
+[gd_scene load_steps=26 format=3 uid="uid://svjhtfvi41u7"]
 
 [ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_3nwc3"]
 [ext_resource type="Texture2D" uid="uid://vcq5al83nfsi" path="res://assets/textures/ui/text_logo.png" id="1_6b45h"]
 [ext_resource type="Texture2D" uid="uid://3aeljrn6c2ug" path="res://assets/textures/ui/button_big.png" id="2_3aktn"]
 [ext_resource type="Script" path="res://scripts/title.gd" id="2_b4fku"]
 [ext_resource type="TileSet" uid="uid://jidy50o2532o" path="res://resources/room.tres" id="2_clnmn"]
+[ext_resource type="Texture2D" uid="uid://k2eocvy6b05o" path="res://assets/textures/objects/hubert.png" id="3_q18u1"]
 [ext_resource type="FontFile" uid="uid://dlgmhijh1yaqn" path="res://assets/fonts/16px.ttf" id="3_qjb21"]
 [ext_resource type="Texture2D" uid="uid://b7v1m0awjvw8r" path="res://assets/textures/ui/button_big_pressed.png" id="4_1tif5"]
+[ext_resource type="Texture2D" uid="uid://b4sfo3p75pw7w" path="res://assets/textures/objects/teddy.png" id="4_47yae"]
+[ext_resource type="Texture2D" uid="uid://bpc2becmdwkh0" path="res://assets/textures/catsim/catbed_sleeping.png" id="4_j1ikn"]
 [ext_resource type="PackedScene" uid="uid://hb7c5kyyeyik" path="res://scenes/deltarune_explosion.tscn" id="5_d71eg"]
 [ext_resource type="Texture2D" uid="uid://t4yspvyytda8" path="res://assets/textures/ui/button_big_highlight.png" id="5_jdgea"]
+[ext_resource type="Texture2D" uid="uid://6bmk8yquqcjt" path="res://assets/textures/objects/plate.png" id="6_x02mr"]
+[ext_resource type="Texture2D" uid="uid://d2eede44hifg3" path="res://assets/textures/objects/milk.png" id="7_txobp"]
+[ext_resource type="Texture2D" uid="uid://bq860rahhq1pc" path="res://assets/textures/catsim/cat.png" id="8_xd1r7"]
 
 [sub_resource type="Curve2D" id="Curve2D_y6omn"]
 _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 224, -531, 0, 0, 0, 0, 301, -531, 0, 0, 0, 0, 384, -448, 0, 0, 0, 0, 518, -448, 0, 0, 0, 0, 526, -440, 0, 0, 0, 0, 526, -300)
 }
 point_count = 6
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g8f6b"]
+atlas = ExtResource("4_j1ikn")
+region = Rect2(0, 0, 18, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1xj41"]
+atlas = ExtResource("4_j1ikn")
+region = Rect2(18, 0, 18, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ws8jc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g8f6b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1xj41")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 0.75
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rc607"]
+atlas = ExtResource("8_xd1r7")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gtccv"]
+atlas = ExtResource("8_xd1r7")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r588g"]
+atlas = ExtResource("8_xd1r7")
+region = Rect2(48, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sv31u"]
+atlas = ExtResource("8_xd1r7")
+region = Rect2(72, 0, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3b4sn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rc607")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gtccv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r588g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sv31u")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="LabelSettings" id="LabelSettings_lv6xr"]
 font = ExtResource("3_qjb21")
@@ -38,6 +102,71 @@ zoom = Vector2(8, 8)
 position = Vector2(63, 0)
 curve = SubResource("Curve2D_y6omn")
 
+[node name="Hubert2" type="Sprite2D" parent="TileMap"]
+position = Vector2(13, -126)
+texture = ExtResource("3_q18u1")
+
+[node name="Teddy3" type="Sprite2D" parent="TileMap"]
+position = Vector2(842, -930)
+texture = ExtResource("4_47yae")
+
+[node name="CatBed" type="AnimatedSprite2D" parent="TileMap"]
+position = Vector2(854, -926)
+sprite_frames = SubResource("SpriteFrames_ws8jc")
+animation = &"new_animation"
+autoplay = "new_animation"
+
+[node name="CatBed2" type="AnimatedSprite2D" parent="TileMap"]
+position = Vector2(314, -329)
+sprite_frames = SubResource("SpriteFrames_ws8jc")
+animation = &"new_animation"
+autoplay = "new_animation"
+
+[node name="Teddy" type="Sprite2D" parent="TileMap"]
+position = Vector2(217, -80)
+texture = ExtResource("4_47yae")
+
+[node name="Teddy2" type="Sprite2D" parent="TileMap"]
+position = Vector2(424, -575)
+texture = ExtResource("4_47yae")
+
+[node name="Teddy4" type="Sprite2D" parent="TileMap"]
+position = Vector2(938, -1057)
+texture = ExtResource("4_47yae")
+
+[node name="Plate" type="Sprite2D" parent="TileMap"]
+position = Vector2(121, -265)
+texture = ExtResource("6_x02mr")
+
+[node name="Plate2" type="Sprite2D" parent="TileMap"]
+position = Vector2(811, -651)
+texture = ExtResource("6_x02mr")
+
+[node name="Milk" type="Sprite2D" parent="TileMap"]
+position = Vector2(695, -704)
+texture = ExtResource("7_txobp")
+
+[node name="Cat" type="AnimatedSprite2D" parent="TileMap"]
+position = Vector2(769, -898)
+sprite_frames = SubResource("SpriteFrames_3b4sn")
+flip_h = true
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -108.0
+offset_top = -55.0
+offset_right = 108.0
+offset_bottom = 56.0
+mouse_filter = 2
+color = Color(0, 0, 0, 0.14902)
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+offset_left = -105.0
+offset_top = -52.0
+offset_right = 105.0
+offset_bottom = 53.0
+mouse_filter = 2
+color = Color(0, 0, 0, 0.14902)
+
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(8, 8)
 
@@ -59,7 +188,7 @@ polygon = PackedVector2Array(-64, -20, -72, -20, -86, -6, -100, -20, -104, -20, 
 position = Vector2(-104, -20)
 
 [node name="ExplosionTimer" type="Timer" parent="Title"]
-wait_time = 40.0
+wait_time = 48.0
 
 [node name="PlayButton" type="TextureButton" parent="."]
 anchors_preset = 8

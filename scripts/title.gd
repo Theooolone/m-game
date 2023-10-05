@@ -12,7 +12,6 @@ func _on_click_area_input_event(_viewport, _event, _shape_idx):
 		gol = packedgol.instantiate()
 		gol.global_position = $GolSpawn.global_position
 		get_node("..").add_child(gol)
-		get_node("..").move_child(gol ,1)
 		hide()
 		viewed_gol = true
 		$ExplosionTimer.start()
@@ -21,7 +20,7 @@ func _on_click_area_input_event(_viewport, _event, _shape_idx):
 
 func _on_explosion_timer_timeout():
 	explosion.boom()
-	await get_tree().create_timer(1).timeout
+	await get_tree().create_timer(0.6).timeout
 	gol.queue_free()
 	await get_tree().create_timer(3).timeout
 	show()
