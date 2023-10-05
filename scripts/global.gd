@@ -120,7 +120,7 @@ func _process(delta):
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
 
 
-var m_position = Vector2.ZERO
+var m_position
 
 func return_to_room():
 	change_scene("res://scenes/room.tscn", "res://assets/music/void_resonance.wav")
@@ -144,7 +144,8 @@ func change_scene(scene_path, music_path = null, data = null):
 	main_node.add_child(scene_instance)
 	scene_node = scene_instance
 	
-	if scene_node.name == "Room":
+	if scene_node.name == "Room" and not m_position == null:
+		print(m_position)
 		scene_node.get_node("M").position = m_position
 	
 	if music_path:

@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://be1xemtd7td60"]
 
-[ext_resource type="PackedScene" uid="uid://bomyo23b5yead" path="res://scenes/room.tscn" id="1_uxiy3"]
+[ext_resource type="PackedScene" uid="uid://svjhtfvi41u7" path="res://scenes/ui/main_menu.tscn" id="6_813yc"]
 [ext_resource type="PackedScene" uid="uid://cgvt7kh2yf5ww" path="res://scenes/pause_menu.tscn" id="6_h5upv"]
 [ext_resource type="Script" path="res://scripts/fps.gd" id="7_6ii6o"]
 [ext_resource type="PackedScene" uid="uid://c5dsh6ix1rffr" path="res://scenes/ui/AudioSettings.tscn" id="12_jage7"]
@@ -13,8 +13,6 @@ outline_size = 4
 outline_color = Color(0, 0, 0, 1)
 
 [node name="Main" type="Node"]
-
-[node name="Room" parent="." instance=ExtResource("1_uxiy3")]
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("13_e1xm7")
@@ -39,3 +37,5 @@ offset_right = 40.0
 offset_bottom = 23.0
 text = "60 FPS"
 label_settings = SubResource("LabelSettings_pcwdf")
+
+[node name="Main Menu" parent="." instance=ExtResource("6_813yc")]

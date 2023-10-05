@@ -28,7 +28,7 @@ func _on_tick_timeout():
 
 
 func _on_const_tick_time_decrease_timeout():
-	$Tick.wait_time *= 0.98
+	$Tick.wait_time = max($Tick.wait_time*0.98, 0.1)
 
 
 func tick():

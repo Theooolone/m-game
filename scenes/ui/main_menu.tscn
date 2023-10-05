@@ -1,10 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://svjhtfvi41u7"]
+[gd_scene load_steps=10 format=3 uid="uid://svjhtfvi41u7"]
 
+[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_3nwc3"]
 [ext_resource type="Texture2D" uid="uid://vcq5al83nfsi" path="res://assets/textures/ui/text_logo.png" id="1_6b45h"]
 [ext_resource type="Texture2D" uid="uid://3aeljrn6c2ug" path="res://assets/textures/ui/button_big.png" id="2_3aktn"]
 [ext_resource type="Script" path="res://scripts/title.gd" id="2_b4fku"]
 [ext_resource type="FontFile" uid="uid://dlgmhijh1yaqn" path="res://assets/fonts/16px.ttf" id="3_qjb21"]
+[ext_resource type="Texture2D" uid="uid://b7v1m0awjvw8r" path="res://assets/textures/ui/button_big_pressed.png" id="4_1tif5"]
 [ext_resource type="PackedScene" uid="uid://hb7c5kyyeyik" path="res://scenes/deltarune_explosion.tscn" id="5_d71eg"]
+[ext_resource type="Texture2D" uid="uid://t4yspvyytda8" path="res://assets/textures/ui/button_big_highlight.png" id="5_jdgea"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_lv6xr"]
 font = ExtResource("3_qjb21")
@@ -12,6 +15,7 @@ outline_size = 4
 outline_color = Color(0, 0, 0, 1)
 
 [node name="Main Menu" type="Node2D"]
+script = ExtResource("1_3nwc3")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(8, 8)
@@ -36,7 +40,7 @@ position = Vector2(-104, -20)
 [node name="ExplosionTimer" type="Timer" parent="Title"]
 wait_time = 40.0
 
-[node name="TextureButton" type="TextureButton" parent="."]
+[node name="PlayButton" type="TextureButton" parent="."]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -49,8 +53,10 @@ offset_bottom = 16.0
 grow_horizontal = 2
 grow_vertical = 2
 texture_normal = ExtResource("2_3aktn")
+texture_pressed = ExtResource("4_1tif5")
+texture_hover = ExtResource("5_jdgea")
 
-[node name="Label" type="Label" parent="TextureButton"]
+[node name="Label" type="Label" parent="PlayButton"]
 layout_mode = 0
 offset_right = 96.0
 offset_bottom = 24.0
@@ -59,7 +65,7 @@ label_settings = SubResource("LabelSettings_lv6xr")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureButton2" type="TextureButton" parent="."]
+[node name="SettingsButton" type="TextureButton" parent="."]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -72,8 +78,10 @@ offset_bottom = 48.0
 grow_horizontal = 2
 grow_vertical = 2
 texture_normal = ExtResource("2_3aktn")
+texture_pressed = ExtResource("4_1tif5")
+texture_hover = ExtResource("5_jdgea")
 
-[node name="Label2" type="Label" parent="TextureButton2"]
+[node name="Label2" type="Label" parent="SettingsButton"]
 layout_mode = 0
 offset_right = 96.0
 offset_bottom = 24.0
@@ -88,3 +96,5 @@ position = Vector2(77, -36)
 
 [connection signal="input_event" from="Title/ClickArea" to="Title" method="_on_click_area_input_event"]
 [connection signal="timeout" from="Title/ExplosionTimer" to="Title" method="_on_explosion_timer_timeout"]
+[connection signal="pressed" from="PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="SettingsButton" to="." method="_on_settings_button_pressed"]
