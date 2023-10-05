@@ -17,13 +17,14 @@ Dialogue system handled by the Godot plugin [Dialogic](https://github.com/coppol
 
 Character and setting created by M.\
 Milk bucket sprite created by Mojang Studios\
-Hubert sprite based off blue chicken from Stardew Valley
+Hubert sprite based off blue chicken from Stardew Valley\
+Realistic explosion sprite and sound effect from DELTARUNE
 
 Fonts:
 - [ChiKareGo2 by Giles Booth](https://www.pentacom.jp/pentacom/bitfontmaker2/gallery/?id=3780)
 - [Quinque Five by GGBotNet](https://www.fontspace.com/quinque-five-font-f65138)
 
-Sound effects created by users on freesound.org. click on the individual links for more details: 
+Some sound effects are created by users on freesound.org. click on the individual links for more details: 
 - [Walk](https://freesound.org/s/393737/)
 - [Hubert Interaction](https://freesound.org/s/475733/)
 - [Big Hubert Ambience](https://freesound.org/s/195137/)
