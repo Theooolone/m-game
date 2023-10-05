@@ -39,7 +39,11 @@ func _ready():
 	
 	main_node = get_node_or_null("/root/Main")
 	if main_node:
-		scene_node = main_node.get_node_or_null("Room")
+		scene_node = main_node.get_node_or_null("Main Menu")
+		if not scene_node:
+			push_warning("No scene node found, scene transitions may break")
+	else:
+		push_warning("No main node found. Expected if not running from main scene")
 	
 	if OS.is_debug_build(): DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 	
