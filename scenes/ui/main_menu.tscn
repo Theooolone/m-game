@@ -121,6 +121,7 @@ position = Vector2(314, -329)
 sprite_frames = SubResource("SpriteFrames_ws8jc")
 animation = &"new_animation"
 autoplay = "new_animation"
+frame_progress = 0.467507
 
 [node name="Teddy" type="Sprite2D" parent="TileMap"]
 position = Vector2(217, -80)

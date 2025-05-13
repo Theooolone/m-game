@@ -1,0 +1,14 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://3oovwfwsv21v"]
+
+[ext_resource type="Texture2D" uid="uid://cxvajongpkuk0" path="res://assets/textures/ui/bg.png" id="1_s56kt"]
+
+[resource]
+content_margin_left = 64.0
+content_margin_top = 64.0
+content_margin_right = 64.0
+content_margin_bottom = 64.0
+texture = ExtResource("1_s56kt")
+texture_margin_left = 32.0
+texture_margin_top = 32.0
+texture_margin_right = 32.0
+texture_margin_bottom = 32.0

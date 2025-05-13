@@ -1,0 +1,53 @@
+[gd_scene load_steps=3 format=3 uid="uid://c8y8xewfb4l0s"]
+
+[ext_resource type="Material" uid="uid://1ef7kddvuu52" path="res://resources/tint.tres" id="1_d8wtb"]
+[ext_resource type="Theme" uid="uid://cwwuyvv6wkyc5" path="res://resources/main_ui_theme.tres" id="3_ybc6v"]
+
+[node name="SettingsMenu" type="CanvasLayer"]
+
+[node name="SettingsMenu" type="Control" parent="."]
+material = ExtResource("1_d8wtb")
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TabContainer" type="TabContainer" parent="SettingsMenu"]
+use_parent_material = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -512.0
+offset_top = -345.0
+offset_right = 512.0
+offset_bottom = 423.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_ybc6v")
+
+[node name="General" type="Control" parent="SettingsMenu/TabContainer"]
+use_parent_material = true
+layout_mode = 2
+
+[node name="Button" type="Button" parent="SettingsMenu/TabContainer/General"]
+layout_mode = 0
+offset_left = 576.0
+offset_top = 16.0
+offset_right = 896.0
+offset_bottom = 144.0
+theme = ExtResource("3_ybc6v")
+
+[node name="Audio" type="Control" parent="SettingsMenu/TabContainer"]
+visible = false
+use_parent_material = true
+layout_mode = 2
+
+[node name="Controls" type="Control" parent="SettingsMenu/TabContainer"]
+visible = false
+use_parent_material = true
+layout_mode = 2

@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://1ef7kddvuu52"]
+
+[ext_resource type="Shader" path="res://resources/tint.gdshader" id="1_w5fg4"]
+[ext_resource type="Texture2D" uid="uid://c61qjfbswyhw7" path="res://assets/textures/blueshift.png" id="2_teadt"]
+
+[resource]
+shader = ExtResource("1_w5fg4")
+shader_parameter/gradient_texture = ExtResource("2_teadt")
